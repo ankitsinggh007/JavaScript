@@ -117,16 +117,32 @@ for(let i=1; i<2*n; i++) {
 Q5.
 Input Format: N = 3
 Result: 
-******
-**  **
-*    *
-*    *
-**  **
-******
+3 3 3 3 3 
+3 2 2 2 3 
+3 2 1 2 3 
+3 2 2 2 3 
+3 3 3 3 3
 
 */
 
 // Solution5:
 
+ console.log("Solution-5");
+    n=6;
 
+    for(let i=0; i<2*n-1; i++) {
+        let line="";
+        for(let j=0;j<2*n-1;j++) {
+            let top=i;
+            let bottom=2*n-2-i;
+            let left=j;
+            let right=2*n-2-j;
+            line+=n- Math.min(top,left,right,bottom);
+        }
+        console.log(line);
+
+
+
+
+    }
 
