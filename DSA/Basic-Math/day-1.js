@@ -88,7 +88,7 @@ console.log("Solution-2");
 
 
 /*
-Given an integer x, return true if x is a 
+Q3.Given an integer x, return true if x is a 
 palindrome
 , and false otherwise.
 
@@ -138,3 +138,111 @@ const isPalindrome1=function(x) {
         };
         
         // T.C=O(d) d:no. of digits in no.
+
+        /*
+Q4.Problem Statement: Given an integer N, return true it is an Armstrong number otherwise return false.
+
+ An Amrstrong number is a number that is equal to the sum of its own digits each raised to the power of the number of digits.
+ Example 1:
+Input:N = 153
+Output:True
+Explanation: 13+53+33 = 1 + 125 + 27 = 153
+Example 2:
+Input:N = 371
+Output: True
+Explanation: 33+53+13 = 27 + 343 + 1 = 371
+
+
+        */
+
+console.log("Solution-4");
+
+var isArmstrong= function(n) { //O(log10(x))
+
+    let digits=Math.trunc(Math.log10(n))+1; //O(1)
+    let x=n;
+    let result=0;
+
+    while(x>0){                     //O(log10(x)) or O(d) d:no. of digits in no.
+        let lastDigit=x%10;
+        result+=lastDigit**digits;
+        x=Math.trunc(x/10);
+    }
+    if(result===n)  return true;
+    return false;
+
+}
+console.log(isArmstrong(153));
+console.log(isArmstrong(15));
+/*
+ Q5. Problem Statement: Given an integer N, return all divisors of N.
+
+Example 1:
+Input:N = 36
+Output:[1, 2, 3, 4, 6, 9, 12, 18, 36]
+Explanation: The divisors of 36 are 1, 2, 3, 4, 6, 9, 12, 18, 36.
+Example 2:
+Input:N =12
+Output: [1, 2, 3, 4, 6, 12]
+Explanation: The divisors of 12 are 1, 2, 3, 4, 6, 12.
+*/
+    console.log("Solution-5");
+
+    // sol-1
+    const divisorAll=(n)=>{ //O(n)
+        for(let i=1;i<=n;i++){
+            if(n%i==0){
+                console.log(i);
+            }
+        }
+    }
+    // T.C=O(n)
+    divisorAll(36);
+    // sol-2
+    const divisorAll2=(n)=>{ //O(sqrt(n))
+        for(let i=1;i*i<=n;i++){
+            if(n%i==0){
+                console.log(i);
+                if(i!=n/i){
+                    console.log(n/i);
+                }
+            }
+        }
+    }
+    // T.C=O(sqrt(n))
+    /*
+    Q6.Problem Statement: Given an integer N, check whether it is prime or not. 
+    A prime number is a number that is only divisible by 1 and itself and the total number of divisors is 2.
+    */
+   const checkPrime=(n)=>{
+    if(n<2) return false;
+    for(let i=2;i*i<=n;i++){
+        if(n%i==0){
+            return false;
+        }
+    }
+    return true;
+
+
+
+
+
+   } 
+   // T.C=O(sqrt(n))
+
+
+   /*
+  Q7. Find GCD of two numbers
+   */
+
+    const gcd=(a,b)=>{
+        while(a!=0&&b!=0){
+            if(a>b){
+                a=a%b;
+            }else{
+                b=b%a;
+            }
+        }
+        return a+b;
+    }
+    // T.C=O(log(min(a,b)))
