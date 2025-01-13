@@ -41,3 +41,34 @@ console.log(insertionSort([5,4,3,2,1,2,3,4,5]));
 // stable: Yes  
 // In-place: Yes
 
+function insertionRecursive(arr, start = 1) {
+   
+    if (start >= arr.length) return;
+
+    let current = arr[start];
+    let i = start - 1;
+
+    
+    while (i >= 0 && arr[i] > current) {
+        arr[i + 1] = arr[i];
+        i--;
+    }
+
+    
+    arr[i + 1] = current;
+
+    insertionRecursive(arr, start + 1);
+}
+
+// Example usage
+const numbers = [12, 11, 13, 5, 6];
+insertionRecursive(numbers);
+console.log("Sorted Array:", numbers);
+
+    let arr = [5,4,7,3,0,3,2,1];
+    insertionRecursive(arr,1);
+    console.log(arr,"insertinRecursive");
+// recursive manner
+
+// logic
+       

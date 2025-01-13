@@ -38,3 +38,23 @@ console.log(bubbleSort([5,4,3,2,1]));
 // stable: Yes
 // In-place: Yes
 
+// recursive manner
+
+// logic
+ function bubbleSrtRecursive(array,n){
+    if(n==1){
+        return;
+    }
+    for(let i = 0; i < n-1; i++) {
+        if(array[i]>array[i+1]){
+            let temp = array[i];
+            array[i] = array[i+1];
+            array[i+1] = temp;
+        }
+    }
+    bubbleSrtRecursive(array,n-1);
+ }
+let arr = [5,4,3,2,1];  
+bubbleSrtRecursive(arr,arr.length); 
+console.log(arr);
+
