@@ -28,3 +28,42 @@ var twoSum = function(nums, target) {
     }
     
 };
+/*
+2.Sort color
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+You must solve this problem without using the library's sort function.
+*/
+
+
+console.log("solution-2")
+var sortColors = function(nums) {
+    let noOfZero=0;
+    let noOfOne=0;
+    let noOfTwo=0;
+
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]==0)noOfZero++;
+        else if (nums[i]==1)noOfOne++
+        else{
+              noOfTwo++;
+        }
+    }
+    let i=0;
+ while(noOfZero>0){
+    nums[i]=0;
+    i++;
+    noOfZero--;
+ }
+ while(noOfOne>0){
+    nums[i]=1;
+    i++;
+    noOfOne--;
+ }
+  while(noOfTwo>0){
+    nums[i]=2;
+    i++;
+    noOfTwo--;
+ }
+    
+};
