@@ -97,6 +97,7 @@ Return k.
 
 let j=0;
 let pointer=1;
+let arr=[1,1,2,2,3,3,4,4,5];
 for(let i=1;i<arr.length;i++){
     if(arr[j]!=arr[i]){
         j++;
@@ -105,3 +106,155 @@ for(let i=1;i<arr.length;i++){
     }
     console.log(pointer,arr)
 }
+
+
+
+/*
+189. Rotate Array
+Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+
+
+*/
+
+
+
+var rotate = function(arr, k) {
+    
+    arr.reverse();
+   
+k=k%arr.length;
+let s=0;
+let e=k-1;
+while(s<=e){
+    let temp=arr[s];
+    arr[s]=arr[e];
+    arr[e]=temp;
+    s++;e--;
+}
+s=k;
+e=arr.length-1;
+while(s<e){
+    let temp=arr[s];
+    arr[s]=arr[e];
+    arr[e]=temp;
+    s++;e--;
+}
+
+// console.log(arr,"num")
+// return nums
+};
+/*
+Given an array, arr[] sorted in ascending order and an integer k. Return true if k is present in the array, otherwise, false.
+*/
+function searchInSorted(arr, k) {
+    for (let i=0;i<arr.length;i++){
+        
+        if(k==arr[i]){
+            return true;
+        }
+    }
+    return false;
+}
+/*
+Given two sorted arrays a[] and b[], where each array may contain duplicate elements , the task is to return the elements in the union of the two arrays in sorted order.
+
+Union of two arrays can be defined as the set containing distinct common elements that are present in either of the arrays.
+*/
+function findUnion(a, b) {
+        
+    let i=0;let j=0;
+        let result=[];
+    while(i<a.length && j<b.length){
+        if (a[i] === b[j]) {
+        if (result[result.length - 1] !== a[i]) {
+            result.push(a[i]);
+        }
+        i++;
+        j++;
+    } 
+        else if(a[i]<b[j] ){
+            if(a[i]!=result[result.length-1]){
+            result.push(a[i]);    
+            }
+            
+            i++;
+            
+        }
+        else{
+            if(b[j]!=result[result.length-1]){
+            result.push(b[j]);
+            
+            }
+            j++;
+        }
+    }
+    
+    while(i<a.length){
+        if(result[result.length-1]!=a[i]){
+           
+            result.push(a[i]);
+        }
+        i++;
+    }
+     while(j<b.length) {
+    if (result[result.length - 1] !== b[j]) {
+        result.push(b[j]);
+    }
+    j++;
+}
+    return result;
+    
+}
+/*
+485. Max Consecutive Ones
+Given a binary array nums, return the maximum number of consecutive 1's in the array.
+
+
+*/
+var findMaxConsecutiveOnes = function(nums) {
+
+    let max=0;
+    let num =0;
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]==0) num=0;
+        else {
+            num++;
+            max=Math.max(max,num);
+        }
+       
+    }
+    return max;
+
+    
+};
+/*
+136. Single Number
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+constrain
+You must implement a solution with a linear runtime complexity and use only constant extra space.*/
+
+var singleNumber = function(nums) {
+    let result=0;
+    for(let i=0;i<nums.length;i++){
+        result=nums[i]^result;
+    }
+
+    return result;
+};
+
+
+
+
+
+
+
+const arrays=[9,8,7,6,5,4,3,2,1,0] , n=10 ;
+const arrays2=[19,18,17,16,15,14,13,12,11,10]  ;
+
+console.log(arrays[2]) ;
+console.log(arrays["2"]) ;
+console.log(arrays["2"]) ;
+console.log(arrays["02"]) ;
+arrays.length=12;
+console.log(arrays);
+console.log(arrays.concat(arrays2));
