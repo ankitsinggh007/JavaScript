@@ -112,3 +112,67 @@ return maxi;
 
 
 };
+
+/*
+2149. Rearrange Array Elements by Sign
+You are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers.
+You should return the array of nums such that the the array follows the given conditions:
+Every consecutive pair of integers have opposite signs.
+For all integers with the same sign, the order in which they were present in nums is preserved.
+The rearranged array begins with a positive integer.
+Return the modified array after rearranging the elements to satisfy the aforementioned conditions.
+*/
+console.log("solution-5")
+console.log('first solutin');
+const Accumulate1=function(nums){
+    let j=0;
+    let k=nums.length/2;
+    let i=0;
+    let arr=[];
+    while(i<nums.length){
+        if(nums[i]>0)arr[j++]=nums[i]
+        else arr[k++]=nums[i];
+        i++;
+    }
+    return arr;
+
+
+ }
+var rearrangeArray1 = function(nums) {
+    let arr=Accumulate1(nums);
+    i=1;
+    j=0;
+    nums[0]=arr[j++];
+    k=nums.length/2;
+    while(i<nums.length){
+        if(nums[i-1]>0) nums[i++]=arr[k++];
+        else nums[i++]=arr[j++];
+    }
+    return nums;
+};
+// t.c=O(n) 
+// s.c=O(n)
+console.log('second solution');
+
+
+var rearrangeArray1 = function(nums) {
+
+    let pos=0;
+    let neg=1;
+    i=0;
+
+let array=[];
+    while(i<nums.length){
+        if(nums[i]>0){
+            array[pos]=nums[i];
+            pos+=2;
+        }
+        else{
+            array[neg]=nums[i];
+            neg+=2;
+        }
+        i++;
+    }
+    return array; 
+
+};
