@@ -94,3 +94,21 @@ var majorityElement = function(nums) {
     }
     return candidate;
 };
+/*
+4. Maximum Subarray
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
+*/
+
+console.log("solution-4")
+var maxSubArray = function(nums) {
+    let sum=0;
+    let maxi=nums[0];
+for(let i=0;i<nums.length;i++){
+    sum+=nums[i];
+    maxi=Math.max(maxi,sum);
+    if(sum<0) sum=0;
+}
+return maxi;
+
+
+};
