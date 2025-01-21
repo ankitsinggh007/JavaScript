@@ -176,3 +176,11 @@ let array=[];
     return array; 
 
 };
+/**
+ 31. Next Permutation
+ The next permutation of an array of integers is the next lexicographically greater permutation of its integer.
+ If such arrangement is not possible, the array must be rearranged as the lowest possible order
+ example :-arr = [1,2,3] is [1,3,2]
+                 [3,2,1] is [1,2,3]
+ */
+console.log("solution-6")
