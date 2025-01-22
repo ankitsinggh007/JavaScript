@@ -185,31 +185,74 @@ let array=[];
  */
 console.log("solution-6")
 
-var nextPermutation = function (nums) {
-    let n = nums.length;
-    let i = n - 2;
-    while (i >= 0 && nums[i] >= nums[i + 1]) {
-        i--;
-    }
+var nextPermutation = function(nums) {
+    
+    // find pivot-> index of no. wich doewn't follow nums[i]<num[i+1];
 
-    if (i >= 0) {
-       
-        let j = n - 1;
-        while (j > i && nums[j] <= nums[i]) {
-            j--;
+    let n=nums.length-1;
+    let p=-1;
+
+    for(let i=n-1;i>=0;i--){
+        if(nums[i]<nums[i+1]){
+            p=i;
+            // console.log(p,"p")
+            break;
+        }
+    }
+    if(p==-1) return nums.reverse()
+    let j;
+    for( j=n;j>p;j--){
+        if(nums[p]>=nums[j]){
+            continue;
+        }
+        else break;
+    }
+    
+    [nums[p],nums[j]]=[nums[j],nums[p]];
         
-        [nums[i], nums[j]] = [nums[j], nums[i]];
+    let m=p+1;
+    let z=n;
+    while(m<z){
+        [nums[m],nums[z]]=[nums[z],nums[m]];
+        m++;
+        z--;
     }
-
-    let left = i + 1,
-        right = n - 1;
-    while (left < right) {
-        [nums[left], nums[right]] = [nums[right], nums[left]];
-        left++;
-        right--;
-    }
-
     return nums;
-};
 
-}
+};
+/*
+
+ 128. Longest Consecutive Sequence
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+You must write an algorithm that runs in O(n) time.
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+ */
+console.log("solution-7")
+var longestConsecutive = function(nums) {
+    let S=new Set();
+    for(let i=0;i<nums.length;i++){
+        S.add(nums[i])
+    }
+    let maxi=0;
+    for (const value of S) {
+    if(S.has(value-1)){
+            continue;
+        }
+       else{
+        let count=1;
+        let val=value;
+         while(S.has(val+1)){
+                count++;
+                val++;
+            }
+            maxi=Math.max(maxi,count);
+        }
+       }
+
+      
+           return maxi;    
+    
+     
+};
