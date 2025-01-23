@@ -256,3 +256,44 @@ var longestConsecutive = function(nums) {
     
      
 };
+/*
+73. Set Matrix Zeroes
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+You must do it in place.
+*/
+
+console.log("solution-8")
+var setZeroes = function(matrix) {
+    let m=matrix.length
+    let n=matrix[0].length;
+    let row=new Set();
+    let column=new Set();
+    for(let i=0;i<m;i++){
+        for(let j=0;j<n;j++){
+            if(matrix[i][j]==0){
+                row.add(i)
+                column.add(j)
+            }
+        }
+    }
+    
+    for(const value of row){
+        for(let i=0;i<n;i++){
+            matrix[value][i]=0;
+        }
+    }
+    for(const value of column){
+        for(let i=0;i<m;i++){
+            matrix[i][value]=0;
+        }
+    }
+
+
+
+
+    console.log(matrix)
+    
+};
+
+    console.log("solution-8||alternative");
+    
