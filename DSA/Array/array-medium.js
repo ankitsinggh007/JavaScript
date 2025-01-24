@@ -369,3 +369,23 @@ var subarraySum = function(nums, k) {
 };
 // t.c=O(n)
 // s.c=O(n)
+/*
+118. Pascal's triangle
+given row you have to return array ;
+*/
+console.log("solution-10")
+var generate = function(numRows) {
+    const res=[[1]];
+    let k=1;
+
+    for(let i=0;i<numRows;i++){
+        let temp=  [1].concat(...res.slice(-1),[1])
+        let newArray=[];
+        k=0;
+        for(let j=0;j+1<res.slice(-1).length;j++){
+        newArray[k]=temp[j]+temp[j+1];
+        }
+        res[k++]=newArray;
+    }
+        console.log(res);
+};
