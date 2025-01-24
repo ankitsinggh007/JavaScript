@@ -296,4 +296,76 @@ var setZeroes = function(matrix) {
 };
 
     console.log("solution-8||alternative");
-    
+/*
+560. Subarray Sum Equals K
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+A subarray is a contiguous non-empty sequence of elements within an array.
+    */
+console.log("solution-9 sol-1")
+var subarraySum = function(nums, k) {
+    let answer=0;
+    let n=nums.length;
+
+    for(let i=0;i<n;i++){
+        for(let j=i;j<n;j++){
+            let lows=i;
+            let high=j;
+            let sum=0;
+            while(lows<=high){
+                sum+=nums[lows];
+                lows++;
+            }
+            if(sum==k) answer++;
+        }
+    }
+    return answer;
+};
+// t.c=O(n^3)
+// s.c=O(1);
+console.log("solution-9 sol-2")
+var subarraySum2=function(nums,k){
+    let n=nums.length;
+    let count=0;
+    for(let i=0;i<n;i++){
+        let sum=0;
+        for(let j=i;j<n;j++){
+            sum+=nums[j];
+            if(sum==k) count++;
+        }
+    }
+    return count;
+
+}
+// t.c=O(n^2)   
+// s.c=O(1)
+console.log("solution-9 sol-3")
+var subarraySum = function(nums, k) {
+    let n = nums.length;
+    let res = 0;
+    let sum = 0;
+    let mp = new Map();
+
+    // Initialize the map with 0 sum having frequency 1
+    mp.set(0, 1);
+
+    for (let i = 0; i < n; i++) {
+        sum += nums[i];
+        let comp = k- sum;
+
+        // Check if the complement exists in the map
+        if (mp.has(comp)) {
+            res += mp.get(comp);
+        }
+
+        // Update the frequency of the current sum
+        if (mp.has(sum)) {
+            mp.set(sum, mp.get(sum) + 1);
+        } else {
+            mp.set(sum, 1);
+        }
+    }
+
+    return res;
+};
+// t.c=O(n)
+// s.c=O(n)
