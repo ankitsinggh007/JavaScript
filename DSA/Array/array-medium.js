@@ -389,3 +389,117 @@ var generate = function(numRows) {
     }
         console.log(res);
 };
+/*
+229. Majority Element II
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+ */
+console.log("solution-11 sol-1")
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var majorityElement = function(nums) {
+    
+    let mp=new Map();
+    for(let value of nums){
+        if(!mp.has(value)){
+            mp.set(value,1)
+        }else{
+                mp.set(value,mp.get(value)+1);
+        }
+    }
+
+    let res=[];
+
+    for(let [key,value] of mp.entries()){
+        if(value>nums.length/3){
+            res.push(key);
+        }
+    }
+    return res;
+
+}
+// t.c=O(n)
+// s.c=O(n)
+console.log("solution-11 sol-2")
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+
+var majorityElement1 = function(nums){
+   
+    let candidate=null;
+    let count=0;
+    nums.sort((a,b)=>a-b);
+    const res=new Set();
+    console.log(nums,"nums")
+    for(let i=0;i<nums.length;i++){
+
+        
+        if(nums[i]!=candidate){
+            candidate=nums[i]
+            count=1;
+        }else{
+            count++;
+        }
+        if(count>=Math.trunc(nums.length/3)+1){
+            res.add(candidate);
+            count=0;
+        }
+        }
+        console.log(res,"res");
+    return Array.from(res);
+
+}
+// t.c=O(nlogn)
+// s.c=O(n)
+console.log("solution-11 sol-3")
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const checkMajority=(nums,num)=>{
+    let count=0;
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]===num)count++;
+    }
+    return count>=Math.trunc(nums.length/3)+1;
+
+}
+var majorityElement3 = function(nums){
+
+    let mp=new Map();
+    let res=[];
+    for(let i=0;i<nums.length;i++){
+        if(mp.has(nums[i])){
+            mp.set(nums[i],mp.get(nums[i])+1);
+        }
+        else{
+            if(mp.size==3){
+                for(const [key,value] of mp.entries()){
+                    mp.set(key,value-1);
+                }
+                for(const [key,value] of mp.entries()){
+                    if(mp.get(key)==0){
+                        mp.delete(key);
+                    }
+                }
+            }
+            else{
+                mp.set(nums[i],1);
+            }
+        }
+    }
+
+    for( const [key,value] of mp.entries()){
+        
+        const check=checkMajority(nums,key);
+        if(check){
+            res.push(key);
+        }
+    }
+
+    return res;
+
+}
