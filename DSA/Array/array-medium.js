@@ -503,3 +503,41 @@ var majorityElement3 = function(nums){
     return res;
 
 }
+
+
+/*
+15.3Sum
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+Notice that the solution set must not contain duplicate triplets.
+*/
+
+console.log("question-12 sol-1")
+var threeSum = function (nums) {
+    let res = [];
+    let record = new Set();
+for (let i = 0; i < nums.length - 2; i++) {
+  for (let j = i + 1; j < nums.length - 1; j++) {
+    for (let k = j + 1; k < nums.length; k++) {
+
+        if (nums[i] + nums[j] + nums[k] === 0) {
+                    // Create a triplet
+                    let triplet = [nums[i], nums[j], nums[k]];
+                    
+                    // Generate a unique key for the triplet without sorting multiple times
+                    let sortedKey = triplet.slice().sort((a, b) => a - b).join(',');
+                    
+                    // Add to results only if not already recorded
+                    if (!record.has(sortedKey)) {
+                        record.add(sortedKey);
+                        res.push(triplet);
+                    }
+                }
+    }
+  }
+}
+    
+    console.log(res)
+    return res;
+};
+// t.c=O(n^3)   
+// s.c=O(n)
