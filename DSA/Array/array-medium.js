@@ -541,3 +541,39 @@ for (let i = 0; i < nums.length - 2; i++) {
 };
 // t.c=O(n^3)   
 // s.c=O(n)
+console.log("question-12 sol-2")
+var threeSum2 = function(nums) {
+   
+   let n=nums.length;
+    let res=[];
+        nums.sort((a,b)=>a-b)
+   for(let i=0;i<nums.length-2;i++){
+     if (i > 0 && nums[i] === nums[i - 1]) continue;
+    
+
+    let low=i+1;
+    let high=n-1;
+          while (low < high) {
+            let sum = nums[i] + nums[low] + nums[high];
+
+            if (sum === 0) {
+                res.push([nums[i], nums[low], nums[high]]);
+
+                while (nums[low] === nums[low + 1]) low++;
+
+                while (nums[high] === nums[high - 1]) high--;
+
+                low++;
+                high--;
+            } else if (sum < 0) {
+                low++; 
+            } else {
+                high--;
+            }
+        }
+    }
+console.log(res,"res")
+   return res;
+};
+// t.c=O(n^2)
+// s.c=O(1)
