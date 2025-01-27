@@ -577,3 +577,33 @@ console.log(res,"res")
 };
 // t.c=O(n^2)
 // s.c=O(1)
+
+/*
+Problem statement
+Ninja is given an array ‘Arr’ of size ‘N’. You have to help him find the longest subarray of ‘Arr’, whose sum is 0. You must return the length of the longest subarray whose sum is 0.
+For Example:
+For N = 5, and Arr = {1, -1, 0, 0, 1}, 
+We have the following subarrays with zero sums: 
+{{1, -1}, {1, -1, 0}, {1, -1, 0, 0}, {-1, 0, 0, 1}, {0}, {0, 0}, {0}}
+Among these subarrays, {1, -1, 0, 0} and {-1, 0, 0, 1} are the longest subarrays with their sum equal to zero. Hence the answer is 4.
+*/
+console.log("question-13")
+const getLongestZeroSumSubarrayLength=function(arr){
+
+    let maxi=0;
+    let sum=0;
+    let mp=new Map();
+    mp.set(0,-1);
+    for(let i=0;i<arr.length;i++){
+        sum+=arr[i];
+        if(mp.has(sum)){
+            maxi=Math.max(maxi,i-mp.get(sum));
+        }
+        else{
+            mp.set(sum,i);
+        }
+    }   
+    return maxi;
+
+
+}
