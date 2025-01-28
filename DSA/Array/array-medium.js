@@ -607,3 +607,51 @@ const getLongestZeroSumSubarrayLength=function(arr){
 
 
 }
+/*
+18. 4Sum
+Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] 
+such that:0 <= a, b, c, d < n
+a, b, c, and d are distinct.
+nums[a] + nums[b] + nums[c] + nums[d] == target
+You may return the answer in any order.
+*/
+console.log("question-14")
+var fourSum = function(nums, k) {
+    let n=nums.length;
+    let sum=0;
+    let res=[];
+    nums.sort((a,b)=>a-b);
+    for(let i=0;i<n-3;i++){
+
+        if(i>0 && nums[i]==nums[i-1])continue;
+
+        for(let j=i+1;j<n-2;j++){
+
+            if(j>i+1 && nums[j]==nums[j-1])continue;
+                    let low=j+1;
+                    let high=n-1;
+
+                    while(low<high){
+                        sum=nums[i]+nums[j]+nums[low]+nums[high];
+                        if(sum==k){
+                            res.push([nums[i],nums[j],nums[low],nums[high]]);
+                            while(nums[low]==nums[low+1])low++;
+                            while(nums[high]==nums[high-1])high--;
+                            low++;
+                            high--;
+                        }
+                        else if( sum<k){
+                            low++;
+                        }
+                        else{
+                            high--;
+                        }
+                    }
+        }
+
+
+    }
+    return res;
+};
+// t.c=O(n^3)
+// s.c=O(1)
