@@ -655,3 +655,64 @@ var fourSum = function(nums, k) {
 };
 // t.c=O(n^3)
 // s.c=O(1)
+/*
+Subarray with given XOR
+Given an array of integers A and an integer B.
+Find the total number of subarrays having bitwise XOR of all elements equals to B.
+ */
+console.log("question-15 sol-1 ")
+function solve(A, B) {
+    let count = 0;
+    for (let i = 0; i < A.length; i++) {
+        let bitWiseOperator = 0;
+        for (let j = i; j < A.length; j++) {
+            bitWiseOperator ^= A[j]; // Compute XOR for subarray A[i..j]
+            if (bitWiseOperator === B) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+// t.c=O(n^2)
+// s.c=O(1)
+console.log("question-15 sol-2 ")
+
+
+
+/*
+56. Merge Intervals
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+ */
+console.log("question-16")
+var merge = function(intervals) {
+    // store result
+    const res=[];
+    // if array is empty then return empty array
+    if(intervals.lenght==0) return res;
+    // sort based on fffirst element or array
+    intervals.sort((a,b)=>a[0]-b[0]);
+    // push first element
+    res.push(intervals[0]);
+
+    for(let i=1; i<intervals.length;i++){
+
+        const [curr_start,curr_end]=intervals[i];
+        let top= res.at(-1);
+        const [prev_start,prev_end]=top;
+
+            // non-overlapping
+            if(prev_end<curr_start){
+                res.push(intervals[i]);
+            }
+            // overlapped
+            else if(prev_end>=curr_start){
+                const arr=[prev_start,Math.max(prev_end,curr_end)];
+                res.pop();
+                res.push(arr);
+            }
+
+    }
+    return res;
+    
+};
