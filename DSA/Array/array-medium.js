@@ -765,3 +765,102 @@ var merge = function(nums1, m, nums2, n) {
     }
     
 };
+/*
+Find the repeating and missing numbers
+Problem Statement: You are given a read-only array of N integers with values also in the range [1, N] both inclusive. 
+Each integer appears exactly once except A which appears twice and B which is missing.
+The task is to find the repeating and missing numbers A and B where A repeats twice and B is missing.
+*/
+console.log("question-18")
+function findRepeatingMissing(arr) {
+    // take xor of each not from input array and (1,n);->cancel-out all duplicate element
+    // and left with odd element basically duplicate and missing
+    // now find the rightmostbit
+    // gruping element based on that bit 0 and 1
+    // take xor of each grp individually ,we come up with two element
+    // validate by loop over array
+  
+    let resultantXor = 0;
+    let rightMostBit = 0;
+    for (let i = 0; i < arr.length; i++) {
+      resultantXor ^= arr[i];
+      resultantXor ^= i + 1;
+    }
+  
+    rightMostBit = resultantXor & -resultantXor;
+    let x=0;
+    let y=0;
+    for(let i=0;i<arr.length;i++){
+      if(rightMostBit & arr[i]  ){
+  
+          x^=arr[i];
+  
+      }
+      else{
+        y^=arr[i];
+      }
+    }
+    for(let i=1;i<=arr.length;i++){
+      if(rightMostBit & i  ){
+  
+          x^=i;
+  
+      }
+      else{
+        y^=i;
+      }
+    }
+  console.log(x,y);
+  }
+  /*
+  Count inversion 
+  Given an array of integers, find the number of pairs (i, j) such that a[i] > a[j] and i < j.
+  */
+ console.log("question-19")
+function merge(arr,low,mid,high){
+    let count=0;
+    let temp=[];
+    let i=low;
+    let j=mid+1;
+    while(i<=mid && j<=high){
+        if(arr[i]>arr[j]){
+            temp.push(arr[j]);
+            count+=mid-i+1;
+            j++;
+        }
+        else{
+            temp.push(arr[i]);
+            i++;
+        }
+    }
+    while(i<=mid){
+        temp.push(arr[i++]);
+    }
+    while(j<=high){
+        temp.push(arr[j++]);
+    }
+    
+    for(let i=0;i<temp.length;i++){
+        arr[low+i]=temp[i];
+    }
+    return count;
+    
+}
+function mergSort(arr,low,high){
+    let count=0;
+    if(low>=high) return count;
+    
+    
+        let mid=Math.floor(low + (high-low) / 2);
+        
+    count+=mergSort(arr,low,mid)
+    count+=mergSort(arr,mid+1,high);
+    count+=merge(arr,low,mid,high);
+    return count;
+}
+// Function to count inversions in the array.
+function inversionCount(arr) {
+    return mergSort(arr,0,arr.length-1);
+    
+}
+
