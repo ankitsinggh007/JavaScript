@@ -858,9 +858,13 @@ function mergSort(arr,low,high){
     count+=merge(arr,low,mid,high);
     return count;
 }
-// Function to count inversions in the array.
-function inversionCount(arr) {
-    return mergSort(arr,0,arr.length-1);
-    
-}
+/*
+493. Reverse Pairs
+Given an integer array nums, return the number of reverse pairs in the array.
+A reverse pair is a pair (i, j) where:
+0 <= i < j < nums.length and
+nums[i] > 2 * nums[j].
+*/
 
+    console.log("question-20")
+        
