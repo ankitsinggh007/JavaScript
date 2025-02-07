@@ -840,3 +840,27 @@ const merge = (nums, i, mid, e) => {
   }
   return count;
 };
+/*
+Given an integer array nums, find a 
+subarray
+ that has the largest product, and return the product.
+The test cases are generated so that the answer will fit in a 32-bit integer.
+
+
+*/
+
+console.log("question-21");
+var maxProduct = function(nums) {
+  let maxProd = nums[0], minProd = nums[0], result = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+      if (nums[i] < 0) [maxProd, minProd] = [minProd, maxProd]; // Swap when negative
+
+      maxProd = Math.max(nums[i], nums[i] * maxProd);
+      minProd = Math.min(nums[i], nums[i] * minProd);
+      
+      result = Math.max(result, maxProd);
+  }
+
+  return result;
+};
