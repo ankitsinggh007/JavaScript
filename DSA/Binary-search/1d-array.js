@@ -165,3 +165,35 @@ const searchRange = function(nums, target) {
     return [starOcurrence,endOcurrence]
 
 };
+// Given a sorted array, arr[] and a number target, you need to find the number of occurrences of target in arr[]
+console.log("question-6");
+class Solution {
+    // Function to count the occurrences of x in the array.
+    binarySearch (nums,target,findFirst) {
+        let low = 0, high = nums.length - 1, result = -1;
+        while (low <= high) {
+            let mid = Math.floor((low + high) / 2);
+            if (nums[mid] === target) {
+                result = mid;
+                findFirst ? (high = mid - 1) : (low = mid + 1); // Move left for first, right for last
+            } else if (nums[mid] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return result;
+    };
+    
+    searchRange(nums, target) {
+    return [this.binarySearch(nums,target,true), this.binarySearch(nums,target,false)];
+};
+
+    countFreq(arr, target) {
+        const pair=this.searchRange(arr,target);
+        if(pair[0]==-1) return 0;
+        return pair[1]-pair[0]+1;
+        // your code here
+    };
+};
+
