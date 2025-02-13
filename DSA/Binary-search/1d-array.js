@@ -117,3 +117,51 @@ const arr = [1, 2, 8, 10, 10, 12, 19];
 const x = 5;
 console.log(getFloorAndCeil(arr, arr.length, x));  // Output: [2, 8]
 
+
+/*
+34. Find First and Last Position of Element in Sorted Array
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+If target is not found in the array, return [-1, -1].
+You must write an algorithm with O(log n) runtime complexity.
+*/
+console.log("question-5");
+
+const searchRange = function(nums, target) {
+
+    let starOcurrence=-1;
+    let endOcurrence=-1;
+    let low=0;
+    let high=nums.length-1;
+    while(low<=high){
+        let mid=Math.trunc((low+high)/2);
+        if(nums[mid]==target){
+            starOcurrence=mid;
+            high=mid-1;
+        }
+        else if(nums[mid]>target){
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+    low=0;
+    high=nums.length-1;
+    if(starOcurrence==-1) return [starOcurrence,endOcurrence];
+    while(low<=high){
+        let mid=Math.trunc((low+high)/2);
+        if(nums[mid]==target){
+            endOcurrence=mid;
+            low=mid+1;
+        }
+        else if(nums[mid]>target){
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+
+    return [starOcurrence,endOcurrence]
+
+};
