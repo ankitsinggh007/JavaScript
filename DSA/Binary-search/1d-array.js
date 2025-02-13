@@ -197,3 +197,63 @@ class Solution {
     };
 };
 
+/*
+33. Search in Rotated Sorted Array
+There is an integer array nums sorted in ascending order (with distinct values).
+Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is 
+[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
+Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+You must write an algorithm with O(log n) runtime complexity.
+*/
+console.log("question-7");
+const pivot=function(nums){
+    let low=0;
+    let high=nums.length-1;
+
+    while(low<=high){
+
+        m=Math.floor((low+high)/2);
+        if(nums[low] <= nums[m] && nums[m] <= nums[high]) return 0 ;
+        //if this true array is sorted no need to find pivot 
+        if(m>low && nums[m]<nums[m-1])return m;
+        if(m<high&& nums[m]>nums[m+1]) return m+1;
+
+        if(nums[low]<nums[m]){
+            low=m+1;
+        }
+        else {
+            high=m-1;
+        }
+    }
+    return low;
+
+ }
+ const binarySearch=function (nums,target,low,high){
+    while(low<=high){
+       let m=Math.floor((low+high)/2);
+        if(nums[m]==target) return m;
+        else if(nums[m]>target){
+            high=m-1;
+        }
+        else{
+            low=m+1;
+        }
+    }
+    return -1;
+ }
+var search = function(nums, target) {
+//   find pivot   O(logn)
+//  apply b.s (l-pivot),or ((pivot+1)-h)
+
+    const p=pivot(nums);
+    if ( target>=nums[0] && target <= nums[p - 1]) {
+        return binarySearch(nums, target, 0, p - 1);
+    }
+
+    // Otherwise, search in the right sorted part
+    return binarySearch(nums, target, p, nums.length - 1);
+
+    // return result;
+
+
+};
