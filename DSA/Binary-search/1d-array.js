@@ -288,3 +288,39 @@ if(mid>low && nums[mid]<nums[mid-1])return nums[mid];
     }
     return nums[0];
 };
+/*
+Given an increasing sorted rotated array arr of distinct integers. The array is right-rotated k times. Find the value of k.
+Let's suppose we have an array arr = [2, 4, 6, 9], so if we rotate it by 2 times so that it will look like this:
+After 1st Rotation : [9, 2, 4, 6]
+After 2nd Rotation : [6, 9, 2, 4]
+*/
+    console.log("question-9")
+    class Solution {
+        pivot(nums){
+        let low=0;
+        let high=nums.length-1;
+    
+        while(low<=high){
+    
+            let m=Math.floor((low+high)/2);
+            if(nums[low] <= nums[m] && nums[m] <= nums[high]) return 0 ;
+            //if this true array is sorted no need to find pivot 
+            if(m>low && nums[m]<nums[m-1])return m;
+            if(m<high&& nums[m]>nums[m+1]) return m+1;
+    
+            if(nums[low]<nums[m]){
+                low=m+1;
+            }
+            else {
+                high=m-1;
+            }
+        }
+        return low;
+    
+     }
+        findKRotation(arr) {
+            // Code Here
+            return this.pivot(arr);
+        }
+    }
+    
