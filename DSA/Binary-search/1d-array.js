@@ -372,3 +372,43 @@ Floor value of any number is the greatest Integer which is less than or equal to
         }
         return -1;
     }
+
+    /*
+    875. Koko Eating Bananas
+Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. 
+If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+Return the minimum integer k such that she can eat all the bananas within h hours.
+     */
+    console.log("question-12");
+    function isSufficient(piles, capacity) {
+        let totalHours = 0;
+        for (let bananas of piles) {
+            totalHours += Math.ceil(bananas / capacity);
+        }
+        return totalHours;
+    }
+    
+    function binarySearch(piles, low, high, hour) {
+        let ans = high;
+        while (low <= high) {
+            let mid = Math.floor((low + high) / 2);
+            let totalHour = isSufficient(piles, mid);
+            
+            if (totalHour <= hour) {  // Fix: should include "equal"
+                ans = mid;  // Store potential answer
+                high = mid - 1;  // Try a smaller k
+            } else {
+                low = mid + 1;  // Increase speed
+            }
+        }
+        return ans;
+    }
+    
+    var minEatingSpeed = function(piles, h) {
+        let maxPile = Math.max(...piles);  // No need to find min
+    
+        return binarySearch(piles, 1, maxPile, h);
+    };
+    
