@@ -348,3 +348,27 @@ Floor value of any number is the greatest Integer which is less than or equal to
         }
         return low;
     }
+    /**
+     Find nth root of m
+     You are given 2 numbers n and m, the task is to find n√m (nth root of m). If the root is not integer then returns -1.
+     */
+    console.log("question-11");
+   function  nthRoot(n, m) {
+        let low=1;
+        let high=m;
+        
+        while(low<=high){
+            
+            let mid=Math.floor(low+(high-low)/2);
+            
+            if(Math.pow(mid,n)==m) return mid;
+            else if(Math.pow(mid,n)<m){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+            
+        }
+        return -1;
+    }
