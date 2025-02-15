@@ -324,3 +324,27 @@ After 2nd Rotation : [6, 9, 2, 4]
         }
     }
     
+    /*
+    Square Root
+    Given a positive integer n, find the square root of n. If n is not a perfect square, then return the floor value.
+Floor value of any number is the greatest Integer which is less than or equal to that number
+    */
+    console.log("question-10");
+   function  floorSqrt(n) {
+        let low=1;
+        let high=n;
+        
+        while(low<=high){
+            let mid=Math.floor(low+(high-low)/2);
+            
+            if(mid*mid<=n && (mid+1)*(mid+1)>n) return mid;
+            else if(mid*mid<n){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+                
+        }
+        return low;
+    }
