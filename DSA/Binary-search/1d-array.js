@@ -411,5 +411,50 @@ Return the minimum integer k such that she can eat all the bananas within h hour
     
         return binarySearch(piles, 1, maxPile, h);
     };
-    
+    /*
+    1482. Minimum Number of Days to Make m Bouquets
+You are given an integer array bloomDay, an integer m and an integer k.
+You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden.
+The garden consists of n flowers, the ith flower will bloom in the bloomDay[i] and then can be used in exactly one bouquet.
+Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets return -1
+    */
+    console.log("question-13");
+
+function isSufficient2(bloomDay,mid,m,k){
+    let bouqet=0;
+    let flower=0;
+
+    for(let i=0;i<bloomDay.length;i++){
+        if(bloomDay[i]<=mid){
+            flower++;
+            if(flower==k) {bouqet++;
+            flower=0;}
+        }
+        else{
+            flower=0;
+        }
+        if(bouqet>=m) return true;
+        
+    }
+    return false;
+}
+var minDays = function(bloomDay, m, k) {
+     if (m * k > bloomDay.length) return -1;
+    let low=0;let high=Math.max(...bloomDay);
+    let result=-1;
+    while(low<=high){
+
+        let mid=Math.floor((low+high)/2);
+
+        if(isSufficient2(bloomDay,mid,m,k)){
+            result=mid;
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+    return result;
+
+};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////f
