@@ -459,5 +459,38 @@ var minDays = function(bloomDay, m, k) {
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////f
 
-/**next question */
+/*
+1283. Find the Smallest Divisor Given a Threshold
+Given an array of integers nums and an integer threshold, we will choose a positive integer divisor,
+divide all the array by it, and sum the division's result.
+Find the smallest divisor such that the result mentioned above is less than or equal to threshold.
+Each result of the division is rounded to the nearest integer greater than or equal to that element. (For example: 7/3 = 3 and 10/2 = 5).
+The test cases are generated so that there will be an answer.
+*/
 console.log("question-13");
+const isMGood = function(nums, m, t) {
+    let sum = 0;
+    for (let num of nums) {
+        sum += Math.ceil(num / m);
+    }
+    return sum;
+};
+
+var smallestDivisor = function(nums, threshold) {
+    let low = 1, high = Math.max(...nums);
+    let ans = high; // Store the best divisor found
+
+    while (low <= high) {
+        let m = Math.floor((low + high) / 2);
+        let sum = isMGood(nums, m, threshold);
+
+        if (sum <= threshold) {
+            ans = m; // Store the valid divisor
+            high = m - 1; // Try to find a smaller divisor
+        } else {
+            low = m + 1; // Increase divisor size
+        }
+    }
+
+    return ans;
+};
