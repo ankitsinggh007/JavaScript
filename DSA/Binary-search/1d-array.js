@@ -494,3 +494,47 @@ var smallestDivisor = function(nums, threshold) {
 
     return ans;
 };
+/*
+1011. Capacity To Ship Packages Within D Days
+A conveyor belt has packages that must be shipped from one port to another within days days.
+The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.
+Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within days days.
+*/
+console.log("question-14");
+var shipWithinDays = function (weights, days) {
+    let low = Math.max(...weights);
+    let high = weights.reduce(((acc, curr) => acc + curr), 0);
+    let ans=high;
+    while (low <= high) {
+        let mid = Math.floor(low + (high - low) / 2);
+        let canShip =isMinWeight(weights, mid, days)
+        if (canShip) {
+            ans = mid;
+            high = mid - 1;
+        }
+        else {
+            low = mid + 1;
+        }
+
+    }
+    return ans
+
+};
+function isMinWeight(weights, min, days) {
+    let sum = 0;
+    for (let weight of weights) {
+        if (sum + weight <= min) {
+            sum += weight;
+        }
+        else {
+            sum = weight;
+            days--;
+            if (days <= 0) {
+                return false;
+            }
+
+        }
+    }
+    return true;
+
+}
