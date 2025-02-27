@@ -566,4 +566,52 @@ You are also given an integer 'k' which denotes the number of aggressive cows.
 You are given the task of assigning stalls to 'k' cows such that the minimum distance between any two of them is the maximum possible.
 Find the maximum possible minimum distance.
 */
-console.log("question-16");
+
+    console.log("question-16");
+
+    function mSatisfyCows(arr,n,k,mid){
+
+        let cows=1;
+        let last=arr[0];
+
+        for(let i=1;i<n;i++){
+
+            if(arr[i]-last<mid){
+                continue;
+            }
+            else{
+                cows++;
+                last=arr[i];
+            }
+            if(cows==k){
+                break;
+            }
+
+        }
+        return cows>=k;
+
+    }
+    function agressiveCow(arr,n,k){
+
+        arr.sort((a,b)=>a-b);
+        let low=1;
+        let high=arr[n-1]-arr[0];
+
+        while(low<=high){  //FIXME:why is that low<=high
+
+            let mid=Math.floor((low+high)/2);
+
+            let isSatisfied=mSatisfyCows(arr,n,k,mid);
+
+            if(isSatisfied){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+
+
+        }
+        return high; //FIXME:why return high instead of low
+
+    }
