@@ -612,6 +612,48 @@ Find the maximum possible minimum distance.
 
 
         }
-        return high; //FIXME:why return high instead of low
+        return high; 
 
     }
+    /*
+ Given an integer array nums and an integer k, split nums into k non-empty subarrays such that the largest sum of any subarray is minimized.
+Return the minimized largest sum of the split.
+A subarray is a contiguous part of the array.
+    */
+Solution('question-17');
+
+
+
+var splitArray = function (nums, k) {
+
+    let low = Math.max(...nums);
+    let high = nums.reduce((acc, curr) => acc + curr, 0);
+
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+
+        let isSatisfy = check(nums, mid, k);
+        if (isSatisfy) {
+            low = mid + 1;
+        }
+        else {
+            high = mid - 1;
+        }
+    }
+    return low;
+
+};
+function check(nums, mid, k) {
+    let count = 0;
+    let sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (sum + nums[i] > mid) {
+            count++;
+            sum = nums[i];
+            if (count >= k) return true;
+        } else {
+            sum += nums[i];
+        }
+    }
+    return false;
+}
