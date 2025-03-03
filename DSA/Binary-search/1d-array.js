@@ -655,5 +655,5 @@ function check(nums, mid, k) {
             sum += nums[i];
         }
     }
-    return 0;
+    return false;
 }
