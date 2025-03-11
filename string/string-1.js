@@ -88,3 +88,31 @@ function commonner(str1,str2){
 }
 // t.c-->O(n*m)
 //space-->O(1);
+/*
+205. Isomorphic Strings
+Given two strings s and t, determine if they are isomorphic.
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+*/
+var isIsomorphic = function(s, t) {
+    if (s.length !== t.length) return false;
+
+    let sMap = {}; // Map for s -> t
+    let tMap = {}; // Map for t -> s
+
+    for (let i = 0; i < s.length; i++) {
+        let sChar = s[i], tChar = t[i];
+
+        // Check s -> t mapping
+        if (sMap[sChar] && sMap[sChar] !== tChar) return false;
+        // Check t -> s mapping
+        if (tMap[tChar] && tMap[tChar] !== sChar) return false;
+
+        // Store mappings
+        sMap[sChar] = tChar;
+        tMap[tChar] = sChar;
+    }
+
+    return true;
+};
+
