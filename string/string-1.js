@@ -8,7 +8,6 @@ A valid parentheses string s is primitive if it is nonempty, and there does not 
 Given a valid parentheses string s, consider its primitive decomposition: s = P1 + P2 + ... + Pk, where Pi are primitive valid parentheses strings.
 Return s after removing the outermost parentheses of every primitive string in the primitive decomposition of s.
 */
-
 var removeOuterParentheses = function(s) {
     let decomposition = []; // Stores primitive substrings
     let balance = 0, start = 0;
@@ -54,3 +53,38 @@ var largestOddNumber = function(num) {
        }
        return "";
 };
+/*
+14. Longest Common Prefix
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string "".
+*/
+var longestCommonPrefix = function(strs) {
+    
+
+    if(strs.length<2) {
+            return strs[0];
+    }
+
+    let common=commonner(strs[0],strs[1]);
+
+    
+    for(let i=2;i<strs.length;i++){
+        common=commonner(common,strs[i]);
+        if(common=="") return "";
+    }
+    return common;
+};
+
+function commonner(str1,str2){
+    let common="";
+    let i=0;
+    let j=0;
+
+    while (i < str1.length && i < str2.length && str1[i] === str2[i]) {
+        i++;
+    }
+    return str1.slice(0,i);
+
+}
+// t.c-->O(n*m)
+//space-->O(1);
