@@ -1,4 +1,4 @@
-console.log("starting a string");
+// console.log("starting a string");
 
 /*
 1021. Remove Outermost Parentheses
@@ -124,4 +124,71 @@ For example, if s = "abcde", then it will be "bcdea" after one shift.
 var rotateString = function(s, goal) {
     return s.length === goal.length && (s + s).includes(goal);
 };
+/*
+242. Valid Anagram
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+*/
+var isAnagram = function(s, t) {
+    if (s.length !== t.length) return false; // If lengths differ, not an anagram
 
+    let map = new Map();
+
+    // Count character frequencies in `t`
+    for (let i = 0; i < t.length; i++) {
+        map.set(t[i], (map.get(t[i]) || 0) + 1);
+    }
+    for (let [key ,value] of map.entries()){
+        console.log(`for ${key} : ${value}`);
+    }
+    console.log(map.get('n')
+    ,map.get('z'))
+    // Decrease count for characters in `s`
+    for (let i = 0; i < s.length; i++) {
+        let char = s[i];
+        if (map.has(char) && map.get(char) > 0) {
+            map.set(char, map.get(char) - 1);
+        } else {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+/*
+451. Sort Characters By Frequency
+Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.
+Return the sorted string. If there are multiple answers, return any of them.
+*/
+var frequencySort = function(s) {
+    let map=new Map();
+    for(let i=0;i<s.length;i++){
+        let char=s[i];
+        map.set(char, (map.get(char) || 0) + 1);
+    }
+   let sortedChars = [...map.entries()].sort((a, b) => b[1] - a[1]);//nlogn
+
+   let bucket=Array(s.length+1).fill(null).map(obj=>[]);
+
+   for(let [char,freq] of map.entries()){
+
+        bucket[freq].push(char);
+
+   }
+
+    let result="";
+
+    for( let i=bucket.length-1;i>0;i--){
+
+            for(let j=0;j<bucket[i].length;j++){
+
+                result += bucket[i][j].repeat(i); 
+
+
+            }
+
+    }
+
+    return result;
+
+};
