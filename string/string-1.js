@@ -192,3 +192,17 @@ var frequencySort = function(s) {
     return result;
 
 };
+/*
+1614. Maximum Nesting Depth of the Parentheses
+Given a valid parentheses string s, return the nesting depth of s. The nesting depth is the maximum number of nested parentheses.
+ */
+var maxDepth = function(s) {
+    let max=0;
+    let count=0;
+    for(let char of s ){
+        if(char==="(")count++;
+        else if(char===")")count--;
+        max=Math.max(count,max);
+    }
+    return max;
+};
