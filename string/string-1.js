@@ -243,7 +243,7 @@ let result=0;
     
 };
 /*
-8. String to Integer (atoi)
+8. 
 Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.
 The algorithm for myAtoi(string s) is as follows:
 1. Whitespace: Ignore any leading whitespace (" ").
