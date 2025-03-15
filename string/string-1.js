@@ -280,6 +280,6 @@ var myAtoi = function(s) {
         i++;
     }
 
-    // Step 5: Apply sign and return result
+    
     return num * sign;
 };
