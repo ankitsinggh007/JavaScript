@@ -78,3 +78,21 @@ var deleteNode = function(node) {
 Count Linked List Nodes
 Given a singly linked list. The task is to find the length of the linked list, where length is defined as the number of nodes in the linked list
 */
+/*
+Search in Linked List
+Given a linked list of n nodes and a key, the task is to check if the key is present in the linked list or not.
+*/
+const searchKey=(n, head, key)=> {
+    let count=0;
+    let temp=head;
+    while( count !== n){
+            
+            count++;
+            
+            if(temp.data==key) return true;
+            temp=temp.next;
+        
+    }
+    
+    return false;
+}
