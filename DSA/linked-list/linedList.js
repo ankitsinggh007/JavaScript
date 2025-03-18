@@ -27,6 +27,16 @@ class LinkedList {
 
         return this.head;
     }
+    getCount(head) {
+        
+        let len=0;
+        let temp=head;
+        while(temp!=null){
+            len++;
+            temp=temp.next;
+        }
+        return len;
+    }
 
     print() {
         let temp = this.head;
@@ -64,3 +74,7 @@ var deleteNode = function(node) {
     node.next = node.next.next;
 };
 
+/*
+Count Linked List Nodes
+Given a singly linked list. The task is to find the length of the linked list, where length is defined as the number of nodes in the linked list
+*/
