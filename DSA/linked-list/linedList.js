@@ -142,5 +142,44 @@ function addNode(head, p, x) {
   }
   return head;
 }
+function  deleteNode(head, x) {
 
-func
+    let temp=head;
+
+    if(x==1){
+
+        let nextNode = temp.next;
+        if(!nextNode) return null;
+        temp.next = null;
+        nextNode.prev=null;
+        return nextNode;
+    }
+
+    let pos=1;
+    while(temp!=null && pos!=x){
+
+        temp=temp.next;
+        pos++;
+    }
+    if(temp==null) return head;
+    // if last element
+    if(temp.next==null) {
+        temp.prev.next=null;
+    
+    temp.prev=null;
+
+    return head;
+    }
+
+    let prev=temp.prev;
+    let next=temp.next;
+
+        prev.next=next;
+
+        next.prev=prev;
+
+        temp.prev=null;
+        temp.next=null;
+        return head
+
+}
