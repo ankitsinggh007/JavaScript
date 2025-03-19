@@ -142,6 +142,9 @@ function addNode(head, p, x) {
   }
   return head;
 }
+/*
+delete node in dll
+*/
 function  deleteNode(head, x) {
 
     let temp=head;
@@ -182,4 +185,28 @@ function  deleteNode(head, x) {
         temp.next=null;
         return head
 
+}
+
+/*
+Reverse a Doubly Linked List
+ */
+function reverseDLL(head) {
+    // code here
+    
+    let temp=head;
+    let newHead=null;
+    
+    while(temp!=null){
+        let prev=temp.prev;
+        let next=temp.next;
+        temp.next=prev;
+        temp.prev=next;
+         newHead = temp;    // Store the last node as new head
+    temp = next;
+        
+    }
+    return newHead;
+    
+    
+    
 }
