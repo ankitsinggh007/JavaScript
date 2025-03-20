@@ -243,3 +243,19 @@ var reverseList = function(head) {
     
     return prev; // New head of the reversed list
 };
+// recursive way 
+var reverseList = function(head) {
+    // Base case: If the list is empty or has one node, return head
+    if (head === null || head.next === null) {
+        return head;
+    }
+
+    // Recursive call on the rest of the list
+    let newHead = reverseList(head.next);
+
+    // Reverse the current node's pointer
+    head.next.next = head;   // Point the next node's next to current
+    head.next = null;        // Break the current node's next pointer
+
+    return newHead;  // Return the new head of the reversed list
+};
