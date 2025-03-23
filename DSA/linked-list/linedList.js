@@ -316,3 +316,34 @@ var detectCycle = function(head) {
   }
             
 };
+/*
+Given the head of a linked list, determine whether the list contains a loop. If a loop is present, 
+return the number of nodes in the loop, otherwise return 0.
+*/
+function  countNodesinLoop(head) {
+  if (!head || !head.next) return 0;  
+
+  let slow = head;
+  let fast = head;
+
+  // Detect the loop
+  while (fast && fast.next) {
+      slow = slow.next;
+      fast = fast.next.next;
+
+      if (slow === fast) {  
+          // Loop detected, now count the cycle length
+          let len = 1;
+          let temp = slow.next;
+
+          while (temp !== slow) {   // Count the nodes in the loop
+              len++;
+              temp = temp.next;
+          }
+
+          return len;  
+      }
+  }
+
+  return 0;  // No loop found
+}
