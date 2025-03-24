@@ -410,3 +410,33 @@ var oddEvenList = function(head) {
   odd.next = evenHead; // Odd list ke baad even list jod do
   return head;
 };
+/*
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+*/
+var removeNthFromEnd = function(head, n) {
+  if (!head) return null; // Null case
+  
+  // Two pointers: fast aur slow
+  let fast = head;
+  let slow = head;
+  
+  // Fast ko n steps aage le jao
+  for (let i = 0; i < n; i++) {
+      if (!fast) return head; // Agar n > length, kuch mat karo
+      fast = fast.next;
+  }
+  
+  // Agar fast end pe hai, head remove karo
+  if (!fast) return head.next;
+  
+  // Slow ko nth node se pehle tak le jao
+  while (fast.next) {
+      slow = slow.next;
+      fast = fast.next;
+  }
+  
+  // Nth node skip karo
+  slow.next = slow.next.next;
+  
+  return head;
+};
