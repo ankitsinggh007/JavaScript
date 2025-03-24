@@ -347,3 +347,41 @@ function  countNodesinLoop(head) {
 
   return 0;  // No loop found
 }
+/*
+Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+*/
+var reverseList = function (head) {
+  let prev = null;
+  let curr = head;
+  let next = null;
+
+  while (curr != null) {
+      next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
+  }
+  return prev;
+};
+var isPalindrome = function (head) {
+
+  // find middle 
+  let [slow, fast] = [head, head];
+  while (fast && fast.next) {
+      [fast, slow] = [fast.next.next, slow.next];
+  }
+  let [newHead, temp] = [reverseList(slow), head];
+  while (newHead) {
+      if (newHead.val == temp.val) {
+          [newHead, temp] = [newHead.next, temp.next];
+
+      }
+      else {
+          return false;
+      }
+  }
+
+
+  return true;
+
+};
