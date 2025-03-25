@@ -435,7 +435,6 @@ var removeNthFromEnd = function(head, n) {
       fast = fast.next;
   }
   
-  // Nth node skip karo
   slow.next = slow.next.next;
   
   return head;
