@@ -439,3 +439,34 @@ var removeNthFromEnd = function(head, n) {
   
   return head;
 };
+/*
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+*/
+var removeNthFromEnd = function(head, n) {
+
+  if (!head) return head;
+
+  let fast = head;
+  let slow = head;
+
+  // Move `fast` n steps ahead
+  let k = n;
+  while (k > 0) {
+      fast = fast.next;
+      k--;
+  }
+
+  // If `fast` is null → remove the head
+  if (!fast) return head.next;
+
+  // Move both pointers one step at a time
+  while (fast.next) {
+      slow = slow.next;
+      fast = fast.next;
+  }
+
+  // Remove the target node
+  slow.next = slow.next.next;
+
+  return head;
+};
