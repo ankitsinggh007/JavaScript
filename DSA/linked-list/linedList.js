@@ -470,3 +470,49 @@ var removeNthFromEnd = function(head, n) {
 
   return head;
 };
+/*
+Given the head of a linked list, return the list after sorting it in ascending order.
+ */
+let findMid = (head) => {
+  let fast = head;
+  let slow = head;
+  let prev = null;
+
+  while (fast && fast.next) {
+      prev = slow;
+      slow = slow.next;
+      fast = fast.next.next;
+  }
+
+  if (prev) prev.next = null;  // ✅ Ensure equal splitting
+  return slow;
+}
+
+var sortList = function (head) {
+  if (!head || !head.next) return head;
+
+  let mid = findMid(head); 
+       
+  let firstLL = sortList(head);      
+  let secondLL = sortList(mid);  
+
+  return merge(firstLL, secondLL);
+};
+
+function merge(first, second) {
+  let newHead = new ListNode();
+  let temp = newHead;
+
+  while (first && second) {
+      if (first.val < second.val) {
+          temp.next = first;
+          first = first.next;
+      } else {
+          temp.next = second;
+          second = second.next;
+      }
+      temp = temp.next;
+  }
+  temp.next = first || second;
+  return newHead.next;
+}
