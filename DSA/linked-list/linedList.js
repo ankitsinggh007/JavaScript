@@ -516,3 +516,41 @@ function merge(first, second) {
   temp.next = first || second;
   return newHead.next;
 }
+/*
+Given a linked list where nodes can contain values 0s, 1s, and 2s only. The task is to segregate 0s, 1s, and 2s linked list.
+ such that all zeros segregate to the head side, 2s at the end of the linked list, and 1s in the middle of 0s and 2s.
+ */
+function segregate(head) {
+  // your code here
+  let zeroList= new Node(-1);
+  let oneList=new Node(-1);
+  let twoList=new Node(-1);
+  let zero=zeroList;
+  let one=oneList;
+  let two=twoList;
+  let temp=head;
+  while(temp){
+      if(temp.data==0){
+          zero.next=temp;
+          zero=zero.next;
+      }else if(temp.data==1){
+          one.next=temp;
+          one=one.next;
+      }
+      else{
+          two.next=temp;
+          two=two.next;
+      }
+      temp=temp.next;
+  }
+  
+  // make last node disconnect 
+  two.next=null;
+  // join them 
+ zero.next = oneList.next ? oneList.next : twoList.next;    
+one.next = twoList.next; 
+  return zeroList.next;
+  
+  
+  
+}
