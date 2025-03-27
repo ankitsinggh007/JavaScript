@@ -554,3 +554,40 @@ one.next = twoList.next;
   
   
 }
+/*
+Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. 
+If the two linked lists have no intersection at all, return null.
+*/
+var getIntersectionNode = function(headA, headB) {
+
+  let head1=headA;
+  let head2=headB;
+      let len1=0;
+      let len2=0;
+      while(head1){
+          len1++;
+          head1=head1.next;
+      }
+
+      while(head2){
+          len2++;
+          head2=head2.next;
+      }
+
+      let diff=Math.abs(len1-len2);
+      let [longer,shorter]=len1>len2?[headA,headB]:[headB,headA];
+      while(diff){
+          longer=longer.next;
+          diff--;
+      }
+
+           while(longer && shorter){
+                  if(longer==shorter) return longer;
+                  longer=longer.next;
+                  shorter=shorter.next;
+              }
+
+
+
+  return null;
+};
