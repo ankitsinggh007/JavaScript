@@ -591,3 +591,50 @@ var getIntersectionNode = function(headA, headB) {
 
   return null;
 };
+/*
+You are given a linked list where each element in the list is a node and have an integer data. You need to add 1 to the number formed by concatinating all the list node numbers together and return the head of the modified linked list. 
+
+Note: The head represents the first element of the given array.
+*/
+function addOne(node) {
+    
+    let mark = -1; 
+    let temp = head;
+
+    // Find the last non-9 node
+    while (temp.next !== null) {
+        if (temp.data !== 9) mark = temp;  
+        temp = temp.next;
+    }
+
+    // Check the last node
+    if (temp.data === 9) {
+        if (mark === -1) {  // All 9's case
+            let newNode = new Node(1);
+            
+            // Turn all existing nodes into 0
+            temp = head;
+            while (temp !== null) {
+                temp.data = 0;
+                temp = temp.next;
+            }
+            
+            newNode.next = head;
+            return newNode;  
+        } else {  
+            mark.data++;  // Increment the last non-9 node
+            
+            // Turn all trailing nodes to 0
+            mark = mark.next;
+            while (mark !== null) {
+                mark.data = 0;
+                mark = mark.next;
+            }
+        }
+    } else {  
+        // If the last node is not 9, simply increment it
+        temp.data++;
+    }
+
+    return head;  
+}
