@@ -738,3 +738,37 @@ function  deleteAllOccurOfX(head, k) {
  
   return head;
 }
+// Given a sorted doubly linked list of positive distinct elements, 
+// the task is to find pairs in a doubly-linked list whose sum is equal to given value target.
+function   findPairsWithGivenSum(head, target) {
+  let result = [];
+
+  if (!head || !head.next) return result;  // Handle empty or single-node DLL
+
+  // Initialize two pointers
+  let start = head;
+  let last = head;
+
+  // Move 'last' to the tail
+  while (last.next) {
+      last = last.next;
+  }
+
+  // Two-pointer traversal
+  while (start !== last && last.next !== start) {
+      let sum = start.data + last.data;
+
+      if (sum === target) {
+          result.push([start.data, last.data]);
+          start = start.next;
+          last = last.prev;
+      } else if (sum < target) {
+          start = start.next;
+      } else {
+          last = last.prev;
+      }
+  }
+
+  return result;  // Always return an array, even if empty
+}
+
