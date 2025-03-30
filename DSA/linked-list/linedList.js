@@ -638,3 +638,69 @@ function addOne(node) {
 
     return head;  
 }
+/*
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+*/
+var addTwoNumbers = function (l1, l2) {
+
+  let op1 = l1;
+  let op2 = l2;
+  let carry = 0;
+  let newNode = new ListNode(-1);
+  let temp = newNode;
+  while (op1 && op2) {
+
+      sum = op1.val + op2.val + carry;
+      let righDigit = 0;
+      let leftDigit = 0;
+      if (sum > 9) {
+          rightDigit = sum % 10;
+          carry = 1;
+
+          let node = new ListNode(rightDigit);
+
+          temp.next = node;
+
+      }
+      else{
+          carry=0;
+          let node = new ListNode(sum);
+          temp.next=node;
+      }
+      temp=temp.next;
+           op1 = op1.next;
+      op2 = op2.next;
+  }
+
+  let remaining=op1?op1:op2;
+
+  while(remaining){
+      sum=remaining.val+carry;
+       let righDigit = 0;
+      let leftDigit = 0;
+      if (sum > 9) {
+          rightDigit = sum % 10;
+          carry = 1;
+
+          let node = new ListNode(rightDigit);
+
+          temp.next = node;
+      }
+      else{
+          carry=0;
+          let node = new ListNode(sum);
+          temp.next=node;
+      }
+      temp=temp.next;
+remaining = remaining.next;
+  }
+
+  if (carry) {
+      temp.next = new ListNode(1);
+  }
+
+  return newNode.next;
+
+};
