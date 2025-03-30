@@ -704,3 +704,37 @@ remaining = remaining.next;
   return newNode.next;
 
 };
+/*
+You are given the head_ref of a doubly Linked List and a Key.
+Your task is to delete all occurrences of the given key if it is present and return the new DLL.
+ */
+function  deleteAllOccurOfX(head, k) {
+  // Code for deleting all occurrences of key in the linked list goes here
+  let temp=head;
+  temp=temp.next;
+      let prev=null;
+      let next=null;
+  while(temp.next!=null){
+      if(temp.data==k){
+          
+          prev=temp.prev;
+           next=temp.next;
+          prev.next=next;
+          next.prev=prev;
+      }
+      temp=temp.next;
+  }
+  
+  if(temp.data==k){
+      prev=temp.prev;
+      prev.next=null;
+  }
+  
+  if(head.data==k){
+      temp=head.next;
+     if(temp) temp.prev=null;
+     return temp;
+  }
+ 
+  return head;
+}
