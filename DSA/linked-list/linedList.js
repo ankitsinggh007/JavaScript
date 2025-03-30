@@ -772,3 +772,25 @@ function   findPairsWithGivenSum(head, target) {
   return result;  // Always return an array, even if empty
 }
 
+// Given a doubly linked list of n nodes sorted by values, the task is to remove duplicate nodes present in the linked list.
+removeDuplicates(head) {
+  if (!head || !head.next) return head;  
+
+  let temp = head;
+
+  while (temp && temp.next) {
+      if (temp.data === temp.next.data) {
+          // Remove the duplicate node
+          temp.next = temp.next.next;  
+          
+          // Update prev pointer if the next node exists
+          if (temp.next) {
+              temp.next.prev = temp;  
+          }
+      } else {
+          temp = temp.next;  // Move to the next unique node
+      }
+  }
+
+  return head;
+}
