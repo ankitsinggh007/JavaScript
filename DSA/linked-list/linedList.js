@@ -773,7 +773,7 @@ function   findPairsWithGivenSum(head, target) {
 }
 
 // Given a doubly linked list of n nodes sorted by values, the task is to remove duplicate nodes present in the linked list.
-removeDuplicates(head) {
+function removeDuplicates(head) {
   if (!head || !head.next) return head;  
 
   let temp = head;
@@ -794,3 +794,39 @@ removeDuplicates(head) {
 
   return head;
 }
+/*
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+*/
+var mergeTwoLists = function(list1, list2) {
+    
+  let head1=list1;
+  let head2=list2;
+  let dummy=new ListNode(-1);
+  let temp=dummy;
+  while(head1 && head2 ){
+
+      if(head1.val<=head2.val){
+
+          temp.next=head1;
+          head1=head1.next;
+      }else{
+          temp.next=head2;
+          head2=head2.next;
+      }
+      temp=temp.next;
+  }
+
+  let remain=head1?head1:head2;
+
+  while(remain){
+      temp.next=remain;
+      remain=remain.next;
+      temp=temp.next;
+  }
+
+  return dummy.next;
+};
