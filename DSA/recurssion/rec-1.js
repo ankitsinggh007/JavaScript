@@ -200,3 +200,22 @@ var subsets = function (nums) {
   return helper();
   
 };
+/*
+You are given a positive integer n.
+A binary string x is valid if all substrings of x of length 2 contain at least one "1".
+Return all valid strings with length n, in any order.*/
+var validStrings = function (n) {
+  let ans = [];
+  function helper(i = 0, res = "") {
+      if (i == n) {
+          ans.push(res);
+          return;
+      }
+      // if(last is 0)
+      helper(i + 1, res + "1");
+      if (res[res.length - 1] != '0')
+          helper(i + 1, res + "0");
+  }
+  helper();
+  return ans;
+};
