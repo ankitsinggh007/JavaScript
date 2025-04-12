@@ -170,4 +170,33 @@ var subsets = function(nums) {
       return exclude.concat(include);
   }
   return helper();
+}
+
+// How do I recognize and tag problems by pattern?
+
+
+// How to balance new topics + revision together as i am short with time i guess?
+/*
+Given an integer array nums of unique elements, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+*/
+var subsets = function (nums) {
+  let ans = [];
+  function helper(i = 0, res = []){
+      if (i == nums.length) {
+          return [[...res]];
+          
+      }
+      // exclude
+      const exclude=helper(i + 1, res);
+      // include
+      res.push(nums[i])
+      const include=helper(i + 1, res);
+      res.pop();
+
+      const merge=exclude.concat(include);
+      return merge;
+  }
+  return helper();
+  
 };
