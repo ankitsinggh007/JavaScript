@@ -219,3 +219,22 @@ var validStrings = function (n) {
   helper();
   return ans;
 };
+/*
+22. Generate Parentheses
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+*/
+var generateParenthesis = function(n) {
+  // const ans=[];
+  function helper(o=0,c=0,res="",ans=[]){
+      if(o==n && o==c){
+          ans.push(res);
+          return ans;
+      }
+
+      if(o<n) helper(o+1,c,res+"(",ans);
+      if(c<o) helper(o,c+1,res+")",ans);
+      return ans;
+  }
+  return helper();
+  // return ans;
+};
