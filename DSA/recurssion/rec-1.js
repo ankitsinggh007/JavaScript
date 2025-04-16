@@ -276,3 +276,24 @@ const numSubseq = (nums, target) => {
 
     return res;
 };
+
+
+
+/*2099. Find Subsequence of Length K With the Largest Sum
+You are given an integer array nums and an integer k. You want to find a subsequence of nums of length k that has the largest sum.
+Return any such subsequence as an integer array of length k.
+A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+ */
+var maxSubsequence = function (nums, k) {
+  let map = nums.map((value, index) => [value, index]);
+
+  map.sort((a, b) => b[0] - a[0]);
+
+  let topKElements = map.slice(0, k);
+
+  topKElements.sort((a, b) => a[1] - b[1]);
+  
+  let arr2 = topKElements.map(item => item[0]);
+
+  return arr2;
+};
