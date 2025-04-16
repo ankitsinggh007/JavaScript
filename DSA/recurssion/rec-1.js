@@ -238,3 +238,41 @@ var generateParenthesis = function(n) {
   return helper();
   // return ans;
 };
+/*
+1498. Number of Subsequences That Satisfy the Given Sum Condition
+You are given an array of integers nums and an integer target.
+Return the number of non-empty subsequences of nums such that the sum of 
+the minimum and maximum element on it is less or equal to target.
+Since the answer may be too large, return it modulo 109 + 7.
+*/
+let MOD = 10e9 + 7;
+
+const modPow = (base, exp, mod) => {
+    let result = 1;
+    while (exp > 0) {
+        if (exp % 2 === 1) {
+            result = (result * base) % mod;
+        }
+        base = (base * base) % mod;
+        exp = Math.floor(exp / 2);
+    }
+    return result;
+};
+
+const numSubseq = (nums, target) => {
+    nums.sort((a, b) => a - b);
+    const mod = 1e9 + 7;
+    let res = 0;
+    let r = nums.length - 1;
+
+    for (let i = 0; i < nums.length; i++) {
+        while (nums[i] + nums[r] > target && i <= r) {
+            r--;
+        }
+        if (i <= r) {
+            res = (res + modPow(2, r - i, mod)) % mod;
+        }
+    }
+
+    return res;
+};
