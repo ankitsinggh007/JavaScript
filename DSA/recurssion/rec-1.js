@@ -354,3 +354,34 @@ var combinationSum = function (candidates, target) {
 
 
 };
+
+/*
+40. Combination Sum II
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+Each number in candidates may only be used once in the combination.
+Note: The solution set must not contain duplicate combinations.
+
+
+*/
+
+var combinationSum2 = function (candidates, target) {
+  let ans = [];
+  candidates.sort((a, b) => a - b);
+  function helper(start = 0, res = [], sum = 0) {
+      if (sum == target) {
+          ans.push([...res]);
+          return;
+      }
+     
+      for (let i = start; i < candidates.length; i++) {
+          if (i > start && candidates[i] == candidates[i - 1]) continue;
+          if (sum + candidates[i] > target) break;
+          res.push(candidates[i]);
+          helper(i + 1, res, sum + candidates[i]);
+          res.pop();
+      }
+  }
+  helper();
+  console.log(ans, "ans");
+  return ans;
+};
