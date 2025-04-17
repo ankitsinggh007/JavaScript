@@ -326,3 +326,31 @@ var combinationSum = function (candidates, target) {
 
 
 };
+//another approach 
+var combinationSum = function (candidates, target) {
+  let ans = []
+  candidates.sort((a, b) => a - b);
+  console.log(candidates);
+  function helper(i = 0, res = [], sum = 0) {
+      if(i==candidates.length){
+          if (sum == target) {
+          ans.push([...res]);
+      }
+      return;
+      }
+      if (sum > target) return;
+
+      // not required as we already check in loop if (sum+candidates[i])
+
+
+      res.push(candidates[i]);
+      helper(i, res, sum + candidates[i])
+      res.pop();
+      helper(i + 1, res, sum )
+
+  }
+  helper()
+  return ans;
+
+
+};
