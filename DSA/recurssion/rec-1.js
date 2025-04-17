@@ -297,3 +297,32 @@ var maxSubsequence = function (nums, k) {
 
   return arr2;
 };
+/*
+39. Combination Sum
+Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+The test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
+*/
+var combinationSum = function (candidates, target) {
+  let ans = []
+  candidates.sort((a, b) => a - b);
+  console.log(candidates);
+  function helper(start = 0, res = [], sum = 0) {
+      if (sum == target) {
+          ans.push([...res]);
+      }
+      // else if(sum>target) return ; not required as we already check in loop if (sum+candidates[i])
+
+      for (let i = start; i < candidates.length; i++) {
+
+          if (sum + candidates[i] > target) break;
+          res.push(candidates[i]);
+          helper(i, res, sum + candidates[i])
+          res.pop();
+      }
+  }
+  helper()
+  return ans;
+
+
+};
