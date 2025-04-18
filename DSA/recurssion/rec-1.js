@@ -416,3 +416,34 @@ var combinationSum3 = function (k, n) {
     dfs();
     return ans;
 };
+/*
+17. Letter Combinations of a Phone Number
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+*/
+var letterCombinations = function(digits) {
+  if(digits.length==0) return []
+const digitMap = {
+  '2': "abc", '3': "def", '4': "ghi", '5': "jkl",
+  '6': "mno", '7': "pqrs", '8': "tuv", '9': "wxyz"
+};
+let ans=[];
+function dfs(start=0,str=""){
+  if(str.length===digits.length){
+      ans.push(str);
+      return ;
+  }
+  
+  for(let char of digitMap[digits[start]]){
+      
+      dfs(start+1,str+char);
+      
+  }
+  
+  
+}
+dfs();
+// console.log(ans,"ans")
+return ans;
+};
+// letterCombinations("23");
