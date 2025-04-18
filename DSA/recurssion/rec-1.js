@@ -385,3 +385,34 @@ var combinationSum2 = function (candidates, target) {
   console.log(ans, "ans");
   return ans;
 };
+/*
+216. Combination Sum III
+Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
+Only numbers 1 through 9 are used.
+Each number is used at most once.
+Return a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.
+*/
+var combinationSum3 = function (k, n) {
+
+    let ans = [];
+    function dfs(start = 1, res = [], sum = 0) {
+
+        if (res.length === k) {
+            if (sum == n) {
+                ans.push([...res]);
+            }
+            return;
+        }
+
+        for (let i = start; i <= 9; i++) {
+            if (i + sum > n) break;
+
+            res.push(i);
+            dfs(i + 1, res, sum+i);
+            res.pop();
+        }
+
+    }
+    dfs();
+    return ans;
+};
