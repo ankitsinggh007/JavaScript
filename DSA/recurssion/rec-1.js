@@ -450,3 +450,31 @@ return ans;
 /*
 Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
 */
+var partition = function(s) {
+  const ans = [];
+  
+  function isPalindrome(str) {
+      return str === str.split('').reverse().join('');
+  }
+
+  function dfs(start, path) {
+      if (start === s.length) {
+          ans.push([...path]);  // Store valid partitions
+          return;
+      }
+
+      for (let end = start; end < s.length; end++) {
+          let sub = s.substring(start, end + 1);
+          if (isPalindrome(sub)) {
+              path.push(sub);   // Select valid palindrome
+              dfs(end + 1, path);
+              path.pop();       // Backtrack
+          }
+      }
+  }
+
+  dfs(0, []);
+  return ans;
+};
+
+console.log(partition("aab")); // Output: [["a", "a", "b"], ["aa", "b"]]
