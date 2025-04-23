@@ -147,3 +147,29 @@ var merge = function(nums1, m, nums2, n) {
     }
     
 };
+/*
+977. Squares of a Sorted Array
+Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+*/
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortedSquares = function(nums) {
+    let arra=[];
+    let index=nums.length-1;
+
+    let i=0;
+    let j=nums.length-1;
+        while(i<=j){
+            if(Math.abs(nums[i])<nums[j]){
+                arra[index]=nums[j]*nums[j];
+                j--;
+            }   else{
+                arra[index]=nums[i]*nums[i];
+                i++;
+            }
+            index--;
+        }
+        return arra;
+};
