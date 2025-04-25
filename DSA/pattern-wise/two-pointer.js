@@ -197,3 +197,36 @@ var maxArea = function(height) {
     }
     return max;
 };
+/*
+125. Valid Palindrome
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+Given a string s, return true if it is a palindrome, or false otherwise.
+ */
+var isPalindrome = function(s) {
+    
+    let str='';
+    // extraction
+    for(let i=0;i<s.length;i++){
+        if('0'<=s[i] && s[i]<='9' || 'a'<=s[i] && s[i]<='z' || 'A'<=s[i] && s[i] <='Z' ){
+
+               if('A'<=s[i] && s[i] <='Z'){
+                let lowerChar = String.fromCharCode(s[i].charCodeAt(0) + 32)
+                    str+=lowerChar;
+               }
+               else{
+                str+=s[i];
+               }
+        }
+    }
+
+    let i=0;
+    let j=str.length-1;
+
+    while(i<j){
+        if(str[i]!=str[j]) return false;
+        i++;
+        j--;
+    }
+
+    return true;
+};
