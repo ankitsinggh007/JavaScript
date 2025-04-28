@@ -254,3 +254,35 @@ var validPalindrome = function(s) {
     }
     return true;
 };
+
+/*
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+You must solve this problem without using the library's sort function.
+*/
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var sortColors = function(nums) {
+    
+    let low=0;
+    let high=nums.length-1;
+    let pivot=0;
+    while(pivot<=high){
+        if(nums[pivot]==0){
+            // swap and increament pivot && low
+                [nums[pivot],nums[low]]=[nums[low],nums[pivot]];
+                low++;
+                pivot++;
+
+        }else if(nums[pivot]==2){
+            //swap and decreament high
+            [nums[pivot],nums[high]]=[nums[high],nums[pivot]];
+            high--;            
+        }
+        else{
+            pivot++;
+        }
+    }
+};
