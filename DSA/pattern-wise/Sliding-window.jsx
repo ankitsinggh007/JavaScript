@@ -24,3 +24,31 @@ var findMaxConsecutiveOnes = function(nums) {
 
     return maxCount
 };
+/*
+Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.
+*/
+
+var longestOnes = function(nums, k) {
+    
+    let [left,right,maxLen,countZero]=[0,0,0,0];
+
+    while(right<nums.length){
+        if(nums[right]==0){
+            countZero++;
+        
+        }
+        // shrink untill countZero!=k
+        while(countZero>k){
+            if(nums[left]==0){
+                countZero--;
+            }
+            left++;
+        }
+
+        maxLen=Math.max(right-left+1,maxLen);
+        right++;
+    }
+
+    return maxLen;
+
+};
