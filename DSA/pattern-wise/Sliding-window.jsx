@@ -52,3 +52,45 @@ var longestOnes = function(nums, k) {
     return maxLen;
 
 };
+/*
+Given an array of integers arr[]  and a number k. Return the maximum sum of a subarray of size k.
+Note: A subarray is a contiguous part of any given array.
+*/
+function  maximumSumSubarray(arr, k) {
+    // code here
+    let [left,right,size,sum,max]=[0,0,0,0,0];
+    
+    while(right<arr.length){
+        sum+=arr[right];
+        
+        if(right-left+1>k){
+            sum-=arr[left];
+            left++;
+        }
+        
+        max=Math.max(sum,max);
+        
+        right++;
+        
+    }
+    return max;
+}
+
+/*
+643. Maximum Average Subarray I
+*/
+var findMaxAverage = function (nums, k) {
+
+    let currSum = 0;
+    for(let i = 0; i < k; i++) {
+        currSum += nums[i];
+    }
+    let maxSum = currSum;
+
+    for (let i = k ; i < nums.length; i++) {
+        currSum += nums[i] - nums[i - k];
+        maxSum = Math.max(currSum, maxSum);
+    }
+    return +(maxSum / k).toFixed(5);
+
+};
