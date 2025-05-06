@@ -94,3 +94,38 @@ var findMaxAverage = function (nums, k) {
     return +(maxSum / k).toFixed(5);
 
 };
+/*
+Maximum Sum of Distinct Subarrays With Length K
+*/
+
+var maximumSubarraySum = function (nums, k) {
+    let maxSum = 0;
+    let sum = 0;
+    let mp=new Map()
+    for (let i = 0; i < k; i++) {
+        sum += nums[i];
+        mp.set(nums[i],(mp.get(nums[i]) || 0)+1);
+     
+    }
+    if(mp.size==k){
+        maxSum=sum;
+    }
+
+    for(let i=k;i<nums.length;i++){
+        sum+=nums[i] - nums[i-k];
+        
+        mp.set(nums[i],(mp.get(nums[i]) || 0)+1);
+
+        if (mp.get(nums[i-k])>1) {
+            mp.set(nums[i-k], mp.get(nums[i-k]) - 1);
+        }
+        else{
+            mp.delete(nums[i-k]);
+        } 
+
+        if(mp.size==k){
+            maxSum=Math.max(maxSum,sum);
+        }
+    }
+    return maxSum;
+};
