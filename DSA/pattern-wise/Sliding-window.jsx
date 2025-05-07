@@ -145,3 +145,26 @@ var minSubArrayLen = function(target, nums) {
 
     return minLen === Infinity ? 0 : minLen;
 };
+/*Longest Substring with At Most K Distinct Characters */
+function kDistinctChars(k,str){
+    let [left,maxLen]=[0,0];
+    let mp=new Map();
+    for( let right=0;right<str.length;right++){
+            mp.set(str[right],(mp.get(str[right]) || 0 ) +1);
+
+            while(mp.size>k){
+                   
+                if(mp.get(str[left])>=2){
+                    mp.set(str[left],mp.get(str[left])-1);
+                }else if(mp.get(str[left])==1){
+                    mp.delete(str[left]);
+                }    
+                left++;
+            }    
+            
+        
+        if(mp.size<=k)
+        maxLen=Math.max(maxLen,right-left+1);
+    }
+    return maxLen;
+}
