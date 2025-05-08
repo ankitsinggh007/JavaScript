@@ -168,3 +168,26 @@ function kDistinctChars(k,str){
     }
     return maxLen;
 }
+/*Longest Substring Without Repeating Characters */
+var lengthOfLongestSubstring = function(nums) {
+    let mp=new Map();
+    let [left,maxLen]=[0,0];
+for(let right=0;right<nums.length;right++){
+
+    mp.set(nums[right],(mp.get(nums[right])||0)+1);
+
+    while(right-left+1>mp.size){
+        
+        if(mp.get(nums[left])>=2){
+            mp.set(nums[left],mp.get(nums[left])-1);
+        }
+        else{
+            mp.delete(nums[left]);
+        }
+        left++;
+    }
+    if(mp.size==right-left+1)
+    maxLen=Math.max(maxLen,mp.size);
+}
+return maxLen;
+};
