@@ -228,3 +228,43 @@ var checkInclusion = function (s1, s2) {
 
     return false;
 };
+/*
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+*/
+function checkEquate(mp1,mp2){
+    for(let [char,count] of mp1 ){
+        if(mp2.get(char)!=count) return false;
+    }
+    return true;
+ }
+var findAnagrams = function(s2, s1) {
+
+    let s1mp = new Map();
+    let s2mp = new Map();
+    let [left, right] = [0, 0];
+    let ans =[];
+
+    for (right = 0; right < s1.length; right++) {
+        s1mp.set(s1[right], (s1mp.get(s1[right]) || 0) + 1);
+        s2mp.set(s2[right], (s2mp.get(s2[right]) || 0) + 1);
+    }
+    if (checkEquate(s1mp, s2mp)){
+        ans.push(left);
+    };
+    for (let k = right; k < s2.length; k++) {
+        s2mp.set(s2[k], (s2mp.get(s2[k]) || 0) + 1);
+        if (s2mp.get(s2[left]) >= 2) {
+            s2mp.set(s2[left], s2mp.get(s2[left]) - 1);
+        }
+        else {
+            s2mp.delete(s2[left]);
+        }
+         left++;
+        if (checkEquate(s1mp, s2mp)){
+            ans.push(left);
+        }
+
+    }
+
+    return ans;    
+};
