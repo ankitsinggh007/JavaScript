@@ -268,3 +268,5 @@ var findAnagrams = function(s2, s1) {
 
     return ans;    
 };
+/*Longest Repeating Character Replacement
+ */
