@@ -270,3 +270,42 @@ var findAnagrams = function(s2, s1) {
 };
 /*Longest Repeating Character Replacement
  */
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
+function getMaxFreqFromMap(map) {
+    let max = 0;
+    for (let val of map.values()) {
+        max = Math.max(max, val);
+    }
+    return max;
+}
+
+var characterReplacement = function (s, k) {
+
+    let [maxLen, left, right, maxfreq, index] = [0, 0, 0, 0, 0];
+    let mp=new Map();
+
+    for (right; right < s.length; right++) {
+
+        mp.set(s[right],(mp.get(s[right])||0)+1)
+         maxfreq = getMaxFreqFromMap(mp);
+
+            while(right-left+1-maxfreq>k){
+                if(mp.get(s[left])>=2){
+                    mp.set(s[left],mp.get(s[left])-1)
+                }else{
+                    mp.delete(s[left]);
+                }
+                  maxfreq = getMaxFreqFromMap(mp);
+
+                    left++;
+            }
+
+            maxLen=Math.max(maxLen,right-left+1);
+
+    }
+    return maxLen;
+};
