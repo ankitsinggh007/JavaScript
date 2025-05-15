@@ -72,3 +72,19 @@ var isHappy = function (n) {
         if (slow == fast) return false;
     }
 };
+
+//reverse LL
+
+function reverseList(head,prev=null) {
+    let curr=head;
+
+    while(curr){
+        let next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+
+    }
+    return prev;
+
+}
