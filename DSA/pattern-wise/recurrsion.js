@@ -18,3 +18,27 @@ var climbStairs = function(n) {
 Given a string s, you can transform every letter individually to be lowercase or uppercase to create another string.
 Return a list of all possible strings we could create. Return the output in any order.
 */
+var letterCasePermutation = function(s) {
+    let ans=[];
+    function helper(i=0,res=""){
+        if(res.length==s.length){
+            ans.push(res);
+            return;
+        }
+        
+        if("a"<=s[i] && s[i]<="z" || "A"<=s[i] && s[i]<="Z"){
+             res+=s[i].toUpperCase()
+            helper(i+1,res);
+            res-=s[i].toUpperCase()
+            helper(i+1,res);
+        }
+        else{
+             res+=s[i];
+            helper(i+1,res);
+        }
+    }
+    
+    helper();
+    return ans;
+    
+};
