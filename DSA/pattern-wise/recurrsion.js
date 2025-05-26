@@ -42,3 +42,28 @@ var letterCasePermutation = function(s) {
     return ans;
     
 };
+// alternate with some changes 
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var letterCasePermutation = function(s) {
+let ans=[];
+  function helper(i=0,str=""){
+    if(i>=s.length){
+        ans.push(str);
+        return;
+    }
+
+    // if char make two call
+    if("a"<=s[i]&& s[i]<="z" || "A"<=s[i] && s[i]<="Z"){
+        helper(i+1,str+s[i].toUpperCase());
+        helper(i+1,str+s[i].toLowerCase());
+    }else{
+        helper(i+1,str+s[i]);
+    }
+
+  }  
+  helper()
+  return ans;
+};
