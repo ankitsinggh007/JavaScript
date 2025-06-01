@@ -67,3 +67,45 @@ let ans=[];
   helper()
   return ans;
 };
+/*
+Given a string s, partition s such that every substring of the partition is a palindrome. 
+Return all possible palindrome partitioning of s.
+*/
+
+
+const isPalindome = (s) => {
+    let [left, right] = [0, s.length - 1];
+    while (left < right) {
+        if (s[left] != s[right]) return false;
+        left++;
+        right--;
+    }
+    return true;
+}
+
+var partition = function (s) {
+    let ans = [];
+    function helper(i = 0, path = []) {
+
+        if (i == s.length) {
+            ans.push([...path]);
+            return;
+        }
+        for (let j = i; j < s.length; j++) {
+
+            let sub = s.slice(i, j + 1);
+
+            if (isPalindome(sub)) {
+                path.push(sub);
+                helper(j + 1, path);
+                path.pop(sub);
+            }
+
+
+        }
+    }
+    helper()
+    return ans;
+
+
+};
