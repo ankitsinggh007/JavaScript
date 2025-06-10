@@ -1,4 +1,15 @@
-//Factorial using recursion
+// recursion notes
+
+
+
+
+
+
+
+
+
+
+
 /*
 70. Climbing Stairs
 You are climbing a staircase. It takes n steps to reach the top.
