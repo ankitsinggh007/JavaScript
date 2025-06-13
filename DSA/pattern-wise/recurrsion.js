@@ -151,4 +151,16 @@ print balanced parathesis for given n
         if( l < n )solve(l+1, r, res + "(" );
         if( r < l )solve(l, r+1, res + ")" );
     }
-   
+   /*
+   print n bit binary number
+   */
+  let n = 3;
+function solve(ones = 0, zeros = 0, res = "") {
+  if (ones + zeros === n) {
+    console.log(res);
+    return;
+  }
+
+  solve(ones + 1, zeros, res + "1");
+  if (zeros < ones) solve(ones, zeros + 1, res + "0");
+}
