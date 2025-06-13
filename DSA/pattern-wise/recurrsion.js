@@ -148,7 +148,7 @@ print balanced parathesis for given n
             return;
         }
         
-        if( l < n )solve(l+1, r, res + " ( " );
-        if( r < l )solve(l, r+1, res + " ) " );
+        if( l < n )solve(l+1, r, res + "(" );
+        if( r < l )solve(l, r+1, res + ")" );
     }
    
