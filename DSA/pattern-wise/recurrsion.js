@@ -137,52 +137,18 @@ var partition = function (s) {
 
 
 };
+
 /*
-Q1. we have given small case string as  input only
+print balanced parathesis for given n
 */
-    function solve(str, i=0, res="") {
-  if (i === str.length) {
-    console.log(res);
-    return;
-  }
-
-  solve(str, i + 1, res + str[i].toUpperCase());
-
-  
-  solve(str, i + 1, res + str[i])
-}
-/*
-Q2. we have given i/p can having any case letter and have integer too
-*/
- function solve(str, i=0, res="") {
-  if (i === str.length) {
-    console.log(res);
-    return;
-  }
-
-  if(isNaN(str[i])){
-
-  solve(str, i + 1, res + str[i].toUpperCase());
-
-  
-  solve(str, i + 1, res + str[i].toLowerCase())
-  }
-  else{
-    solve(str, i + 1, res + str[i]);
-  }
-}
-/*
-Q3. i/p abc o/p add '-' in between string print all possible permutation  
-*/
-    function solve(str, i=1, res=str[0]) {
-  if (i === str.length) {
-    console.log(res);
-    return;
-  }
-
-  // With dash
-  solve(str, i + 1, res + '-' + str[i]);
-
-  // Without dash
-  solve(str, i + 1, res + str[i]);
-}
+     let n=3;
+    function solve (l=0,r=0,res=""){
+        if(l==r && l==n ){
+            console.log(res);
+            return;
+        }
+        
+        if( l < n )solve(l+1, r, res + " ( " );
+        if( r < l )solve(l, r+1, res + " ) " );
+    }
+   
