@@ -32,4 +32,27 @@ function solve(str) {
 
   generate([]);
   console.log(result);
-}⁄
+}
+/*
+subset-I
+ */
+var subsets = function (nums) {
+    let ans = []
+    function helper(i = 0, path = []) {
+        if (i == nums.length) {
+            ans.push([...path]);
+            return;
+        }
+        //exclude
+        helper(i + 1, path);
+        //include
+        path.push(nums[i]);
+        helper(i + 1, path);
+        path.pop();
+
+
+
+    }
+    helper();
+    return ans;
+};
