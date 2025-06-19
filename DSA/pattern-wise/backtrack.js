@@ -76,3 +76,32 @@ nums.sort((a,b)=>a-b);
     backtrack();
 return ans;
 };
+// Letter Combinations of a Phone Number
+var letterCombinations = function(digits) {
+    let ans=[]
+    if(digits.length==0) return ans;
+
+    let mb = [
+        "",    "",    "abc", "def", 
+        "ghi", "jkl", "mno", 
+        "pqrs", "tuv", "wxyz"
+    ];
+   function backtrack(start=0,path=[]){
+        if(path.length==digits.length){
+            ans.push(path.join(""));
+            return ;
+        }
+        let str=mb[digits[start]];
+        // console.log(str,"str")
+            for(let i=0;i<str.length;i++){
+                path.push(str[i]);
+                console.log(i,"i")
+                backtrack(start+1,path);
+                path.pop();
+            }
+
+    }
+    backtrack();
+    return ans;
+
+};
