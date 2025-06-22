@@ -182,3 +182,33 @@ function combinationSum(candidates, target) {
 
   return ans;
 }
+/*
+Combination Sum-II
+*/
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum2 = function(n, target) {
+    let ans=[];
+    n.sort((a,b)=>a-b);
+    console.log(n,"n");
+    function helper(start=0,path=[],target){
+        if(target==0){
+            ans.push([...path]);
+            return;
+        }
+        for(let i=start;i<n.length;i++){
+            if(i>start && n[i]==n[i-1]) continue;
+            let temp=target-n[i];
+            if(temp<0) break;
+            path.push(n[i]);
+            helper(i+1,path,temp);
+            path.pop();
+        }
+    }
+    helper(undefined,undefined,target);
+    return ans;
+
+};
