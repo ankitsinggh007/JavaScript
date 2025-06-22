@@ -106,7 +106,7 @@ var letterCombinations = function(digits) {
 
 };
 /*
-
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
 */
 
 function Permute(){
@@ -131,3 +131,29 @@ function Permute(){
     Solve();
     console.log(ans,"ans")
 }
+/*
+Given a collection of numbers, nums, that might contain duplicates, return all possible unique permutations in any order.
+*/
+    let ans = [];
+let n = [1, 2, 1];
+let v=Array(n.length).fill(false);
+    n.sort((a,b)=>a-b);
+    console.log(n,"n")
+function Solve(path,visited){
+    // console.log(path,visited,"--")
+    if(path.length==n.length){
+        ans.push([...path]);
+        return ;
+    }
+    for (let i=0;i<n.length;i++){
+        if(visited[i]) continue;
+        if (i>0 && n[i]==n[i-1] && !visited[i-1])continue;
+        visited[i]=true;
+        path.push(n[i]);
+        Solve(path,visited)
+        path.pop();
+        visited[i]=false;
+    }
+}
+    Solve(path=[],v);
+    console.log(ans,"ans")
