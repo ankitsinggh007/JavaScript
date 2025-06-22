@@ -157,3 +157,28 @@ function Solve(path,visited){
 }
     Solve(path=[],v);
     console.log(ans,"ans")
+
+/*
+Combination sum-I
+*/
+function combinationSum(candidates, target) {
+  let ans = [];
+  candidates.sort((a, b) => a - b);
+
+  function backtrack(start, path, targetLeft) {
+    if (targetLeft === 0) {
+      ans.push([...path]);
+      return;
+    }
+    for (let i = start; i < candidates.length; i++) {
+      if (candidates[i] > targetLeft) break;
+      path.push(candidates[i]);
+      backtrack(i, path, targetLeft - candidates[i]);
+      path.pop();
+    }
+  }
+
+  backtrack(0, [], target); // Just one call with args
+
+  return ans;
+}
