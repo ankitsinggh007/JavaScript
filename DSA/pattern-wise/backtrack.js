@@ -212,3 +212,32 @@ var combinationSum2 = function(n, target) {
     return ans;
 
 };
+/*
+Combination Sum-3
+*/
+(function main() {
+    
+    let ans=[];
+    let n=[1,2,3,4,5,6,7,8,9];
+    
+    function Solve(start,path,target,k){
+        if(k==0){
+            if(target==0){
+            ans.push([...path]);
+            }
+            return ;   
+        }
+        
+        for(let i=start;i<n.length;i++){
+            let targ=target-n[i];
+            if(targ<0) break;
+            if(i>0 && n[i]==n[i-1]) continue;
+            path.push(n[i]);
+            Solve(i+1,path,targ,k-1);
+            path.pop();
+        }
+    }
+    Solve(start=0,path=[],3,2);
+    console.log(ans,"ans")
+
+}());
