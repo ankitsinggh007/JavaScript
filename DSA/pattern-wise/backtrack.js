@@ -105,3 +105,29 @@ var letterCombinations = function(digits) {
     return ans;
 
 };
+/*
+
+*/
+
+function Permute(){
+  let ans=[];
+    let n=[1,2,3];
+    let visited=Array(n.length).fill(false);
+    function Solve(path=[]){
+        if(path.length==n.length){
+            ans.push([...path]);
+            return;
+        }
+        for(let i=0;i<n.length;i++){
+            if(visited[i]) continue;
+         visited[i]=true;   
+            path.push(n[i]);
+            Solve(path);
+            path.pop();
+            visited[i]=false;
+        }
+        
+    }
+    Solve();
+    console.log(ans,"ans")
+}
