@@ -241,3 +241,46 @@ Combination Sum-3
     console.log(ans,"ans")
 
 }());
+/*
+Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+*/
+  function isPalindrome(str){
+    let [l, r] = [0, str.length - 1];
+    while (l < r) {
+        if (str[l] !== str[r]) return false;
+        l++;
+        r--;
+    }
+    return true;
+}
+
+        
+    var partition = function(s) {
+        let ans=[]
+    function backtrack(start=0,path=[]){
+        if(start==s.length){
+            ans.push([...path]);
+            return;
+        }
+        
+        for(let i=start+1;i<=s.length;i++){
+                
+            let str=s.slice(start,i);
+            if(isPalindrome(str)){
+                path.push(str);
+                backtrack(i,path);
+                path.pop();
+            }
+        }
+        }
+        backtrack();
+        console.log(ans,"ans");
+        return ans;
+    
+};
+    
+    partition("aab")
+    
+    
+    
+    
