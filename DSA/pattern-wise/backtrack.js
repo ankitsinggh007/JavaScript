@@ -282,5 +282,45 @@ Given a string s, partition s such that every substring of the partition is a pa
     partition("aab")
     
     
-    
+    /*
+    N-Queen problem
+    */
+
+
+    var solveNQueens = function(n) {
+        let ans=[];
+       function helper(queen=n,row=0,path=[],column=new Set(),diagLeft=new Set(),diagRight=new Set()){
+        if(row==n){
+            if(queen==0){
+                ans.push([...path]);
+            }
+            return ;
+        }
+        
+        for(let col=0;col<n;col++){
+                
+            if(diagLeft.has(row+col)|| diagRight.has(row-col)|| column.has(col)) continue;
+            
+            
+                diagLeft.add(row+col);
+                diagRight.add(row-col);
+                column.add(col);
+                let pos=".".repeat(col) + "Q" + ".".repeat(n - col - 1)
+                path.push(pos);
+                helper(queen-1,row+1,path,column,diagLeft,diagRight);
+                path.pop();
+                diagLeft.delete(row+col);
+                diagRight.delete(row-col);
+            column.delete(col)
+            
+            
+            
+        }
+
+        
+    }
+        helper();
+        return ans;
+        
+};
     
