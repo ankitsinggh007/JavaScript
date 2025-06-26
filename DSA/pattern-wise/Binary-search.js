@@ -85,3 +85,23 @@ var findKthPositive = function(arr, k) {
 
     return start+k
 };
+/*
+finding square root of x 
+*/
+var mySqrt = function(x) {
+    let ans=0;
+    let [start,end]=[0,Math.floor(x/2)+1];
+    while(start<=end){
+        let mid=start+Math.floor((end-start)/2);
+        let val=mid*mid;
+        if(val==x){
+            return mid;
+        }else if(val<x){
+            ans=mid;
+            start=mid+1;
+
+        } else end=mid-1;
+
+    }
+    return Math.floor(ans);
+};
