@@ -71,3 +71,17 @@ while(l<=r){
 }
 return -1
 };
+// find the hth missing element 
+var findKthPositive = function(arr, k) {
+    
+    let [start,end]=[0,arr.length-1];
+
+    while(start<=end){
+        let mid=Math.floor((end-start)/2)+start;
+        let missing=arr[mid]-mid-1;
+        if(missing<k) start=mid+1;
+        else end=mid-1;
+    }
+
+    return start+k
+};
