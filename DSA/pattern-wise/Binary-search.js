@@ -5,7 +5,7 @@
  * @return {number[]}
  */
 
-
+// find first and last Ocuurence
  const findFirst=(nums,target)=>{
     let [l,r]=[0,nums.length];
     let min=-1;
@@ -49,4 +49,25 @@ var searchRange = function(nums, target) {
 
     return [findFirst(nums,target),findLast(nums,target)]
 
+};
+// search element
+var search = function(nums, target) {
+    
+
+let [l,r]=[0,nums.length-1];
+
+while(l<=r){
+    
+    let mid=Math.floor(r+(l-r)/2);
+
+    if(nums[mid]==target){
+        return mid;
+    }else if (nums[mid]>target){
+            r=mid-1;
+    }
+    else{
+        l=mid+1;
+    }
+}
+return -1
 };
