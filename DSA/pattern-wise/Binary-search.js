@@ -105,3 +105,6 @@ var mySqrt = function(x) {
     }
     return Math.floor(ans);
 };
+/*
+// variation rotated array 
+*/
