@@ -110,3 +110,21 @@ var mySqrt = function(x) {
 */
 
 // varitaion BS on answer
+
+// koko eat banana
+function isValid(piles,mid,h){
+    let sum=0
+    for (let i=0;i<piles.length;i++){
+        sum+=Math.ceil(piles[i]/mid);
+    }
+    return sum<=h;
+ }
+var minEatingSpeed = function(piles, h) {
+    let [s,e]=[0,Math.max(...piles)];
+    while(s<e){
+        let mid=s+Math.floor((e-s)/2);
+        if(isValid(piles,mid,h))e=mid;
+        else s=mid+1;
+    }
+    return e;
+};
