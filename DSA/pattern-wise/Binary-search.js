@@ -128,3 +128,36 @@ var minEatingSpeed = function(piles, h) {
     }
     return e;
 };
+//Minimum Number of Days to Make m Bouquets
+var minDays = function(bloomDay, m, k) {
+    if(bloomDay.length<m*k)return -1;
+    let answer=-1;
+    let [s,e]=[0,Math.max(...bloomDay)];
+
+     while(s<=e){
+        let mid=s+Math.floor((e-s)/2);
+        if(isValid(bloomDay,mid,m,k)){
+            answer=mid;
+            e=mid-1
+        }
+        else s=mid+1;
+    }
+    return answer;
+
+};
+function isValid(arr,mid,m,k){
+let flower=0;
+    for(let i=0;i<arr.length;i++){
+        if(m==0)return true;
+        if(arr[i]<=mid){
+            flower++;
+            if(flower==k){
+                m--;
+                flower=0;
+            }
+        }else{
+            flower=0;
+        }
+    }
+    return m==0;
+}
