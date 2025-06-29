@@ -108,3 +108,5 @@ var mySqrt = function(x) {
 /*
 // variation rotated array 
 */
+
+// varitaion BS on answer
