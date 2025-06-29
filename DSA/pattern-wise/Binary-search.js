@@ -183,3 +183,28 @@ function isValid(arr,mid,k){
     }
     return sum<=k;
 }
+// Capacity To Ship Packages Within D Days
+var shipWithinDays = function(weights, days) {
+    
+    let [s,e]=[Math.max(...weights),weights.reduce((acc,curr)=>acc+curr,0)];
+
+    while (s<e){
+        let mid=Math.floor((s+e)/2);
+        if(isValid(weights,mid,days))e=mid;
+        else s=mid+1;
+    }
+    return s;
+};
+
+function isValid(nums,mid,days){
+    let w=0;
+    for(let i=0;i<nums.length;i++){
+            w+=nums[i];
+            if(w>mid){
+                days--;
+                w=nums[i];
+            }
+    }
+
+    return days>0;
+}
