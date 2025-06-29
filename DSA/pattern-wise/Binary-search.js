@@ -161,3 +161,25 @@ let flower=0;
     }
     return m==0;
 }
+// Find the Smallest Divisor Given a Threshold
+var smallestDivisor = function(nums, threshold) {
+    if(nums.length>threshold) return ;
+
+     let [s,e]=[1,Math.max(...nums)];
+
+     while(s<e){
+        let mid=s+Math.floor((e-s)/2);
+        if(isValid(nums,mid,threshold))e=mid
+        else s=mid+1;
+    }
+return e
+};
+function isValid(arr,mid,k){
+
+    let sum=0;
+    for(let i=0;i<arr.length;i++){
+        if(sum>k) return false;
+        sum+=Math.ceil(arr[i]/mid);
+    }
+    return sum<=k;
+}
