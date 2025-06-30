@@ -208,3 +208,40 @@ function isValid(nums,mid,days){
 
     return days>0;
 }
+//Allocate Minimum Pages
+class Solution {
+    // Function to find minimum number of pages.
+    findPages(arr, k) {
+        
+        if(arr.length<k) return -1;
+        
+        
+ let [s,e]=[Math.max(...arr),arr.reduce((acc,curr)=>acc+curr,0)];
+ 
+            while(s<e){
+
+                let mid=s+Math.floor((e-s)/2);
+
+                if(this.isValid(arr,mid,k)) e=mid;
+                else s=mid+1;
+            }
+            
+            return e;
+    }
+    
+    isValid(arr,mid,k){
+            let pages=0;
+            
+            let student=1;
+        for(let i=0;i<arr.length;i++){
+            if(mid<arr[i]) return false
+            pages+=arr[i];
+            if(pages>mid){
+                student++;
+                pages=arr[i];
+            }
+        }
+        
+        return k==student;
+    }
+}
