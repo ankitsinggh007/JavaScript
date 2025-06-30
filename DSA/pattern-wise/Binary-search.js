@@ -245,3 +245,34 @@ class Solution {
         return k==student;
     }
 }
+//The Painter's Partition Problem-II
+class Solution {
+
+    minTime(arr, k) {
+        // code here
+        let [s,e]=[Math.max(...arr),arr.reduce((acc,curr)=>acc+curr,0)];
+        
+        while(s<e){
+            // console.log(s,e)
+            let mid=s+Math.floor((e-s)/2);
+          
+            if(this.isValid(arr,mid,k))e=mid;
+            else s=mid+1;
+        }
+        return e;
+    }
+    
+    isValid(arr,m,k){
+        let painter=1;
+        let space=0;
+        for(let i=0;i<arr.length;i++){
+            space+=arr[i];
+            if(space>m){
+                painter++;
+                space=arr[i];
+            }
+        }
+        return painter<=k
+    }
+    
+}
