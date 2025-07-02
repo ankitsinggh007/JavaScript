@@ -276,3 +276,38 @@ class Solution {
     }
     
 }
+
+//split array 
+ function aggressiveCows(stalls, k) {
+        // your code here
+        
+        if(stalls.length<k) return -1;
+  stalls.sort((a, b) => a - b);
+    let s = 1;
+    let e = stalls[stalls.length - 1] - stalls[0];
+    let ans = -1;
+
+    while (s <= e) {
+        let mid = Math.floor(s + (e - s) / 2);
+        if (this.isValid(stalls, mid, k)) {
+            ans = mid;     // mid is valid, try for larger distance
+            s = mid + 1;
+        } else {
+            e = mid - 1;
+        }
+    }
+    return ans;
+    }
+    function isValid(arr,m,k){
+        
+        let cows=1;
+        // one question is it always possible that first stall will always be assign .
+        let lv=arr[0];
+        for(let i=1;i<arr.length;i++){
+            if(arr[i]-lv>=m){
+                cows++;
+                lv=arr[i];
+            }
+        }
+        return cows>=k
+    }
