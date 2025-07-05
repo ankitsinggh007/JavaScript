@@ -381,3 +381,19 @@ var search = function(arr, target) {
     }
     return -1;
 };
+// Find Minimum in Rotated Sorted Array
+var findMin = function(arr) {
+    
+    let [s,e]=[0,arr.length-1];
+    while(s<e){
+        let mid=Math.floor((s+e)/2);
+
+        if(arr[mid]<=arr[e]){
+            e=mid;
+        }
+        else{
+            s=mid+1;
+        }
+    }
+    return arr[s];
+};
