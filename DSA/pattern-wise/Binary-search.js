@@ -397,3 +397,31 @@ var findMin = function(arr) {
     }
     return arr[s];
 };
+// Find Minimum in Rotated Sorted Array-II
+
+var findMin = function(nums) {
+    
+    let [s,e]=[0,nums.length-1]
+    while(s<e){
+        let mid=Math.floor((s+e)/2);
+
+        if(nums[mid]==nums[e])e--;
+        else if(nums[mid]<nums[e])e=mid;
+        else s=mid+1;
+    }
+    return nums[s];
+};
+//Single Element in a Sorted Array
+var singleNonDuplicate = function (arr) {
+
+    let [s, e] = [0, arr.length - 1];
+    while (s <= e) {
+        let mid = Math.floor((s + e) / 2);
+        if ((mid % 2 == 0 && arr[mid]==arr[mid + 1]) || (mid % 2 != 0 && arr[mid] == arr[mid - 1])) {
+            s = mid + 1;
+        }else {
+            e = mid - 1
+        }
+    }
+    return arr[s]
+};
