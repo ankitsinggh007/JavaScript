@@ -425,3 +425,16 @@ var singleNonDuplicate = function (arr) {
     }
     return arr[s]
 };
+// find peak element 
+var findPeakElement = function(nums) {
+    let [s, e] = [0, nums.length - 1];
+    while (s < e) {
+        let mid = Math.floor((s + e) / 2);
+        if (nums[mid] < nums[mid + 1]) {
+            s = mid + 1;
+        } else {
+            e = mid;
+        }
+    }
+    return s; // return nums[s] if value needed
+};
