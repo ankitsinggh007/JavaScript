@@ -39,3 +39,22 @@ var maxSubArrayLen = function(nums, k) {
         return high;
         
 };
+//continous subarray sum
+
+var checkSubarraySum = function(nums, k) {
+    
+    let lookup=new Map([[0,-1]]);
+
+    let sum=0;
+    for(let i=0;i<nums.length;i++){
+        sum+=nums[i];
+        let val=sum%k
+        if(i>0 &&lookup.has(val)&& i-1!=lookup.get(val)){
+            return true;
+        }
+        if(!lookup.has(val)){
+            lookup.set(val,i)
+        }
+    }
+    return false;
+};
