@@ -49,7 +49,7 @@ var checkSubarraySum = function(nums, k) {
     for(let i=0;i<nums.length;i++){
         sum+=nums[i];
         let val=sum%k
-        if(i>0 &&lookup.has(val)&& i-1!=lookup.get(val)){
+        if(i>0 &&lookup.has(val)&& i-lookup.get(val)>=2){
             return true;
         }
         if(!lookup.has(val)){
@@ -57,4 +57,27 @@ var checkSubarraySum = function(nums, k) {
         }
     }
     return false;
+};
+//Contiguous Array
+
+var findMaxLength = function(nums) {
+    // transform into 0 -> -1
+    for (let i=0;i<nums.length;i++){
+            if(nums[i]==0) nums[i]=-1;
+    }
+    console.log(nums,"nums")
+    let mp= new Map([[0,-1]]);
+    let sum=0;
+    let maxLength=0
+    for(let i=0;i<nums.length;i++){
+            sum+=nums[i];
+        if(mp.has(sum)){
+                maxLength = Math.max(maxLength,i - mp.get(sum));
+
+        }else{
+            mp.set(sum,i);
+        }
+    }
+    return maxLength;
+
 };
