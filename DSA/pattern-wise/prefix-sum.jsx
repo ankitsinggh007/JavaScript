@@ -93,3 +93,23 @@ var maxSubArray = function (nums) {
     }
     return max;
 };
+//Maximum Sum Circular Subarray
+var maxSubarraySumCircular = function(nums) {
+
+    let max=nums[0];
+    let min=nums[0];
+    //max Subarray
+    let maxSum=nums[0];
+    let minSum=nums[0];
+    let total=nums[0];
+    for(let i=1;i<nums.length;i++){
+        total+=nums[i];
+        maxSum=Math.max(nums[i],maxSum+nums[i]);
+        max=Math.max(max,maxSum);
+        minSum=Math.min(nums[i],minSum+nums[i]);
+        min=Math.min(minSum,min);
+    }
+
+    return max<0?max:Math.max(max,total-min);
+
+};
