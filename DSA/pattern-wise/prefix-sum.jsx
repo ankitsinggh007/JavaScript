@@ -113,3 +113,18 @@ var maxSubarraySumCircular = function(nums) {
     return max<0?max:Math.max(max,total-min);
 
 };
+
+// find maxSum with at most one deletion.
+var maximumSum = function(arr) {
+    let keep = arr[0];     // no deletion
+    let del = arr[0];           // one deletion
+    let maxSum = arr[0];
+
+    for (let i = 1; i < arr.length; i++) {
+        del = Math.max(keep, del + arr[i]);
+        keep = Math.max(arr[i], keep + arr[i]);
+        maxSum = Math.max(maxSum, keep, del);
+    }
+    
+    return maxSum;
+};
