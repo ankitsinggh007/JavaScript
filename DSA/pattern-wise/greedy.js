@@ -25,6 +25,20 @@ for (let i = 0; i < intervals.length; i++) {
     }
 }
 
-console.log("Max meetings:", count);  // ✅ Output: 4
+console.log("Max meetings:", count);  
   
 }
+// Jump Game -I
+var canJump = function(nums) {
+    let maxReach = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        if (i > maxReach) return false; 
+
+        maxReach = Math.max(maxReach, i + nums[i]);
+
+        if (maxReach >= nums.length - 1) return true; 
+    }
+
+    return true;
+};
