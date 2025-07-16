@@ -87,4 +87,21 @@ function maximizeValue(arr, w) {
     console.log("result", result);
     return result;
 }
+//minimum coin change with canoncial system 
 
+
+function minCoins(coins, amount) {
+    coins.sort((a, b) => b - a); 
+    let count = 0;
+
+    for (let coin of coins) {
+        if (amount === 0) break;
+        if (coin <= amount) {
+            let take = Math.floor(amount / coin);
+            count += take;
+            amount -= coin * take;
+        }
+    }
+
+    return amount === 0 ? count : -1; 
+}
