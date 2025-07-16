@@ -60,3 +60,31 @@ var jump = function(nums) {
 
         return jump;
 };
+// fraction knapsack
+function maximizeValue(arr, w) {
+    let result = 0;
+
+    // Sort by value/weight in descending order
+    arr.sort((a, b) => (b[1] / b[0]) - (a[1] / a[0]));
+
+    let i = 0;
+    while (w > 0 && i < arr.length) {
+        let weight = arr[i][0];
+        let value = arr[i][1];
+
+        if (w >= weight) {
+            result += value;
+            w -= weight;
+        } else {
+            // Take fraction of the current item
+            result += (value / weight) * w;
+            w = 0;
+        }
+
+        i++;
+    }
+
+    console.log("result", result);
+    return result;
+}
+
