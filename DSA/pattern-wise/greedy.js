@@ -29,6 +29,7 @@ console.log("Max meetings:", count);
   
 }
 // Jump Game -I
+// idea:-If there's any way to reach the end, maxReach will always discover it because it tracks the farthest reachable point at every step.
 var canJump = function(nums) {
     let maxReach = 0;
 
@@ -41,4 +42,21 @@ var canJump = function(nums) {
     }
 
     return true;
+};
+
+//Q. minJump to reach destination
+var jump = function(nums) {
+
+        let currRange=0;
+        let maxReach=0;
+        let jump=0;
+        for(let i=0;i<nums.length-1;i++){
+            maxReach=Math.max(maxReach,i+nums[i]);
+            if(i==currRange){
+                currRange=maxReach;
+                jump++;
+            }
+        }  
+
+        return jump;
 };
