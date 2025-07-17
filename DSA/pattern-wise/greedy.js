@@ -105,3 +105,28 @@ function minCoins(coins, amount) {
 
     return amount === 0 ? count : -1; 
 }
+
+//merge Interval
+var merge = function(intervals) {
+    intervals.sort((a, b) => a[0] - b[0]);
+    let merged = [];
+
+    for (let i = 0; i < intervals.length; i++) {
+        if (merged.length === 0) {
+            merged.push(intervals[i]);
+        } else {
+            let [lastStart, lastEnd] = merged[merged.length - 1];
+            let [currStart, currEnd] = intervals[i];
+
+            if (lastEnd >= currStart) {
+                // Merge
+                merged[merged.length - 1][1] = Math.max(lastEnd, currEnd);
+            } else {
+                merged.push(intervals[i]);
+            }
+        }
+    }
+
+    return merged;
+};
+
