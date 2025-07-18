@@ -154,3 +154,29 @@ var insert = function (intervals, newInterval) {
     return res;
 };
 
+// Job Sequencing Problem
+function  jobSequencing(deadline, profit) {
+        // code here
+        let job=profit.map((ele,i)=>[deadline[i],profit[i]]).sort((a,b)=>b[1]-a[1]);
+        
+        let maxDealine=Math.max(...deadline);
+        let assign=Array(maxDealine+1).fill(false);
+        
+        assign[0]=true;
+            let maxProfit =0;
+        let count=0;
+        for(let i=0;i<job.length;i++){
+            let [deadl,prof]=job[i];
+            while(assign[deadl] && deadl>0){
+                deadl--;
+            }
+           if (deadl > 0) {
+            assign[deadl] = true;
+            maxProfit += prof;
+            count++;
+        }
+            
+        }
+        return[count,maxProfit];
+        
+    }
