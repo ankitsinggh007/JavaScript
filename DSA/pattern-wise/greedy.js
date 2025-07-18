@@ -155,6 +155,8 @@ var insert = function (intervals, newInterval) {
 };
 
 // Job Sequencing Problem
+// 1-liner greedy :-Sort jobs by max profit, and greedily schedule each on the latest available day ≤ deadline to maximize total profit.
+
 function  jobSequencing(deadline, profit) {
         // code here
         let job=profit.map((ele,i)=>[deadline[i],profit[i]]).sort((a,b)=>b[1]-a[1]);
@@ -178,5 +180,32 @@ function  jobSequencing(deadline, profit) {
             
         }
         return[count,maxProfit];
+        
+    }
+    // minimum platform 
+    function usePlatform(arr,ari,dep){
+            let flag=false;
+        for(let i=0;i<arr.length;i++){
+            if(ari>=arr[i]){
+                // if(arr[i] < ari){ 
+                arr[i]=dep;
+                flag=true;
+                break;
+            }
+        }
+        if(!flag){
+            arr.push(dep);
+        }
+    }
+    function minPlatform(arrival,departure){
+        
+        let train=arrival.map((ele,i)=>[arrival[i],departure[i]]).sort((a,b)=>a[0]-b[0]);// nlogn
+        
+        let array=[train[0][1]];
+    for(let i=1;i<train.length;i++){
+        let [arr,dep]=train[i];
+            usePlatform(array,arr,dep); 
+    }
+        return array.length;
         
     }
