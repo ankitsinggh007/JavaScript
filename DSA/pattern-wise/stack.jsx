@@ -68,3 +68,23 @@ var nextGreaterElement = function (nums1, nums2) {
     }
     return ans;
 };
+// next greater element-II
+var nextGreaterElements = function (nums) {
+
+    let arr = [];
+    let answer = [];
+    let n = nums.length;
+    for (let i = 2 * n - 1; i >= 0; i--) {
+        let idx = i % n;
+        while (arr.length != 0 && nums[idx] >= arr[arr.length - 1]) {
+            arr.pop();
+        }
+        if (i < n)
+            answer[idx] = arr.length == 0 ? -1 : arr[arr.length - 1];
+
+        arr.push(nums[idx]);
+    }
+
+    return answer;
+
+};
