@@ -88,3 +88,19 @@ var nextGreaterElements = function (nums) {
     return answer;
 
 };
+// Next Smallest Elements
+ function NSE(arr){
+//         stack
+        let stack=[];
+        let lookup=[];
+        
+        for(let i=arr.length-1;i>=0;i--){
+            
+            while(stack.length!=0 && stack[stack.length-1]>arr[i]){
+                stack.pop();
+            }
+            lookup[i]=stack.length==0?-1:stack[stack.length-1];
+            stack.push(arr[i]);
+        }
+        return lookup;
+    }
