@@ -104,3 +104,42 @@ var nextGreaterElements = function (nums) {
         }
         return lookup;
     }
+    // largest histogram
+    //brute force using formula for i=0-->n => (pse[i]-nse[i]-1)*element
+    function previousSmallestIndex(ip,stack){
+            let arr=[];
+        for(let i=0;i<ip.length;i++){
+            while(stack.length!=0 && ip[i]<=ip[stack[stack.length-1]])
+                stack.pop();
+        
+        arr[i]=stack.length!=0?stack[stack.length-1]:-1;
+        stack.push(i);
+        }
+        return arr;
+    }
+     function nextSmallestIndex(ip,stack){
+            let arr=[];
+        for(let i=ip.length-1;i>=0;i--){
+            while(stack.length!=0 && ip[i]<=ip[stack[stack.length-1]])
+                stack.pop();
+        
+        arr[i]=stack.length!=0?stack[stack.length-1]:ip.length;
+        stack.push(i);
+        }
+         return arr;
+    }
+    
+        var largestRectangleArea = function(heights) {
+            let stack=[];
+            let pse=previousSmallestIndex(heights,stack);
+            stack=[];
+            let nse=nextSmallestIndex(heights,stack);
+            let maxHeights=0;
+            console.log(nse,pse)
+            for(let i=0;i<heights.length;i++){
+                maxHeights=Math.max(maxHeights,(nse[i]-pse[i]-1)*heights[i]);
+            }
+            return maxHeights;
+            
+};
+
