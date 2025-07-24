@@ -286,3 +286,29 @@ var sortColors = function(nums) {
         }
     }
 };
+//trapped rain water 
+var trap = function (nums) {
+
+    let left = []
+    let right = [];
+    let leftMax = 0
+    let rightMax = 0
+    for (let i = 0; i < nums.length; i++) {
+
+        left.push(leftMax);
+        right.unshift(rightMax);
+        rightMax = Math.max(rightMax, nums[nums.length - 1 - i]);
+
+        leftMax = Math.max(leftMax, nums[i]);
+
+    }
+    console.log(left, right);
+
+    let trappedWater = 0;
+    for (let i = 0; i < nums.length; i++) {
+        trappedWater += Math.max(0, Math.min(left[i], right[i]) - nums[i]);
+
+    }
+    return trappedWater
+
+};
