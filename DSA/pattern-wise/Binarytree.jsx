@@ -63,3 +63,32 @@ var levelOrder = function (root) {
     return ans;
 
 };
+// zig-zag traversal
+var zigzagLevelOrder = function (root) {
+
+    if (!root) return [];
+
+    let queue = [root];
+
+    let ans = [];
+    let n=0;
+    while (queue.length > 0) {
+
+        let level = [];
+        let size = queue.length;
+
+        for (let i = 0; i < size; i++) {
+            let node=queue.shift();            
+                level.push(node.val);
+            if(node.left) queue.push(node.left)
+            if(node.right) queue.push(node.right)
+        }
+        if(n%2!=0){
+            ans.push(level.reverse())
+        }else{
+        ans.push(level);
+        }
+        n++;
+    }
+    return ans;
+};
