@@ -113,3 +113,20 @@ var inorderTraversal = function(root) {
     }
     return ans;
 };
+//preorder
+
+var preorderTraversal = function(root) {
+    let ansrec=[]; 
+    let stack=[];
+    let curr=root;
+    while(curr || stack.length){
+            while(curr){
+                ansrec.push(curr.val);
+                stack.push(curr);
+                curr=curr.left;
+            }
+            curr=stack.pop();
+            curr=curr.right;
+    }
+    return ansrec;
+};
