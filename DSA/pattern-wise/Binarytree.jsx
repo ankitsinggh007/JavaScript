@@ -63,6 +63,8 @@ var levelOrder = function (root) {
     return ans;
 
 };
+
+console.log(levelOrder(myTree),"level order traversal ");
 // zig-zag traversal
 var zigzagLevelOrder = function (root) {
 
@@ -92,3 +94,4 @@ var zigzagLevelOrder = function (root) {
     }
     return ans;
 };
+console.log(zigzagLevelOrder(myTree),"zigzag traversal");
