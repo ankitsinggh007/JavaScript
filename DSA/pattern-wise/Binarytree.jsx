@@ -151,3 +151,25 @@ var isSymmetric = function(root) {
 }
 return isSymmetric1(root,root);  
 };
+// [LC 100] Same Tree
+var isSameTree = function(p, q) {
+    
+    if(!p && !q) return true ;
+    if(!p || !q) return false;
+    if(p.val !=q.val ) return false;
+
+    return isSameTree(p.left,q.left) && isSameTree(p.right,q.right)
+
+};
+// [LC 226] Invert/Mirror Tree
+var invertTree = function(root) {
+    
+    if(!root) return null;
+
+    let temp=root.left;
+    root.left=root.right;
+    root.right=temp;
+    invertTree(root.left);
+    invertTree(root.right);
+        return root;
+};
