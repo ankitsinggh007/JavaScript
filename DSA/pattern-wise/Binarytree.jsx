@@ -138,3 +138,16 @@ var maxDepth = function (root) {
     let right = maxDepth(root.right);
     return 1 + Math.max(left, right);
 };
+// [LC 101] Symmetric Tree
+var isSymmetric = function(root) {
+
+  function isSymmetric1(root1, root2) {
+    if (!root1 && !root2) return true;
+    if (!root1 || !root2) return false;
+    if (root1.val !== root2.val) return false;
+
+    return isSymmetric1(root1.left, root2.right) &&
+           isSymmetric1(root1.right, root2.left);
+}
+return isSymmetric1(root,root);  
+};
