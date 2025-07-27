@@ -173,3 +173,9 @@ var invertTree = function(root) {
     invertTree(root.right);
         return root;
 };
+// Size/Count Nodes
+function CountNode(root){
+        if(!root) return 0;
+        
+        return 1 + CountNode(root.left)+CountNode(root.right);
+    }
