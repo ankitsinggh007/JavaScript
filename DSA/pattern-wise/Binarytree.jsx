@@ -243,3 +243,20 @@ let i=0;
         }
         return ans;
 }
+//right view of binary tree 
+function rightView(root){
+        
+        let queue=[root];
+        let ans=[];
+        while(queue.length>0){
+            ans.push(queue[queue.length-1].val);
+            let size=queue.length;
+            for(let i=0;i<size;i++){
+                let node=queue.shift();
+                
+                if(node.left) queue.push(node.left)
+                if(node.right) queue.push(node.right)
+            }
+        }
+        return ans;
+}
