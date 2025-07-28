@@ -179,3 +179,27 @@ function CountNode(root){
         
         return 1 + CountNode(root.left)+CountNode(root.right);
     }
+
+    //bottom view
+    function bottomView(root) {
+    let queue = [[root, 0]];
+    let mp = new Map();
+    let [min, max] = [Infinity, -Infinity];
+let i=0;
+    while (i<queue.length ) {
+         let [node, D] = queue[i++];
+
+        mp.set(D, node); // always override
+        if (node.left) queue.push([node.left, D - 1]);
+        if (node.right) queue.push([node.right, D + 1]);
+        min = Math.min(min, D);
+        max = Math.max(max, D);
+    }
+
+    let ans = [];
+    for (let i = min; i <= max; i++) {
+        ans.push(mp.get(i).data); // assuming node.data exists
+    }
+
+    return ans;
+}
