@@ -284,3 +284,24 @@ if((root.val>p.val && root.val<q.val) ||(root.val<p.val && root.val>q.val)) retu
 if(root.val>p.val && root.val>q.val) return lowestCommonAncestor(root.left,p,q)
 if(root.val<p.val && root.val<q.val) return lowestCommonAncestor(root.right,p,q)
 };
+
+//root-to-leaf path
+var binaryTreePaths = function (root) {
+
+    let ans = [];
+    function helper(root, str = "") {
+        if (!root) return null;
+        if (!root.left && !root.right) {
+            ans.push(str+root.val);
+            return;
+        }
+        helper(root.left, str + root.val + "->")
+        helper(root.right, str + root.val + "->")
+
+    }
+
+    helper(root);
+    return ans;
+
+
+};
