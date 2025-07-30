@@ -305,3 +305,20 @@ var binaryTreePaths = function (root) {
 
 
 };
+
+//Path Sum
+var hasPathSum = function (root, targetSum) {
+
+    
+    function helper(root, sum = 0) {
+        
+        if(!root) return false;
+        if (!root.left && !root.right) return root.val+sum===targetSum;
+
+      return  helper(root.left, sum + root.val) ||
+        helper(root.right, sum + root.val)
+    }
+    return helper(root);
+
+
+};
