@@ -322,3 +322,23 @@ var hasPathSum = function (root, targetSum) {
 
 
 };
+//root-to path if Sum==targetSum
+var pathSum = function(root, targetSum) {
+    let ans = [];
+    function dfs(node, path, sum) {
+        if (!node) return;
+        path.push(node.val);
+
+        // If it's a leaf and path sum matches, add a copy
+        if (!node.left && !node.right && sum + node.val === targetSum) {
+            ans.push([...path]);
+        }
+
+        dfs(node.left, path, sum + node.val);
+        dfs(node.right, path, sum + node.val);
+
+        path.pop(); // Backtrack
+    }
+    dfs(root, [], 0);
+    return ans;
+};
