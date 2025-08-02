@@ -362,3 +362,21 @@ var diameterOfBinaryTree = function (root) {
     helper(root);
     return dia;
 };
+// maxPathSum
+var maxPathSum = function(root) {
+    let maxPathSum=-Infinity;
+    function helper(root){
+        if(!root) return 0;
+
+        let left=helper(root.left);
+        let right=helper(root.right);
+
+        let path=Math.max(left,right,0);
+
+        maxPathSum=Math.max(left+right+root.val,maxPathSum,path + root.val);
+
+        return path+root.val;
+    }
+    helper(root);
+    return maxPathSum;
+};
