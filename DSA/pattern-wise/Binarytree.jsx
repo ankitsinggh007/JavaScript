@@ -342,3 +342,23 @@ var pathSum = function(root, targetSum) {
     dfs(root, [], 0);
     return ans;
 };
+
+//diameter of tree
+var diameterOfBinaryTree = function (root) {
+
+    let dia = 0;
+    function helper(root) {
+
+        if (!root) return 0;
+
+        let leftMax = helper(root.left)
+        let rightMax = helper(root.right);
+
+        dia = Math.max((leftMax + rightMax), dia);
+
+        return Math.max(leftMax, rightMax) + 1;
+
+    }
+    helper(root);
+    return dia;
+};
