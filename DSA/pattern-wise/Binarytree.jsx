@@ -443,3 +443,19 @@ var searchBST = function (root, val) {
         return searchBST(root.left, val);
 
 };
+//kth samllest 
+var kthSmallest = function(root, k) {
+    let res=-1 ;let count=0;
+    function helper(root){
+        if(!root) return ;
+        helper(root.left);
+        count++;
+        if(k==count){
+            res=root.val;
+        }
+        helper(root.right);
+
+    }    
+    helper(root);
+    return res;
+};
