@@ -443,7 +443,7 @@ var searchBST = function (root, val) {
         return searchBST(root.left, val);
 
 };
-//kth samllest 
+//kth samllest node element
 var kthSmallest = function(root, k) {
     let res=-1 ;let count=0;
     function helper(root){
