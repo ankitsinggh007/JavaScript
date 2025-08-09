@@ -38,4 +38,36 @@ var knightProbability = function (n, k, row, column) {
 // Example usage:
 console.log(knightProbability(3, 2, 0, 0)); // Output: 0.0625
 console.log(knightProbability(1, 0, 0, 0)); // Output: 1.0
-console.log(knightProbability(8, 30, 6, 4)); // Output: 0.000000000000000   
+console.log(knightProbability(8, 30, 6, 4)); // Output: 0.000000000000000
+//flood fill
+
+var floodFill = function (image, sr, sc, color) {
+    let queue = [[sr, sc]];
+    let dir = [[0, -1], [0, 1], [1, 0], [-1, 0]];
+    let n = image[0].length;
+    let m = image.length;
+    let visited = Array.from({ length: m }, () => new Array(n).fill(false))
+    visited[sr][sc]=true;
+    let initialColor = image[sr][sc];
+    image[sr][sc] = color;
+    while (queue.length > 0) {
+        let [x, y] = queue.shift();
+
+        for (let i = 0; i < dir.length; i++) {
+            let [dx, dy] = dir[i];
+            let nx = x + dx;
+            let ny = y + dy;
+             if (nx < 0 || ny < 0 || nx >= m || ny >= n) continue;
+             
+              if (visited[nx][ny]) continue;
+              if (image[nx][ny] !== initialColor) continue;
+
+      visited[nx][ny] = true;
+      image[nx][ny] = color;
+      queue.push([nx, ny]);
+
+
+        }
+    }
+    return image;
+};
