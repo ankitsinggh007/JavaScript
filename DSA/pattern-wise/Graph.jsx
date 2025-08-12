@@ -71,3 +71,55 @@ var floodFill = function (image, sr, sc, color) {
     }
     return image;
 };
+//graph on grid
+// # of islands
+
+var numIslands = function (grid) {
+    let row = grid.length;
+    let col = grid[0].length;
+    let visited = Array.from({ length: row }, () => new Array(col).fill(false));
+    let dir = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+    function bfsOnGrid(x, y) {
+        visited[x][y] = true;
+        let Q = [[x, y]];
+        let front = 0;
+
+        while (Q.length > front) {
+            let [x, y] = Q[front++];
+            for (let [u, v] of dir) {
+
+                let i = x + u
+                let j = y + v
+                if (i >= 0 && j >= 0 && i < row && j < col && !visited[i][j] && grid[i][j] == '1') {
+                    visited[i][j] = true;
+                    Q.push([i, j]);
+                }
+
+            }
+        }
+       
+
+    }
+     let count = 0;
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                if (!visited[i][j] && grid[i][j] === '1') {
+                    bfsOnGrid(i, j);
+                    count++;
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+    return count;
+
+
+};
