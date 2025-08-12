@@ -42,33 +42,34 @@ console.log(knightProbability(8, 30, 6, 4)); // Output: 0.000000000000000
 //flood fill
 
 var floodFill = function (image, sr, sc, color) {
-    let queue = [[sr, sc]];
-    let dir = [[0, -1], [0, 1], [1, 0], [-1, 0]];
-    let n = image[0].length;
-    let m = image.length;
-    let visited = Array.from({ length: m }, () => new Array(n).fill(false))
-    visited[sr][sc]=true;
-    let initialColor = image[sr][sc];
-    image[sr][sc] = color;
-    while (queue.length > 0) {
-        let [x, y] = queue.shift();
+    let row = image.length
+    let col = image[0].length
+    let visited = Array.from({length:row}, () => new Array(col).fill(false));
+ let dir=[[1,0],[0,1],[0,-1],[-1,0]];
+ let org_color=image[sr][sc];
 
-        for (let i = 0; i < dir.length; i++) {
-            let [dx, dy] = dir[i];
-            let nx = x + dx;
-            let ny = y + dy;
-             if (nx < 0 || ny < 0 || nx >= m || ny >= n) continue;
-             
-              if (visited[nx][ny]) continue;
-              if (image[nx][ny] !== initialColor) continue;
+    function bfsOnGrid(x,y){
 
-      visited[nx][ny] = true;
-      image[nx][ny] = color;
-      queue.push([nx, ny]);
+        let Q=[[x,y]];
+        visited[x][y]=true;
+        image[x][y]=color
+        let front=0;
+        while(Q.length>front){
+            let [x,y]=Q[front++];
 
+            for(let [u,v] of dir){
+                let i=x+u;
+                let j=y+v;
 
+                if(i>=0 && j>=0 && i<row && j<col && !visited[i][j] && image[i][j]==org_color){
+                    visited[i][j]=true;
+                    image[i][j]=color;
+                    Q.push([i,j]);
+                }
+            }
         }
     }
+    bfsOnGrid(sr,sc);
     return image;
 };
 //graph on grid
