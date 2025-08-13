@@ -124,3 +124,51 @@ var numIslands = function (grid) {
 
 
 };
+// rotten oranges 
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var orangesRotting = function (grid) {
+    let row = grid.length;
+    let col = grid[0].length;
+    let dir = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+    let fresh = 0;
+    let  Q= [];
+    let time = 0;
+    // count # of fresh && push rotten in Stack
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < col; j++) {
+            if (grid[i][j] == 2) Q.push([i, j]);
+            else if (grid[i][j] == 1) fresh++;
+        }
+    }
+    //edges-case
+    //1.no fresh oranges
+    console.log(fresh,"fresh")
+    if (fresh == 0) return time;
+    let pointer = 0;
+    while (Q.length > pointer) {
+
+        let size = Q.length ;
+        let progressed = false;
+
+        for (let k= pointer; k < size; k++) {
+            let [x, y] = Q[pointer++];
+            for (let [u, v] of dir) {
+                let i = x + u;
+                let j = y + v;
+                // is valid
+                if (i >= 0 && j >= 0 && i < row && j < col && grid[i][j] == 1) {
+                    grid[i][j] = 2;
+                    Q.push([i,j]);
+                    fresh--;
+                    progressed = true;
+                }
+
+            }
+        }
+        if(progressed)time++;
+    }
+    return fresh === 0 ? time : -1;
+};
