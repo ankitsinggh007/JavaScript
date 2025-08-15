@@ -203,3 +203,26 @@ var cloneGraph = function(node) {
     }
     return dfs(node);
 };
+// clone graph using BFS
+var cloneGraphBFS = function(node) {
+    if(!node) return null;
+    let mp=new Map();
+    let Q=[node];
+    mp.set(node,new Node(node.val));
+    let pointer=0;
+    while(Q.length>pointer){
+        let node=Q[pointer++];
+        let currNode=mp.get(node);
+        for(let nei of neighbors){
+            if(!mp.has(nei)){
+                mp.set(nei,new Node(nei.val));
+            Q.push(nei);
+                
+            }
+            currNode.neighbors.push(mp.get(nei));
+
+        }
+    }
+    return mp.get(node);
+
+}
