@@ -47,3 +47,10 @@ function houseRobberTab(nums) {
     }
     return dp[nums.length - 1];
 }
+// house robber-2
+function houseRobber2(nums) {
+    if (nums.length === 1) return nums[0];
+    const rob1 = houseRobberTab(nums.slice(0, nums.length - 1));
+    const rob2 = houseRobberTab(nums.slice(1));
+    return Math.max(rob1, rob2);
+}
