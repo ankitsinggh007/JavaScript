@@ -121,3 +121,35 @@ function subarrayDivisibleByK(nums,k){
 
 subarrayDivisibleByK([4,5,0,-2,-3,1],5);
 
+/*
+Problem (classic OA-style):
+You are given an array of size n, initialized with all 0s, and an array of updates.
+Each update is represented as [l, r, val], which means you need to add val to all elements from index l to r (inclusive).
+Return the final array after all updates.
+Example:
+Input: n = 5, 
+Output: [-2,0,3,5,3]
+Explanation:
+- After [1,3,2] → [0,2,2,2,0]
+- After [2,4,3] → [0,2,5,5,3]
+- After [0,2,-2] → [-2,0,3,5,3]
+*/
+function UpdateArray(n,queries){
+    let result=new Array(n).fill(0);
+
+    for(let k=0;k<queries.length;k++){
+            let[i,j,val]=queries[k];
+            result[i] +=val;
+            if(j+1<n)
+                result[j+1] -=val;
+    }
+    let prefixSum=0;
+    for(let i=0;i<result.length;i++){
+        prefixSum+=result[i];
+        result[i]=prefixSum;
+    }
+    console.log(result,"final result" );
+
+}
+let updates = [[1,3,2],[2,4,3],[0,2,-2]]
+UpdateArray(5,updates);
