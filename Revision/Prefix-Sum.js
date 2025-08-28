@@ -61,3 +61,28 @@ function subarrayPresent(nums, k) {
 
 
 }
+
+/*
+Problem (classic, LeetCode 53):
+
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum, and return its sum.
+
+Example:
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: [4,-1,2,1] has the largest sum = 6
+*/
+function maxSubArray(nums) {
+
+    let maxSum= -Infinity;//what the dufference between using -Infinity and Number.MIN_VALUE ,and what should we use whwnever setting such value?
+
+    let currSum=0;
+    for(let i=0;i<nums.length;i++){
+
+        currSum+=nums[i];
+        maxSum=Math.max(maxSum,currSum);
+        if(currSum<0)currSum=0;
+    }
+
+}
