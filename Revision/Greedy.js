@@ -9,18 +9,14 @@ Example:
 Input: [[1,2],[2,3],[3,4],[1,3]]  
 Output: 1*/
 function eraseOverlapIntervals(intervals) {
-    intervals.sort((a,b)=>a[1]-b[1]);
-    let count=0;
-    let prev=-Infinity;
-    for(let [s,e] of intervals){
-        if(prev<=s){
-            count++;
-            prev=e;
-        }
-
-    }
-    console.log(count,"count")
+  intervals.sort((a,b)=>a[1]-b[1]);
+  let kept = 0, lastEnd = -Infinity;
+  for (const [s,e] of intervals) {
+    if (s >= lastEnd) { kept++; lastEnd = e; }
+  }
+  return intervals.length - kept;
 }
+
 /*
 Problem 2: Meeting Rooms II
 
@@ -46,3 +42,32 @@ function minMeetingRooms(intervals) {
   return peak;
 
 }
+/*
+Problem 3: Job Sequencing for Max Profit
+You’re given n jobs. Each job i has a deadline d[i] (finish by or before that time slot) and profit p[i] (earned only if completed before/at its deadline).
+You can do at most one job per time slot. Each job takes 1 unit time.
+Return the maximum total profit achievable.
+Example
+Jobs: [(d=2,p=100), (d=1,p=19), (d=2,p=27), (d=1,p=25), (d=3,p=15)] → Output: 142
+*/
+function jobScheduling(jobs){
+    jobs.sort((a,b)=>b.p-a.p);
+
+    let maxDeadline=Math.max(...jobs.map(job=>job.d));
+    let slots=Array(maxDeadline+1).fill(false);
+    let totalProfit=0;
+
+    for(let job of jobs){
+        for(let j=job.d;j>0;j--){
+            if(!slots[j]){
+                slots[j]=true;
+                totalProfit+=job.p;
+                break;
+            }
+        }
+    }
+    return totalProfit;
+
+
+}
+// is above code correct or not 
