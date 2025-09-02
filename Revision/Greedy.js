@@ -70,4 +70,25 @@ function jobScheduling(jobs){
 
 
 }
-// is above code correct or not 
+/*
+Gas Station
+You have two arrays gas[i] and cost[i] for i=0..n-1 around a circular route.
+Starting with 0 fuel at some station, you gain gas[i] there and need cost[i] to go to the next station.
+Return the starting index from which you can complete the full circle once; if impossible, return -1.
+Example:
+gas = [1,2,3,4,5], cost = [3,4,5,1,2] → 3
+*/
+function canCompleteCircuit(gas,cost){
+    let totalGas=0,totalCost=0,currentGas=0,startIndex=0;
+    
+    for(let i=0;i<gas.length;i++){
+        totalGas+=gas[i];
+        totalCost+=cost[i];
+        currentGas+=gas[i]-cost[i];
+        if(currentGas<0){
+            startIndex=i+1;
+            currentGas=0;
+        }
+    }
+    return totalGas<totalCost?-1:startIndex;
+}
