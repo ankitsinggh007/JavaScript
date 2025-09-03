@@ -1,4 +1,4 @@
-// Variation - 1:non-overlapping intervals
+// Variation - 1:overlapping intervals
   /*
   Problem: Given intervals [s,e], return the maximum number of 
   non-overlapping intervals you can schedule.
@@ -129,3 +129,35 @@ var merge = function(intervals) {
     return result;
 };
 
+////////////////////////Rescource Allcation//////////////////////
+/*
+Assign Cookies 455
+problem: Assume you are an awesome parent and want to give your children some cookies. 
+But, you should give each child at most one cookie. Each child i has a greed factor gi, 
+which is the minimum size of a cookie that the child will be content with; 
+and each cookie j has a size sj. If sj >= gi, we can assign the cookie j to the child i,
+ and the child i will be content. Your goal is to maximize the number of your content children
+  and output the maximum number.
+*/
+
+var findContentChildren = function(g, s) {
+
+  g.sort((a,b)=>a-b);
+  s.sort((a,b)=>a-b);
+
+  let [i,j]=[0,0];
+
+  let count=0;
+
+  while(i<g.length && j<s.length){
+
+    if(g[i]<=s[j]){
+      count++;
+      i++;
+      j++;
+    }else
+      j++;  
+  }
+  return count;
+
+}
