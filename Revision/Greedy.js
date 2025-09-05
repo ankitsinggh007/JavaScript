@@ -226,3 +226,16 @@ var maximumUnits = function(boxTypes, truckSize) {
         }
         return cost;
     }
+
+/*
+    leetcode:Jump Game-I
+*/
+var canJump = function(nums) {
+    let i=0;
+    let run=nums[0];
+    for(let i=1;i<=run && i<nums.length-1;i++){
+        run=Math.max(run,i+nums[i]);
+    }
+    if(run>=nums.length-1) return true;
+    return false;
+};
