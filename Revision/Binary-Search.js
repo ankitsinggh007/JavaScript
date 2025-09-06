@@ -78,3 +78,67 @@ function searchRotated(nums, target) {
                                                                     //   if n[l]>n[m]-->right sorted.
 // s-3 check weather target is in sorted half if yes --> apply bs on sorted half 
 //                                            if no --> apply bs on opposite half
+//idea:
+/*
+Goal = find target (exact index).
+
+You must decide which half is sorted.
+
+Easiest test: nums[l] <= nums[mid] → left half sorted.
+Then check if target lies in [nums[l], nums[mid]).
+
+That’s why we reference l.
+*/
+
+function findSmall(nums){
+
+  let ans=Infinity;
+
+  let [l,r]=[0,0];
+
+  while(l<r){
+
+    let mid=l+((r-l)>>1);
+
+    if(nums[l]<nums[mid]){
+      ans=Math.min(ans,nums[l]);
+      l=mid+1;
+    }
+    else{
+      ans=Math.min(ans,nums[mid]);
+      r=mid-1
+    }
+  }
+  return ans;
+}
+console.log(findSmall([9,8,0,2,3,4,5,6,7]));
+
+
+
+
+function findMin(nums) {
+  let l = 0, r = nums.length - 1;
+  while (l < r) {
+    const mid = l + ((r - l) >> 1);
+    if (nums[mid] > nums[r]) {
+      l = mid + 1;     // min is strictly to the right of mid
+    } else {
+      r = mid;         // mid could be the min
+    }
+  }
+  return nums[l];
+}
+
+
+
+
+
+/*
+Goal = collapse directly to the minimum (boundary).
+
+Easiest test: compare nums[mid] with the right boundary.
+
+Why right? Because the minimum is the pivot point — it’s the only place where nums[mid] <= nums[r] flips.
+
+Using r lets you shrink the interval safely toward the min.
+*/
