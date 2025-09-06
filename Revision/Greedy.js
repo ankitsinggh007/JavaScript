@@ -240,3 +240,12 @@ var canJump = function(nums) {
     if(run>=nums.length-1) return true;
     return false;
 };
+
+/*
+remove k digit from input, to make it smallest value.
+*/
+
+  /*
+  Partition lable 
+  */
+
