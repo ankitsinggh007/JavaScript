@@ -1,9 +1,10 @@
 // Variation - 1:overlapping intervals
 /*
+leetcode:
 Problem: Given intervals [s,e], return the maximum number of 
 non-overlapping intervals you can schedule.
 */
-maxNonOverlappingIntervals(intervals) {
+function maxNonOverlappingIntervals(intervals) {
 
   intervals.sort((a, b) => a[1] - b[1]);
   // console.log(intervals);
