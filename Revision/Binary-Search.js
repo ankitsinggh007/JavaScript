@@ -158,3 +158,19 @@ function findPeakElement(nums) {
   }
   return r; // or return l both will pointing to same always .
  }
+
+ //find a single element in a sorted array where every element appears twice except for one.
+
+ function singleElement(nums){
+  let l=0;
+  let r=nums.length-1;
+  while(l<r){
+    let mid=l+(r-l)>>1;
+    if(mid%2==1)mid--;
+    if(nums[mid]==nums[mid+1]){
+      l=mid+2;
+    }
+    else r=mid;
+  }
+  return nums[r];
+ }
