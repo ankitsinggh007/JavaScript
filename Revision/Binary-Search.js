@@ -142,3 +142,19 @@ Why right? Because the minimum is the pivot point — it’s the only place wher
 
 Using r lets you shrink the interval safely toward the min.
 */
+/*
+find peak element in an array
+ */
+function findPeakElement(nums) {
+
+  let [l,r]=[0,nums.length-1];
+  while(l<r){
+    let mid=l+((r-l)>>1);
+    if(nums[mid]<nums[mid+1]){
+      l=mid+1;
+    }else{
+      r=mid;
+    }
+  }
+  return r; // or return l both will pointing to same always .
+ }
