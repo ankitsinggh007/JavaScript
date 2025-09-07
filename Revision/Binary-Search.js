@@ -165,7 +165,7 @@ function findPeakElement(nums) {
   let l=0;
   let r=nums.length-1;
   while(l<r){
-    let mid=l+(r-l)>>1;
+    let mid=l+((r-l)>>1);
     if(mid%2==1)mid--;
     if(nums[mid]==nums[mid+1]){
       l=mid+2;
@@ -174,3 +174,35 @@ function findPeakElement(nums) {
   }
   return nums[r];
  }
+
+ //shipment within d days   
+ /**
+ * @param {number[]} weights
+ * @param {number} days
+ * @return {number}
+ */
+function shipWithinDays(weights, days) {
+  let lo = Math.max(...weights);
+  let hi = weights.reduce((a, b) => a + b, 0);
+
+  while (lo < hi) {
+    const mid = lo + ((hi - lo) >> 1);       // candidate capacity
+    if (canShip(weights, days, mid)) hi = mid; // feasible → keep it
+    else lo = mid + 1;                        // not feasible → go higher
+  }
+  return lo; // minimal feasible capacity
+}
+
+function canShip(weights, daysAllowed, cap) {
+  let days = 1, load = 0;
+  for (const w of weights) {
+    if (w > cap) return false;           // critical guard
+    if (load + w > cap) {                // start new day
+      days++;
+      load = 0;
+      if (days > daysAllowed) return false;
+    }
+    load += w;
+  }
+  return true;
+}
