@@ -14,3 +14,27 @@ var nextGreaterElement = function (nums1, nums2) {
 
     return nums1.map(x => (mp.has(x) ? mp.get(x) : -1));
 };
+
+/*
+Daily temperature
+*/
+var dailyTemperatures = function(temp) {
+
+        // let mp= new Map();
+        let sol=new Array(temp.length).fill(0);
+            let j=0;
+            let S=[];
+        for(let i=0;i<temp.length;i++){
+            while(S.length>0 && temp[S[S.length-1]]<temp[i]){
+
+                    
+                    let prev=S.pop();
+
+                    sol[prev]=i-prev;
+            }
+            S.push(i);
+        }
+        // console.log(sol)
+        return sol;
+
+};
