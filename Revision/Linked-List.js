@@ -1,15 +1,16 @@
 /*
 Reverse a Linked List 
 */
-var reverseList = function (head) {
+function reverseList(head) {
 
     let prev = null, curr = head;
     while (curr) {
         let next = curr.next;
 
         curr.next = prev;
-        prev = curr
+        prev = curr;
         curr = next;
     }
-    return prev
-};
+    return prev;
+}
+/* Remove from last nth node */

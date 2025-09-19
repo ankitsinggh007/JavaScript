@@ -34,7 +34,29 @@ var dailyTemperatures = function(temp) {
             }
             S.push(i);
         }
-        // console.log(sol)
+       
         return sol;
 
+};
+/* Next greateest element */
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var nextGreaterElements = function(arr) {
+    let n=arr.length;
+    let st=[];
+    let ans=new Array(n).fill(-1);
+
+    for(let i=0;i<2*n;i++){
+
+        while(st.length && arr[i%n]>arr[st.at(-1)]){
+            ans[st.pop()]=arr[i%n]
+        }
+        if (i<n)
+        st.push(i);
+    } 
+    console.log(ans,"ans");
+    return ans;
 };
