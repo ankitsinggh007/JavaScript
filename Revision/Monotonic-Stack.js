@@ -19,24 +19,18 @@ var nextGreaterElement = function (nums1, nums2) {
 Daily temperature
 */
 var dailyTemperatures = function(temp) {
+    let n=temp.length;
+    let st=[];
+    let ans=new Array (n).fill(0);
 
-        // let mp= new Map();
-        let sol=new Array(temp.length).fill(0);
-            let j=0;
-            let S=[];
-        for(let i=0;i<temp.length;i++){
-            while(S.length>0 && temp[S[S.length-1]]<temp[i]){
-
-                    
-                    let prev=S.pop();
-
-                    sol[prev]=i-prev;
-            }
-            S.push(i);
-        }
-       
-        return sol;
-
+    for(let i=0;i<n;i++){
+        while(st.length && temp[i]>temp[st.at(-1)]){
+            let j=st.pop();
+            ans[j]=i-j;
+        }a
+        st.push(i);
+    } 
+    return ans;
 };
 /* Next greateest element */
 
