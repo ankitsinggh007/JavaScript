@@ -54,3 +54,39 @@ var nextGreaterElements = function(arr) {
     console.log(ans,"ans");
     return ans;
 };
+/*
+finde the maxArea in histogram
+*/
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+var largestRectangleArea = function(heights) {
+    let n=heights.length
+    let pse=new Array(n).fill(-1);
+    let nse=new Array(n).fill(n);
+    let st=[];
+
+    for(let i=0;i<n;i++){
+        while(st.length && heights[i]<heights[st.at(-1)]){
+            st.pop();
+        }
+        if(st.length)
+        pse[i]=st.at(-1);
+        st.push(i);
+    }
+    st=[];
+    for(let i=0;i<n;i++){
+        while(st.length && heights[i]<heights[st.at(-1)]){
+            nse[st.pop()]=i;
+        }
+        st.push(i);
+    }
+    let maxArea=0;
+    for(let i=0;i<n;i++){
+
+        let area=(nse[i]-pse[i]-1)*heights[i];
+        maxArea=Math.max(maxArea,area);
+    }
+    return maxArea;
+};
