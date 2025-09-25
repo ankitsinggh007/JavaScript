@@ -237,3 +237,24 @@ var zigzagLevelOrder = function (root) {
     return ans
 
 };
+/*
+right-side view of binary tree
+*/
+var rightSideView = function(root) {
+    if(!root) return [];
+  let queue=[root];
+        let ans=[];
+        while(queue.length>0){
+            ans.push(queue[queue.length-1].val);
+            let size=queue.length;
+            for(let i=0;i<size;i++){
+                let node=queue.shift();
+                
+                if(node.left) queue.push(node.left)
+                if(node.right) queue.push(node.right)
+            }
+        }
+        return ans;
+
+
+};
