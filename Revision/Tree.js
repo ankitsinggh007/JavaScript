@@ -312,3 +312,22 @@ let max=Math.max(left,right);
 
 return (1+max);
 };
+/*
+find diameter of binary tree
+*/
+var diameterOfBinaryTree = function(root) {
+let ans=0;
+
+function solve(node){
+    if(!node) return 0;
+
+    let leftHeight=solve(node.left);
+    let rightHeight=solve(node.right);
+
+    ans=Math.max((leftHeight+rightHeight),ans);
+
+    return (1+Math.max(leftHeight,rightHeight));
+}
+ solve(root);
+ return ans;
+};
