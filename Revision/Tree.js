@@ -258,3 +258,22 @@ var rightSideView = function(root) {
 
 
 };
+/*
+preorder traversal of binary tree using iterative
+ */
+var preorderTraversal = function(root) {
+    
+    let ans=[];
+    let curr=root;
+    let stack=[];
+    while(curr||stack.length){
+        while(curr){
+            ans.push(curr.val);
+            stack.push(curr);
+            curr=curr.left;
+        }
+        curr=stack.pop();
+        curr=curr.right;
+    }
+    return ans;
+};
