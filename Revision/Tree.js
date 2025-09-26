@@ -296,3 +296,19 @@ var inorderTraversal = function(root) {
     return ans;
 
 };
+/*
+postorder traversal of binary tree using iterative
+*/
+
+///////////////////////// Properties and Basics ////////////////////////
+/*
+find max depth of binary tree
+*/
+var maxDepth = function(root) {
+if(!root) return 0;
+const left=maxDepth(root.left)    
+const right=maxDepth(root.right)
+let max=Math.max(left,right);
+
+return (1+max);
+};
