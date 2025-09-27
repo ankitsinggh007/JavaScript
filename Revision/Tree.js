@@ -331,3 +331,48 @@ function solve(node){
  solve(root);
  return ans;
 };
+/*
+is balanced binary tree
+ */
+var isBalanced = function(root) {
+    
+   function solve(root){
+     if (!root) return 0;
+
+   let lh=solve(root.left);
+    let rh=solve(root.right);
+     if(lh<0 || rh<0) return -1;
+     if(Math.abs(lh-rh)<=1) return 1+Math.max(lh,rh);
+     return -1 
+   }
+   return solve(root)>=0
+};
+//one-liner: as we get consition of unbalanced tree we return -1 -->wich implies that tree is unbalanced,and immediately bubble up -1.
+/*
+check does binary tree is symmetric
+*/
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+    if(!root) return true;
+
+    function isMirror(n1,n2){
+        if(!n1 && !n2) return true ;
+        if(!n1 || !n2 ) return false;
+
+        return n1.val==n2.val && isMirror(n1.left,n2.right) && isMirror(n1.right,n2.left);
+    }
+    
+    return isMirror(root.left,root.right);
+
+};
