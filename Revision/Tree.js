@@ -376,3 +376,13 @@ var isSymmetric = function(root) {
     return isMirror(root.left,root.right);
 
 };
+///////////////////////////////Path Based/////////////////////////////////////
+/*
+find path sum in binary tree
+*/
+var hasPathSum = function(root, ts) {
+    if(!root) return false;
+   if(!root.left && !root.right && root.val==ts)return true;
+   
+   return hasPathSum(root.left,ts-root.val)||hasPathSum(root.right,ts-root.val);
+};
