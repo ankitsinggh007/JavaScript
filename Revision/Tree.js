@@ -386,3 +386,24 @@ var hasPathSum = function(root, ts) {
    
    return hasPathSum(root.left,ts-root.val)||hasPathSum(root.right,ts-root.val);
 };
+/*
+find path -II
+*/
+ const pathSum = function(root, ts) {
+    let ans=[];
+    function dfs(root,ts,path=[]){
+        if(!root) return ;
+        ts-=root.val;
+        path.push(root.val);
+        if(!root.left && !root.right){
+            if(ts==0)ans.push([...path]);
+        }
+
+        dfs(root.left,ts,path);
+        dfs(root.right,ts,path);
+        path.pop();
+    }
+
+    dfs(root,ts)
+    return ans;
+};
