@@ -331,6 +331,19 @@ function solve(node){
  solve(root);
  return ans;
 };
+// allternative without using global variable:
+function solve(node){
+    if(!node) return [0,0];
+
+    let [leftDia,leftHeight]=solve(node.left)
+    let [rightDia,rightHeight]=solve(node.right);
+    let through=leftHeight+rightHeight;
+    const dia=Math.max(through,rightDia,leftDia);
+    return [dia,1+Math.max(leftHeight,rightHeight)]
+}
+var diameterOfBinaryTree = function(root) {
+    return solve(root)[0];
+};
 /*
 is balanced binary tree
  */
@@ -406,4 +419,20 @@ find path -II
 
     dfs(root,ts)
     return ans;
+};
+/*
+find max path sum in binary tree
+*/
+var maxPathSum = function(root) {
+  function dfs(node) {
+    if (!node) return [0, -Infinity];     // [gainUp, best]
+    const [Lg, Lb] = dfs(node.left);
+    const [Rg, Rb] = dfs(node.right);
+    const L = Math.max(0, Lg), R = Math.max(0, Rg);
+    const gainUp = node.val + Math.max(L, R);
+    const bestThrough = node.val + L + R;
+    const best = Math.max(Lb, Rb, bestThrough);
+    return [gainUp, best];
+  }
+  return dfs(root)[1];
 };
