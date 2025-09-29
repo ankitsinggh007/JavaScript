@@ -451,3 +451,32 @@ var lowestCommonAncestor = function(root, p, q) {
         return left?left:right;
 
 };
+/*
+LCA in binary search tree
+*/
+var lowestCommonAncestorBT = function(root, p, q) {
+    
+    return solve(root,p,q);
+};
+function solve(root,p,q){
+    if(!root) return null;
+    if(root==p||root==q) return root;
+    let left=solve(root.left,p,q)
+    let right=solve(root.right,p,q)
+    if(left && right) return root;
+    return left?left:right;
+}
+function solve2(root,p,q){
+    if(!root) return null;
+
+    if(root==p||root==q) return root;
+    let rval=root.val,pval=p.val,qval=q.val;
+    if(rval>pval && rval>qval){
+        return solve2(root.left,p,q);
+    }
+    else if(rval<pval && rval<qval){
+        return solve2(root.right,p,q);
+    }else{
+        return root;
+    }
+}
