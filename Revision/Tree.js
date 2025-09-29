@@ -480,3 +480,17 @@ function solve2(root,p,q){
         return root;
     }
 }
+/*
+Validate Binary Search Tree
+*/
+var isValidBST = function (root) {
+
+    function solve(root, min = -Infinity, max = Infinity) {
+        if (!root) return true;
+        if (root.val <= min || root.val >= max) return false;
+
+        return solve(root.left, min, root.val) && solve(root.right, root.val, max);
+    }
+
+    return solve(root);
+};
