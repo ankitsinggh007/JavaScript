@@ -465,3 +465,17 @@ var kthSmallest = function(root, k) {
 /*
 Construct BST from preorder traversal
 */
+var bstFromPreorder = function(preorder) {
+let i=0;
+function solve(min=-Infinity,max=Infinity){
+    if(preorder.length==i) return null;
+    let x=preorder[i];
+    if(min>=x || max<=x) return null;
+    let root=new TreeNode(x);
+    i++;
+    root.left=solve(min,x);
+    root.right=solve(x,max);
+    return root;
+}    
+return solve()
+};
