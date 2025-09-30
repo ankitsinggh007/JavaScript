@@ -128,53 +128,6 @@
 
 // Map it: “Any ‘view’ using horizontal distance? BFS + (node, col).”
 
-// 5) Iterative Traversals (fast drop-ins)
-
-// Inorder (L-N-R) – validation, BST ops:
-
-// function inorder(root, visit) {
-//   const st = [];
-//   let cur = root;
-//   while (cur || st.length) {
-//     while (cur) { st.push(cur); cur = cur.left; }
-//     const node = st.pop();
-//     visit(node);
-//     cur = node.right;
-//   }
-// }
-
-
-// Preorder (N-L-R) – “build as you go”:
-
-// function preorder(root, visit) {
-//   if (!root) return;
-//   const st = [root];
-//   while (st.length) {
-//     const node = st.pop();
-//     visit(node);
-//     if (node.right) st.push(node.right);
-//     if (node.left) st.push(node.left);
-//   }
-// }
-
-
-// Postorder (L-R-N) – two-stack (simple, reliable):
-
-// function postorder(root, visit) {
-//   if (!root) return;
-//   const s1 = [root], s2 = [];
-//   while (s1.length) {
-//     const n = s1.pop();
-//     s2.push(n);
-//     if (n.left) s1.push(n.left);
-//     if (n.right) s1.push(n.right);
-//   }
-//   while (s2.length) visit(s2.pop());
-// }
-
-
-// // Map it: “Need exact order only? Use iterative traversals.”
-
 /*
 Level order traversal in binary tree
 */
@@ -494,3 +447,21 @@ var isValidBST = function (root) {
 
     return solve(root);
 };
+/*
+find the kth smallest element in a BST
+*/
+var kthSmallest = function(root, k) {
+
+  let ans=-1;
+  function inOrder(root){
+    if(!root) return ;
+    inOrder(root.left);
+    if(--k==0) ans=root.val;
+    inOrder(root.right);
+  }
+  inOrder(root);
+    return ans;
+};
+/*
+Construct BST from preorder traversal
+*/
