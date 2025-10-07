@@ -1,3 +1,9 @@
+/////////set-1//////////
+
+
+
+
+//////////set-2//////////
 /*
 factorial   of n 
  */
@@ -44,3 +50,31 @@ function combination(digits){
     solve()
     return ans;
 }
+//word ladder
+
+var exist = function (board, word) {
+    let row = board.length
+    let col = board[0].length
+    function dfs(i, j, idx = 0) {
+        if (idx >= word.length) return true;
+        if (i < 0 || i >= row || j < 0 || j >= col) return false;
+        if (board[i][j] != word[idx]) return false;
+        let temp = board[i][j];
+        board[i][j] = '#';
+        const found = dfs(i + 1, j, idx + 1) || dfs(i, j + 1, idx + 1) || dfs(i - 1, j, idx + 1) || dfs(i, j - 1, idx + 1);
+
+        board[i][j] = temp;
+
+        return found;
+
+    }
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < col; j++) {
+            if(board[i][j]==word[0]){
+            if(dfs(i,j)) return true;
+            }
+        }
+    }
+    return false;
+
+};
