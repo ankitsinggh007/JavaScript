@@ -78,3 +78,25 @@ var exist = function (board, word) {
     return false;
 
 };
+//
+
+function finPath(maze){
+    let n=maze.length;
+    let m=maze[0].length;
+    let ans=[];
+    function solve(i=0,j=0,res=''){
+        if(i<0||j<0||i>=n||j>=m||maze[i][j]==0) return ;
+        if(i==n-1&&j==m-1){
+            ans.push(res);
+            return ;
+        }
+        maze[i][j]=0;
+        solve(i+1,j,res+'D');
+        solve(i,j+1,res+'R');
+        solve(i-1,j,res+'U');
+        solve(i,j-1,res+'L');
+        maze[i][j]=1;
+    }
+    solve();
+    return ans
+}
