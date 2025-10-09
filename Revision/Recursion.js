@@ -100,3 +100,23 @@ function finPath(maze){
     solve();
     return ans
 }
+//combination sum-3
+var combinationSum3 = function(k, n) {
+    
+    let ans=[];
+    function solve(start=1,path=[],sum=0){
+        if(path.length==k){
+            if(sum==n){
+                ans.push([...path]);
+            }
+            return;
+        }
+        for(let i=start;i<=9;i++){
+            path.push(i);
+            solve(i+1,path,sum+i);
+            path.pop();
+        }
+    }
+    solve();
+    return ans;
+};
