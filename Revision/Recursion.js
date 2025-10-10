@@ -120,3 +120,34 @@ var combinationSum3 = function(k, n) {
     solve();
     return ans;
 };
+//n-queen 
+var solveNQueens = function (n) {
+    let ans = [];
+    function solve(queen = n, row = 0, path = [], diagLeft = new Set(), diagRight = new Set(), column = new Set()) {
+        if (row === n) {
+            if (queen == 0) {
+                ans.push([...path]);
+            }
+            return;
+
+        }
+
+        for (let col = 0; col < n; col++) {
+            if (diagLeft.has(col + row) || diagRight.has(col - row) || column.has(col)) continue;
+            diagLeft.add(col + row);
+            diagRight.add(col - row);
+            column.has(col);
+            let res = '.'.repeat(col) + 'Q' + '.'.repeat(n - col-1);
+            path.push(res)
+            solve(queen - 1, row + 1, path, diagLeft, diagRight, column);
+            path.pop()
+            diagLeft.delete(col + row);
+            diagRight.delete(col - row);
+            column.delete(col);
+
+        }
+    }
+    solve();
+    return ans;
+
+};
