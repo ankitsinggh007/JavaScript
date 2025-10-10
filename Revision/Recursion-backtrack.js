@@ -5,11 +5,18 @@
 
 //////////set-2//////////
 /*
-factorial   of n 
+a) factorial   of n 
  */
   function factorial(n){
         if(n==0||n==1) return 1;
         return n*factorial(n-1);
+    }
+/*
+b) reverse a string
+*/
+ function reverse(str){
+        if(str.length==0) return "";
+        return str[str.length-1]+reverse(str.slice(0,str.length-1));
     }
 /*
 Q2. Subsequences
@@ -50,8 +57,69 @@ function combination(digits){
     solve()
     return ans;
 }
-//word ladder
 
+//conmbination sum-1
+var combinationSum = function(candidates, target) {
+    let ans=[];
+    function solve(start=0,path=[],sum=0){
+        if(sum==target){
+            ans.push([...path]);
+            return;
+        }
+        if(sum>target) return ;
+        for(let i=start;i<candidates.length;i++){
+            path.push(candidates[i]);
+            solve(i,path,sum+candidates[i]);
+            path.pop();
+        }
+    }
+    solve();
+    return ans;
+};
+// combination sum-2
+var combinationSum2 = function(candidates, target) {
+    candidates.sort((a,b)=>a-b);
+    let ans=[];
+    function solve(start=0,path=[],sum=0){
+        if(sum==target){
+            ans.push([...path]);
+            return;
+        }                   
+        if(sum>target) return ;
+        for(let i=start;i<candidates.length;i++){
+            if(i>start&&candidates[i]==candidates[i-1]) continue;
+            path.push(candidates[i]);
+            solve(i+1,path,sum+candidates[i]);
+            path.pop();
+        }
+    }
+    solve();
+    return ans;
+};
+
+//combination sum-3
+var combinationSum3 = function(k, n) {
+    
+    let ans=[];
+    function solve(start=1,path=[],sum=0){
+        if(path.length==k){
+            if(sum==n){
+                ans.push([...path]);
+            }
+            return;
+        }
+        for(let i=start;i<=9;i++){
+            path.push(i);
+            solve(i+1,path,sum+i);
+            path.pop();
+        }
+    }
+    solve();
+    return ans;
+};
+
+////////////////////////////////////////// Constraint / Grid DFS
+//word ladder
 var exist = function (board, word) {
     let row = board.length
     let col = board[0].length
@@ -78,7 +146,7 @@ var exist = function (board, word) {
     return false;
 
 };
-//
+// Rate Maze
 
 function finPath(maze){
     let n=maze.length;
@@ -100,26 +168,6 @@ function finPath(maze){
     solve();
     return ans
 }
-//combination sum-3
-var combinationSum3 = function(k, n) {
-    
-    let ans=[];
-    function solve(start=1,path=[],sum=0){
-        if(path.length==k){
-            if(sum==n){
-                ans.push([...path]);
-            }
-            return;
-        }
-        for(let i=start;i<=9;i++){
-            path.push(i);
-            solve(i+1,path,sum+i);
-            path.pop();
-        }
-    }
-    solve();
-    return ans;
-};
 //n-queen 
 var solveNQueens = function (n) {
     let ans = [];
