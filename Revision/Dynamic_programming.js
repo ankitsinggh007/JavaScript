@@ -92,3 +92,38 @@ function rob(nums) {
   }
   return dp[n - 1];
 }
+//subset target sum
+function subsetSumToK( arr,k){
+    let n=arr.length-1;
+    let dp=Array.from({length:n+1},()=>new Array(k+1).fill(-1));
+     function solve(n,k){
+        if(sum<0)return false;
+        if(sum==0)return true;
+        if(n==0)return arr[0]==sum;
+        if(dp[n][sum]!=-1)return dp[n][sum];
+        dp[n][sum]= solve(n-1,sum)|| solve(n-1,sum-arr[n]);
+        return dp[n][sum];
+     }
+     return solve(n,k);
+}
+//subset target sum tabulation
+function subsetSumToK_tab(arr,k){
+
+    let n=arr.length;
+    let dp=Array.from({length:n},()=>new Array(k+1).fill(false));
+    for(let i=0;i<=n;i++)dp[i][0]=true;
+
+    for(let i=1;i<n;i++){
+        for(let sum=1;sum<=k;sum++){
+            let notTake=dp[i-1][sum];
+            let take=false;
+            if(arr[i]<=sum){
+                take=dp[i-1][sum-arr[i]];
+            }
+            dp[i][sum]=take||notTake;
+        }
+}
+    return dp[n-1][k];
+}
+  
+
