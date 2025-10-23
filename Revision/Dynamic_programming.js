@@ -93,37 +93,105 @@ function rob(nums) {
   return dp[n - 1];
 }
 //subset target sum
-function subsetSumToK( arr,k){
-    let n=arr.length-1;
-    let dp=Array.from({length:n+1},()=>new Array(k+1).fill(-1));
-     function solve(n,k){
-        if(sum<0)return false;
-        if(sum==0)return true;
-        if(n==0)return arr[0]==sum;
-        if(dp[n][sum]!=-1)return dp[n][sum];
-        dp[n][sum]= solve(n-1,sum)|| solve(n-1,sum-arr[n]);
-        return dp[n][sum];
-     }
-     return solve(n,k);
+function subsetSumToK(arr, k) {
+  let n = arr.length - 1;
+  let dp = Array.from({ length: n + 1 }, () => new Array(k + 1).fill(-1));
+  function solve(n, k) {
+    if (sum < 0) return false;
+    if (sum == 0) return true;
+    if (n == 0) return arr[0] == sum;
+    if (dp[n][sum] != -1) return dp[n][sum];
+    dp[n][sum] = solve(n - 1, sum) || solve(n - 1, sum - arr[n]);
+    return dp[n][sum];
+  }
+  return solve(n, k);
 }
 //subset target sum tabulation
-function subsetSumToK_tab(arr,k){
+function subsetSumToK_tab(arr, k) {
+  let n = arr.length;
+  let dp = Array.from({ length: n }, () => new Array(k + 1).fill(false));
+  for (let i = 0; i <= n; i++) dp[i][0] = true;
 
-    let n=arr.length;
-    let dp=Array.from({length:n},()=>new Array(k+1).fill(false));
-    for(let i=0;i<=n;i++)dp[i][0]=true;
-
-    for(let i=1;i<n;i++){
-        for(let sum=1;sum<=k;sum++){
-            let notTake=dp[i-1][sum];
-            let take=false;
-            if(arr[i]<=sum){
-                take=dp[i-1][sum-arr[i]];
-            }
-            dp[i][sum]=take||notTake;
-        }
+  for (let i = 1; i < n; i++) {
+    for (let sum = 1; sum <= k; sum++) {
+      let notTake = dp[i - 1][sum];
+      let take = false;
+      if (arr[i] <= sum) {
+        take = dp[i - 1][sum - arr[i]];
+      }
+      dp[i][sum] = take || notTake;
+    }
+  }
+  return dp[n - 1][k];
 }
-    return dp[n-1][k];
-}
-  
 
+function Kanpsack01(weights, values, n, capacity) {
+  function solve(n, capacity) {
+    if (n == 0) {
+      if (weights[0] <= capacity) return values[0];
+      else return 0;
+    }
+    let notTake = solve(n - 1, capacity);
+    let take = -Infinity;
+    if (weights[n] <= capacity) {
+      take = values[n] + solve(n - 1, capacity - weights[n]);
+    }
+    return Math.max(take, notTake);
+  }
+  return solve(n - 1, capacity);
+}
+function alternateKnapSack(weights, values, n, capacity) {
+  function solve(i = 0, cap = capacity) {
+    if (i == n) {
+      return 0;
+    }
+    let notTake = solve(i + 1, cap);
+    let take = -Infinity;
+    if (weights[i] <= cap) {
+      take = values[i] + solve(i + 1, cap - weights[i]);
+    }
+    return Math.max(take, notTake);
+  }
+  return solve(0, capacity);
+}
+
+function knapSack01_tab(weights, values, n, capacity) {
+  let dp = Array.from({ length: n }, () => new Array(capacity + 1).fill(-1));
+  for (let w = weights[0]; w <= capacity; w++) {
+    dp[0][w] = values[0];
+  }
+}
+
+function unBoundKnapsack(V, W, C) {
+  let n = V.length;
+  function solve(i = 0, cap = C) {
+    if (i == n) {
+      return 0;
+    }
+    let notTake = solve(i + 1, cap);
+    let take = -Infinity;
+    if (W[i] <= cap) {
+      take = V[i] + solve(i, cap - W[i]);
+    }
+    return Math.max(take, notTake);
+  }
+  return solve(0, C);
+}
+
+function unBoundKnapsack_tab(V, W, C) {
+  let n = V.length;
+  let dp = Array.from({ length: n }, () => new Array(C + 1).fill(-1));
+  for (let cap = 0; cap <= C; cap++) {
+    dp[0][cap] = Math.floor(cap / W[0]) * V[0];
+  }
+  for (let i = 1; i < n; i++) {
+    for (let cap = 0; cap <= C; cap++) {
+      let notTake = dp[i - 1][cap];
+      let take = -Infinity;
+      if (W[i] <= cap) {
+        take = V[i] + dp[i][cap - W[i]];
+      }
+      dp[i][cap] = Math.max(take, notTake);
+    }
+  }
+}
