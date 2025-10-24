@@ -195,3 +195,81 @@ function unBoundKnapsack_tab(V, W, C) {
     }
   }
 }
+//coin change-1
+var coinChange = function (coins, amount) {
+  let n = coins.length;
+  let dp = Array.from({ length: n }, () =>
+    new Array(amount + 1).fill(Infinity)
+  );
+  for (let i = 0; i <= amount; i++) {
+    dp[0][i] = i % coins[0] === 0 ? i / coins[0] : Infinity;
+  }
+  for (let i = 0; i < n; i++) dp[i][0] = 0;
+
+  for (let i = 1; i < n; i++) {
+    for (let amt = 1; amt <= amount; amt++) {
+      let notTake = dp[i - 1][amt];
+      let take = amt >= coins[i] ? 1 + dp[i][amt - coins[i]] : Infinity;
+      dp[i][amt] = Math.min(take, notTake);
+    }
+  }
+  return dp[n - 1][amount] === Infinity ? -1 : dp[n - 1][amount];
+};
+//coin chane-2
+var change = function (amount, coins) {
+  let n = coins.length;
+
+  function solve(n, amt) {
+    if (n === 0) return amt % coins[0] === 0 ? 1 : 0;
+
+    let count = solve(n - 1, amt);
+    if (amt >= coins[n]) count += solve(n, amt - coins[n]);
+    return count;
+  }
+
+  return solve(n - 1, amount);
+};
+//coin change-2 memoization
+var change = function (amount, coins) {
+
+    let n = coins.length;
+    let dp = Array.from({ length: n }, () => new Array(amount + 1).fill(-1));
+    function solve(n, amt) {
+
+        if (n === 0) return amt % coins[0] === 0 ? 1 : 0;
+        if (dp[n][amt] !== -1) return dp[n][amt];
+        let count = solve(n - 1, amt);
+        if (amt >= coins[n]) count += solve(n, amt - coins[n]);
+        return (dp[n][amt] = count);
+    }
+
+    return solve(n - 1, amount);
+};
+//coin change-2 tabulation
+function tabulation(coins, n, amount) {
+
+    let dp = Array.from({ length: n }, () => new Array(amount + 1).fill(0));
+
+    //by base case if n==0 hence size of array if 1 then it always give eaither1 or 0 based on amount/coins[0];
+    for (let amt = 0; amt <= amount; amt++) {
+        dp[0][amt] = amt % coins[0] === 0 ? 1 : 0;
+    }
+    // for amt=0 there is always 1 way for any size array 
+    for (let i = 0; i < n; i++) {
+        dp[i][0] = 1;
+    }
+
+    for (let i = 1; i < n; i++) {
+        for (amt = 1; amt <= amount; amt++) {
+            let count = dp[i - 1][amt];
+            if (amt >= coins[i]) count += dp[i][amt - coins[i]];
+            dp[i][amt] = count;
+        }
+    }
+
+    return dp[n - 1][amount];
+}
+
+
+
+
