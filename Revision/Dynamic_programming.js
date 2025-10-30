@@ -231,45 +231,88 @@ var change = function (amount, coins) {
 };
 //coin change-2 memoization
 var change = function (amount, coins) {
+  let n = coins.length;
+  let dp = Array.from({ length: n }, () => new Array(amount + 1).fill(-1));
+  function solve(n, amt) {
+    if (n === 0) return amt % coins[0] === 0 ? 1 : 0;
+    if (dp[n][amt] !== -1) return dp[n][amt];
+    let count = solve(n - 1, amt);
+    if (amt >= coins[n]) count += solve(n, amt - coins[n]);
+    return (dp[n][amt] = count);
+  }
 
-    let n = coins.length;
-    let dp = Array.from({ length: n }, () => new Array(amount + 1).fill(-1));
-    function solve(n, amt) {
-
-        if (n === 0) return amt % coins[0] === 0 ? 1 : 0;
-        if (dp[n][amt] !== -1) return dp[n][amt];
-        let count = solve(n - 1, amt);
-        if (amt >= coins[n]) count += solve(n, amt - coins[n]);
-        return (dp[n][amt] = count);
-    }
-
-    return solve(n - 1, amount);
+  return solve(n - 1, amount);
 };
 //coin change-2 tabulation
 function tabulation(coins, n, amount) {
+  let dp = Array.from({ length: n }, () => new Array(amount + 1).fill(0));
 
-    let dp = Array.from({ length: n }, () => new Array(amount + 1).fill(0));
+  //by base case if n==0 hence size of array if 1 then it always give eaither1 or 0 based on amount/coins[0];
+  for (let amt = 0; amt <= amount; amt++) {
+    dp[0][amt] = amt % coins[0] === 0 ? 1 : 0;
+  }
+  // for amt=0 there is always 1 way for any size array
+  for (let i = 0; i < n; i++) {
+    dp[i][0] = 1;
+  }
 
-    //by base case if n==0 hence size of array if 1 then it always give eaither1 or 0 based on amount/coins[0];
-    for (let amt = 0; amt <= amount; amt++) {
-        dp[0][amt] = amt % coins[0] === 0 ? 1 : 0;
+  for (let i = 1; i < n; i++) {
+    for (amt = 1; amt <= amount; amt++) {
+      let count = dp[i - 1][amt];
+      if (amt >= coins[i]) count += dp[i][amt - coins[i]];
+      dp[i][amt] = count;
     }
-    // for amt=0 there is always 1 way for any size array 
-    for (let i = 0; i < n; i++) {
-        dp[i][0] = 1;
-    }
+  }
 
-    for (let i = 1; i < n; i++) {
-        for (amt = 1; amt <= amount; amt++) {
-            let count = dp[i - 1][amt];
-            if (amt >= coins[i]) count += dp[i][amt - coins[i]];
-            dp[i][amt] = count;
-        }
-    }
-
-    return dp[n - 1][amount];
+  return dp[n - 1][amount];
 }
 
+////////////////////////////////////// 2 D DP PROBLEMS //////////////////////////////////////
 
+//longest common subsequence
+var longestCommonSubsequence = function (text1, text2) {
+  let n1 = text1.length;
+  let n2 = text2.length;
+  let dp = Array.from({ length: n1 }, () => new Array(n2).fill(-1));
+  function lcs(n1, n2) {
+    if (n1 < 0 || n2 < 0) return 0;
+    if (dp[n1][n2] !== -1) return dp[n1][n2];
+    if (text1[n1] === text2[n2]) {
+      dp[n1][n2] = 1 + lcs(n1 - 1, n2 - 1);
+    } else dp[n1][n2] = Math.max(lcs(n1 - 1, n2), lcs(n1, n2 - 1));
 
+    return dp[n1][n2];
+  }
 
+  return lcs(n1 - 1, n2 - 1);
+};
+//tabulation LCS
+function longestCommonSubsequence(text1, text2) {
+  const n1 = text1.length, n2 = text2.length;
+  const dp = Array.from({ length: n1 }, () => new Array(n2).fill(0));
+
+  // first row
+  let found = false;
+  for (let j = 0; j < n2; j++) {
+    if (text1[0] === text2[j]) found = true;
+    dp[0][j] = found ? 1 : 0;
+  }
+
+  // first column
+  found = false;
+  for (let i = 0; i < n1; i++) {
+    if (text2[0] === text1[i]) found = true;
+    dp[i][0] = found ? 1 : 0;
+  }
+
+  for (let i = 1; i < n1; i++) {
+    for (let j = 1; j < n2; j++) {
+      if (text1[i] === text2[j]) {
+        dp[i][j] = 1 + dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+  return dp[n1 - 1][n2 - 1];
+}
