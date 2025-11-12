@@ -106,6 +106,24 @@ function subsetSumToK(arr, k) {
   }
   return solve(n, k);
 }
+// subset sum memoization alternate
+function subsetSumToK(arr, k) {
+  let n = arr.length;
+  let dp = Array.from({ length: n }, () => new Array(k + 1).fill(-1));
+  function solve(i, sum) {
+    if (sum == 0) return true;
+    if (i == 0) return arr[0] == sum;
+    if (dp[i][sum] != -1) return dp[i][sum];
+    let notTake = solve(i - 1, sum);
+    let take = false;
+    if (arr[i] <= sum) {
+      take = solve(i - 1, sum - arr[i]);
+    }
+    dp[i][sum] = take || notTake;
+    return dp[i][sum];
+  }
+  return solve(n - 1, k);
+}
 //subset target sum tabulation
 function subsetSumToK_tab(arr, k) {
   let n = arr.length;
@@ -288,7 +306,8 @@ var longestCommonSubsequence = function (text1, text2) {
 };
 //tabulation LCS
 function longestCommonSubsequence(text1, text2) {
-  const n1 = text1.length, n2 = text2.length;
+  const n1 = text1.length,
+    n2 = text2.length;
   const dp = Array.from({ length: n1 }, () => new Array(n2).fill(0));
 
   // first row
@@ -318,13 +337,13 @@ function longestCommonSubsequence(text1, text2) {
 }
 //alternate tabulation LCS
 function longestCommonSubsequence(text1, text2) {
-  const n1 = text1.length, n2 = text2.length;
-  const dp = Array.from({ length: n1+1 }, () => new Array(n2+1).fill(0));
-
+  const n1 = text1.length,
+    n2 = text2.length;
+  const dp = Array.from({ length: n1 + 1 }, () => new Array(n2 + 1).fill(0));
 
   for (let i = 1; i < n1; i++) {
     for (let j = 1; j < n2; j++) {
-      if (text1[i-1] === text2[j-1]) {
+      if (text1[i - 1] === text2[j - 1]) {
         dp[i][j] = 1 + dp[i - 1][j - 1];
       } else {
         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
@@ -333,3 +352,47 @@ function longestCommonSubsequence(text1, text2) {
   }
   return dp[n1][n2];
 }
+//edit distance
+var minDistance = function (word1, word2) {
+  let n1 = word1.length;
+  let n2 = word2.length;
+
+  let dp = Array.from({ length: n1 }, () => new Array(n2).fill(-1));
+
+  function helper(i, j) {
+    if (i < 0 || j < 0) return Math.max(i, j) + 1;
+    if (dp[i][j] !== -1) return dp[i][j];
+    if (word1[i] === word2[j]) return (dp[i][j] = helper(i - 1, j - 1));
+    else {
+      return (dp[i][j] =
+        1 + Math.min(helper(i - 1, j), helper(i, j - 1), helper(i - 1, j - 1)));
+    }
+  }
+  return helper(n1 - 1, n2 - 1);
+};
+
+//longest palindromic subsequence
+//follow-up to lcs
+
+var longestPalindromeSubseq = function (s) {
+  let n = s.length;
+  let rev = s.split("").reverse().join("");
+  let dp = Array.from({ length: n }, () => new Array(n).fill(-1));
+  return longestCommonSubsequence_helper(s, rev, n - 1, n - 1, dp);
+};
+//alternate
+var longestPalindromeSubseq = function (s) {
+  let dp = Array.from({ length: s.length }, () => new Array(s.length).fill(-1));
+
+  function solve(i, j) {
+    if (i === j) return 1;
+    if (i > j) return 0;
+    if (dp[i][j] !== -1) return dp[i][j];
+    if (s[i] === s[j]) return (dp[i][j] = 2 + solve(i + 1, j - 1));
+    else {
+      return (dp[i][j] = Math.max(solve(i + 1, j), solve(i, j - 1)));
+    }
+  }
+
+  return solve(0, s.length - 1);
+};
