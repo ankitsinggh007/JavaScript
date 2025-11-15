@@ -1,37 +1,87 @@
 //////////set-2//////////
 /*
-a) factorial   of n 
- */
+/*Q1.factorial of n */
 function factorial(n) {
-  if (n == 0 || n == 1) return 1;
-  return n * factorial(n - 1);
+  if (n === 0 || n === 1) return n;
+  return factorial(n - 1) * n;
 }
-/*
-b) reverse a string
-*/
-function reverse(str) {
-  if (str.length == 0) return "";
-  return str[str.length - 1] + reverse(str.slice(0, str.length - 1));
+console.log(factorial(5));
+/* Q2.find sum of n natural number*/
+function firstN(n) {
+  if (n == 1) return 1;
+  return firstN(n - 1) + n;
 }
-/*
-Q2. Subsequences
-*/
-function generate(str) {
-  let ans = [];
-  function solve(i = 0, res = "") {
-    if (i == str.length) {
-      ans.push(res);
-      return;
-    }
+let str = "Ankit";
+console.log(firstN(10));
+/* Q3.reverse string*/
 
-    solve(i + 1, res + str[i]);
-    solve(i + 1, res);
-  }
-  solve();
-  return ans;
+function reverseString(input, i = input.length - 1, output = "") {
+  if (i < 0) return output;
+
+  return reverseString(input, i - 1, output + input[i]);
 }
+console.log(reverseString("Ankit"));
 /*
-Q3. Phone Number Combinations ✅
+Q4. Subsets
+*/
+
+var subsets = function (nums) {
+  let ans = [];
+
+  function helper(start = 0, temp = []) {
+    ans.push([...temp]);
+
+    for (let i = start; i < nums.length; i++) {
+      temp.push(nums[i]);
+      helper(i + 1, temp);
+      temp.pop();
+    }
+  }
+  helper();
+  return ans;
+};
+/*Q5.subset-II
+ */
+var subsetsWithDup = function (nums) {
+  let ans = [];
+  nums.sort((a, b) => a - b);
+  function helper(start = 0, temp = []) {
+    ans.push([...temp]);
+
+    for (let i = start; i < nums.length; i++) {
+      if (i > start && nums[i] === nums[i - 1]) continue;
+      temp.push(nums[i]);
+      helper(i + 1, temp);
+      temp.pop();
+    }
+  }
+  helper();
+  return ans;
+};
+    /*
+    Q6. find all possible subsequence of string
+    */
+    
+    function subsequence(str){
+        
+        let ans=[];
+        
+        function helper(start=0,temp=''){
+            ans.push(temp);
+                
+            for(let i=start;i<str.length;i++){
+                if(i>start && str[i]===str[i-1]) continue;
+                helper(i+1,temp+str[i]);
+            }
+        }
+        helper();
+    return ans;
+    
+    }
+    console.log(subsequence('abbc'))
+/*
+
+Q7. Phone Number Combinations ✅
 */
 function combination(digits) {
   let ans = [];
