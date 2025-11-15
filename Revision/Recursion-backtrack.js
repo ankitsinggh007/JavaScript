@@ -108,6 +108,37 @@ function combination(digits) {
   solve();
   return ans;
 }
+// Q8. Permutations
+var permute = function (nums) {
+
+
+    let ans = [];
+    let set = new Set();
+    function helper(temp ) {
+
+        if (temp.length === nums.length) {
+            ans.push([...temp]);
+
+            return;
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+          if (!set.has(nums[i])) {
+                temp.push(nums[i]);
+                set.add(nums[i]);
+                helper(temp);
+                temp.pop();
+                set.delete(nums[i]);
+            }
+
+        }
+
+    }
+
+    helper([]);
+    return ans;
+};
+// Q9. Permutations-II
 
 //conmbination sum-1
 var combinationSum = function (candidates, target) {
