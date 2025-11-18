@@ -106,6 +106,7 @@ function isCycle(V, edges) {
     }
   }
 
+  /* Detect cycle in undirected graph */
   function isCycle(i, parent) {
     v.add(i);
 
@@ -120,60 +121,123 @@ function isCycle(V, edges) {
 
   return false;
 }
-// function topoSort(n,edges){
+console.log("hi");
 
-//     let inDegree=new Array(n).fill(0);
-//     let graph=buildGraph(n,edges);
-//     for(let [u,v] of edges){
-//         inDegree[v]++;
-//     }
-//     let Q=[];
-//     for(let i=0;i<n;i++){
-//         if(inDegree[i]===0) Q.push(i);
-//     }
-//     let topoOrder=[];
-//     for(let i=0;i<Q.length;i++){
-//         let node=Q[i];
-//         topoOrder.push(node);
-//         for(let nei of graph.get(node)){
-//             inDegree[nei]--;
-//             if(inDegree[nei]===0) Q.push(nei);
-//         }
-//     }
-//     return topoOrder; ;
+/* toposort */
+function topoSort(V, edges) {
+  // code here
+  if (V === 0) return true;
+  let graph = new Map();
+  for (let i = 0; i < V; i++) graph.set(i, []);
 
-// }
+  for (let [u, v] of edges) {
+    graph.get(u).push(v);
+    graph.get(v).push(u);
+  }
+  // let visited=new Set();
+  let toposort = [];
+  let indegree = new Array(V).fill(0);
+  for (let [u, v] of edges) {
+    indegree[v]++;
+  }
+  let Q = [];
+  for (let i = 0; i < V; i++) {
+    if (indegree[i] === 0) Q.push(i);
+  }
+  // if(Q.length===0) return false;
+  while (Q.length > 0) {
+    let node = Q.shift();
+    toposort.push(node);
 
-// function DirectedCycle(n,edges){
-//     let topoOrder=topoSort(n,edges);
-//     return topoOrder.length!==n;
-// }
+    for (let nei of graph.get(node)) {
+      indegree[nei]--;
+      if (indegree[nei] === 0) Q.push(nei);
+    }
+  }
+  return toposort;
+}
 
-// function DirectedCycleUsingDFS(n,edges){
-//     let graph=buildGraph(n,edges);
-//     let v=new Set();
-//     let path=new Set();
-//     for(let i=0;i<n;i++){
-//         if(!v.has(i)){
-//             if(dfs(i,v,path,graph)) return true;
-//         }
-//     }
-//     return false;
+/* Detect cycle in DAG */
+function isCyclic(V, edges) {
+  let graph = new Map();
 
-//     function dfs(node){
-//         v.add(node);
-//         path.add(node);
-//         for(let nei of graph.get(node)){
-//             if(!v.has(nei)){
-//                 if(dfs(nei)) return true;
-//             }else if(path.has(nei))return true;
-//         }
-//         path.delete(node);
-//         return false;
-//     }
-// }
-// let n=4;
-// let edges=[[0,1],[0,2],[1,2],[2,0],[2,3],[3,3]];
-// console.log(topoSort(n,edges));
-// console.log(DirectedCycle(n,edges));
-// console.log(DirectedCycleUsingDFS(n,edges));
+  for (let i = 0; i < V; i++) graph.set(i, []);
+  for (let [u, v] of edges) {
+    graph.get(u).push(v);
+  }
+  let indegree = new Array(V).fill(0);
+  for (let [u, v] of edges) {
+    indegree[v]++;
+  }
+  let Q = [];
+  for (let i = 0; i < V; i++) {
+    if (indegree[i] === 0) Q.push(i);
+  }
+  let topo = [];
+  while (Q.length > 0) {
+    let node = Q.shift();
+    topo.push(node);
+    for (let nei of graph.get(node)) {
+      indegree[nei]--;
+      if (indegree[nei] === 0) Q.push(nei);
+    }
+  }
+
+  return topo.length !== V ? true : false;
+}
+/* You are given an undirected graph with n nodes labeled 0 to n-1, represented by a 0-indexed array graph of length n, where graph[i] is a list of nodes that node i is connected to. Determine whether the graph is bipartite. A graph is bipartite if its nodes can be divided into two disjoint sets such that every edge connects a node in one set to a node in the other set (i.e., no edge connects two nodes in the same set).
+
+Return true if and only if the graph is bipartite.
+
+Constraints (typical LeetCode):
+
+1 <= graph.length == n <= 100
+0 <= graph[i].length < n
+0 <= graph[i][j] <= n - 1
+graph[i] does not contain i (no self-loops)
+There are no duplicate edges: if j is in graph[i], then i is not listed multiple times for j.
+The graph may be disconnected; edges are undirected. */
+
+function isBiperaite(V,edges){
+  let graph=new Map();
+  for(let i=0;i<V;i++)graph.set(i,[]);
+  for(let [u,v] of edges){
+    graph.get(u).push(v);
+    graph.get(v).push(u);
+  }
+  //we go for coloring the graph using bfs
+  let color=new Array(V).fill(-1);
+  //-1 means uncolored
+  //0 and 1 will be our two colors
+  let Q=[];
+  while(Q.length>0){
+    let node=Q.shift();
+    for(let nei of graph.get(node)){
+      if(color[nei]===-1){
+        //not colored
+        color[nei]=1-color[node];//assign opposite color
+        Q.push(nei);
+      }else if(color[nei]===color[node]){
+        //conflict in coloring
+        return false;
+      }
+    }
+  }
+  return true;  
+}
+/*Clone Graph*/
+  function cloneGraph(graph){
+    let clone=new Map();
+
+    function helper(i=0){
+        if(!graph.has(i)) return null;
+        if(mp.has(graph(i))) return mp.get(graph(i));
+        let newNode={val:graph(i).val,neighbors:[]};
+        mp.set(graph(i),newNode);
+        for(let nei of graph(i).neighbors){
+            newNode.neighbors.push(helper(nei.val));
+        }
+        return newNode; 
+          
+    }
+  }
