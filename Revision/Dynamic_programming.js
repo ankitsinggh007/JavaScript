@@ -396,3 +396,143 @@ var longestPalindromeSubseq = function (s) {
 
   return solve(0, s.length - 1);
 };
+
+// Revision set -1
+//Climbing stairs with variable jumps
+
+var climbStairs = function (n) {
+  let dp = new Array(n + 1).fill(-1);
+
+  function helper(n) {
+    if (n === 0 || n === 1) return 1;
+    if (dp[n] != -1) return dp[n];
+    return (dp[n] = helper(n - 1) + helper(n - 2));
+  }
+  return helper(n);
+};
+//house robber
+var rob = function (nums) {
+  let dp = new Array(nums.length).fill(-1);
+  function helper(n) {
+    //represent max profit till house n-1
+    if (n == 0) return nums[0];
+    if (n == 1) return Math.max(nums[0], nums[1]);
+
+    if (dp[n] != -1) return dp[n];
+    let take = helper(n - 2) + nums[n];
+    let notTake = helper(n - 1);
+
+    return (dp[n] = Math.max(take, notTake));
+  }
+
+  return helper(nums.length - 1);
+};
+//house robber-2
+var rob2 = function (nums) {
+  if (nums.length === 1) return nums[0];
+  if (nums.length === 2) return Math.max(nums[0], nums[1]);
+  let firstCase = nums.slice(1);
+  let secondCase = nums.slice(0, nums.length - 1);
+
+  return Math.max(rob(firstCase), rob(secondCase));
+};
+//subset sum to k
+function isSubsetSum(arr, sum) {
+  let dp = Array.from({ length: arr.length }, () =>
+    new Array(sum + 1).fill(-1)
+  );
+
+  function helper(n, sum) {
+    // it define true/false based on equalness to Sum
+
+    if (sum === 0) return true;
+    if (n === 0) return sum === arr[0];
+
+    if (dp[n][sum] != -1) return dp[n][sum];
+    let notTake = helper(n - 1, sum);
+    let take = false;
+    if (sum >= arr[n]) take = helper(n - 1, sum - arr[n]);
+
+    return (dp[n][sum] = notTake || take);
+  }
+  return helper(arr.length - 1, sum);
+}
+//partition equal subset sum
+
+var canPartition = function (arr) {
+  let sum = arr.reduce((acc, curr) => acc + curr, 0);
+
+  if (sum % 2 !== 0) return false;
+
+  let dp = Array.from({ length: arr.length }, () =>
+    new Array(sum + 1).fill(-1)
+  );
+
+  function helper(n, sum) {
+    // it define true/false based on equalness to Sum
+
+    if (sum === 0) return true;
+    if (n === 0) return sum === arr[0];
+
+    if (dp[n][sum] != -1) return dp[n][sum];
+    let notTake = helper(n - 1, sum);
+    let take = false;
+    if (sum >= arr[n]) take = helper(n - 1, sum - arr[n]);
+
+    return (dp[n][sum] = notTake || take);
+  }
+  return helper(arr.length - 1, sum / 2);
+};
+//0-1 knpsack
+function knapsack(W, val, wt) {
+  let dp = Array.from({ length: val.length }, () => new Array(W + 1).fill(-1));
+
+  function helper(n, w) {
+    if (w === 0) return 0;
+    if (n === 0) return w >= wt[0] ? val[0] : 0;
+
+    if (dp[n][w] != -1) return dp[n][w];
+    let notTake = helper(n - 1, w);
+    let take = -Infinity;
+    if (w >= wt[n]) take = helper(n - 1, w - wt[n]) + val[n];
+
+    return (dp[n][w] = Math.max(take, notTake));
+  }
+  return helper(val.length - 1, W);
+}
+// unbounded knapsack
+function knapSack(val, wt, W) {
+  let dp = Array.from({ length: val.length }, () => new Array(W + 1).fill(-1));
+
+  function helper(n, w) {
+    if (w === 0) return 0;
+    if (n === 0) return w >= wt[0] ? Math.floor(w / wt[0]) * val[0] : 0;
+
+    if (dp[n][w] != -1) return dp[n][w];
+    let notTake = helper(n - 1, w);
+    let take = -Infinity;
+    if (w >= wt[n]) take = helper(n, w - wt[n]) + val[n];
+
+    return (dp[n][w] = Math.max(take, notTake));
+  }
+  return helper(val.length - 1, W);
+}
+//coin change-1
+var coinChange = function (val, amt) {
+    let dp = Array.from({ length: val.length }, () => new Array(amt + 1).fill(-1));
+
+    function helper(n, w) {
+        if (w === 0) return 0;
+        if (n === 0) return w % val[0]===0 ? w / val[0]: Infinity;
+
+        if (dp[n][w] != -1) return dp[n][w];
+        let notTake = helper(n - 1, w);
+        let take = Infinity;
+        if (w >= val[n]) take = helper(n, w - val[n]) + 1;
+
+        return dp[n][w] = Math.min(take, notTake);
+    }
+    return helper(val.length - 1, amt)===Infinity?-1:helper(val.length - 1, amt);
+
+
+}
