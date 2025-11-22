@@ -501,7 +501,7 @@ function knapsack(W, val, wt) {
   return helper(val.length - 1, W);
 }
 // unbounded knapsack
-function knapSack(val, wt, W) {
+function knapSack2(val, wt, W) {
   let dp = Array.from({ length: val.length }, () => new Array(W + 1).fill(-1));
 
   function helper(n, w) {
@@ -519,20 +519,58 @@ function knapSack(val, wt, W) {
 }
 //coin change-1
 var coinChange = function (val, amt) {
-    let dp = Array.from({ length: val.length }, () => new Array(amt + 1).fill(-1));
+  let dp = Array.from({ length: val.length }, () =>
+    new Array(amt + 1).fill(-1)
+  );
 
-    function helper(n, w) {
-        if (w === 0) return 0;
-        if (n === 0) return w % val[0]===0 ? w / val[0]: Infinity;
+  function helper(n, w) {
+    if (w === 0) return 0;
+    if (n === 0) return w % val[0] === 0 ? w / val[0] : Infinity;
 
-        if (dp[n][w] != -1) return dp[n][w];
-        let notTake = helper(n - 1, w);
-        let take = Infinity;
-        if (w >= val[n]) take = helper(n, w - val[n]) + 1;
+    if (dp[n][w] != -1) return dp[n][w];
+    let notTake = helper(n - 1, w);
+    let take = Infinity;
+    if (w >= val[n]) take = helper(n, w - val[n]) + 1;
 
-        return dp[n][w] = Math.min(take, notTake);
-    }
-    return helper(val.length - 1, amt)===Infinity?-1:helper(val.length - 1, amt);
+    return (dp[n][w] = Math.min(take, notTake));
+  }
+  return helper(val.length - 1, amt) === Infinity
+    ? -1
+    : helper(val.length - 1, amt);
+};
+//coin change-2
 
+//lcs
+var longestCommonSubsequence = function (text1, text2) {
+  let n1 = text1.length;
+  let n2 = text2.length;
+  let dp = Array.from({ length: n1 }, () => new Array(n2).fill(-1));
+  function helper(n1, n2) {
+    if (n1 < 0 || n2 < 0) return 0;
+    if (dp[n1][n2] !== -1) return dp[n1][n2];
+    if (text1[n1] === text2[n2])
+      return (dp[n1][n2] = helper(n1 - 1, n2 - 1) + 1);
+    return (dp[n1][n2] = Math.max(helper(n1 - 1, n2), helper(n1, n2 - 1)));
+  }
 
-}
+  return helper(n1 - 1, n2 - 1);
+};
+//edit distance
+var minDistance = function (word1, word2) {
+  let n1 = word1.length;
+  let n2 = word2.length;
+  let dp = Array.from({ length: n1 }, () => new Array(n2).fill(-1));
+
+  function helper(i, j) {
+    if (i < 0) return j + 1;
+    if (j < 0) return i + 1;
+
+    if (dp[i][j] !== -1) return dp[i][j];
+    if (word1[i] === word2[j]) return (dp[i][j] = helper(i - 1, j - 1));
+
+    return (dp[i][j] =
+      1 + Math.min(helper(i - 1, j), helper(i, j - 1), helper(i - 1, j - 1)));
+  }
+
+  return helper(n1 - 1, n2 - 1);
+};
