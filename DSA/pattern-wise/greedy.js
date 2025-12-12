@@ -1,6 +1,48 @@
 
 // -------------------------Greedy Algorithm---------------------
  
+/*Interval Scheduling*/
+
+// 435. Non-overlapping Intervals
+var eraseOverlapIntervals = function(intervals) {
+    
+    let count=0;
+    intervals.sort((a,b)=>a[1]-b[1]);
+
+    let last=-Infinity;
+
+    for (let [s,e] of intervals){
+        if(last<=s){
+            count++;
+            last=e;
+        }
+    }
+
+    return intervals.length-count;
+
+};
+//646. Maximum Length of Pair Chain
+var findLongestChain = function(pairs) {
+    
+    pairs.sort((a,b)=>a[1]-b[1]);
+    let count=0;
+
+    let last=-Infinity;
+
+    for(let [s,e] of pairs){
+
+        if(last<s){
+            count++;
+            last=e;
+        }
+
+    }
+    return count;
+
+};
+
+
+
 // Activity Selection 
 // there is n meet happen given an intervals you need to find maximum no. of possible meet can happen in non-overlapping condition.
 
