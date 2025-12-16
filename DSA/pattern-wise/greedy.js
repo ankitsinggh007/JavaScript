@@ -153,6 +153,53 @@ var candy = function (ratings) {
 
   return count;
 };
+/* max overlapping */
+// lc 253. Meeting Rooms II
+var minMeetingRooms = function (intervals) {
+  let starts = intervals.map((i) => i[0]).sort((a, b) => a - b);
+  let ends = intervals.map((i) => i[1]).sort((a, b) => a - b);
+
+  let s = 0;
+  let e = 0;
+  let count = 0;
+  let maxRooms = 0;
+
+  while (s < starts.length) {
+    if (starts[s] < ends[e]) {
+      count++;
+      maxRooms = Math.max(maxRooms, count);
+      s++;
+    } else {
+      count--;
+      e++;
+    }
+  }
+
+  return maxRooms;
+};
+// minimum platform required for train
+function minPlatform(arrival, departure) {
+  arrival.sort((a, b) => a - b);
+  departure.sort((a, b) => a - b);
+
+  let platNeeded = 0;
+  let maxPlat = 0;
+  let i = 0;
+  let j = 0;
+
+  while (i < arrival.length && j < departure.length) {
+    if (arrival[i] < departure[j]) {
+      platNeeded++;
+      maxPlat = Math.max(maxPlat, platNeeded);
+      i++;
+    } else {
+      platNeeded--;
+      j++;
+    }
+  }
+
+  return maxPlat;
+}
 
 // Activity Selection
 // there is n meet happen given an intervals you need to find maximum no. of possible meet can happen in non-overlapping condition.
