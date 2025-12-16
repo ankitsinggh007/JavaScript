@@ -20,8 +20,8 @@ var eraseOverlapIntervals = function (intervals) {
 };
 
 // 452. Minimum Number of Arrows to Burst Balloons
-var findMinArrowShots = function(points) {
-     let count = 0;
+var findMinArrowShots = function (points) {
+  let count = 0;
   points.sort((a, b) => a[1] - b[1]);
 
   let last = -Infinity;
@@ -33,10 +33,7 @@ var findMinArrowShots = function(points) {
     }
   }
 
-  return  count;
-
-
-
+  return count;
 };
 //646. Maximum Length of Pair Chain
 var findLongestChain = function (pairs) {
@@ -98,7 +95,64 @@ var insert = function (intervals, newInterval) {
     i++;
   }
 
-  return result;        
+  return result;
+};
+/*Capacity*/
+
+// lc 1833. Maximum Ice Cream Bars
+
+var maxIceCream = function (costs, coins) {
+  costs.sort((a, b) => a - b);
+
+  let count = 0;
+  let i = 0;
+  while (i < costs.length && coins >= costs[i]) {
+    coins -= costs[i++];
+    count++;
+  }
+  return count;
+};
+
+//lc 455. Assign Cookies
+var findContentChildren = function (g, s) {
+  g.sort((a, b) => a - b);
+  s.sort((a, b) => a - b);
+
+  let child = 0;
+  let cookie = 0;
+
+  while (child < g.length && cookie < s.length) {
+    if (s[cookie] >= g[child]) {
+      child++;
+    }
+    cookie++;
+  }
+
+  return child;
+};
+//candy distribution
+var candy = function (ratings) {
+  let l = [];
+  for (let i = 0; i < ratings.length; i++) {
+    if (i == 0) l[i] = 1;
+    else if (ratings[i] > ratings[i - 1]) l[i] = l[i - 1] + 1;
+    else l[i] = 1;
+  }
+  console.log(l);
+  let r = [];
+  for (let i = ratings.length - 1; i >= 0; i--) {
+    if (i === ratings.length - 1) r[i] = 1;
+    else if (ratings[i] > ratings[i + 1]) r[i] = r[i + 1] + 1;
+    else r[i] = 1;
+  }
+  let count = 0;
+  for (let i = 0; i < ratings.length; i++) {
+    count += Math.max(l[i], r[i]);
+  }
+  console.log(l);
+
+  return count;
+};
 
 // Activity Selection
 // there is n meet happen given an intervals you need to find maximum no. of possible meet can happen in non-overlapping condition.
