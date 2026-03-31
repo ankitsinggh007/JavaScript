@@ -117,7 +117,7 @@ var partition = function (s) {
 };
 
 /*
-22. Generate Parentheses
+LC:22. Generate Parentheses
 */
 let n = 3;
 function solve(l = 0, r = 0, res = "") {
