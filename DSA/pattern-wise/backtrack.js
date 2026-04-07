@@ -56,7 +56,7 @@ var subsets = function (nums) {
   return ans;
 };
 /*
-Subset-II
+[LC:90]Subset-II
  */
 var subsetsWithDup = function (nums) {
   let ans = [];
@@ -74,7 +74,7 @@ var subsetsWithDup = function (nums) {
   backtrack();
   return ans;
 };
-// Letter Combinations of a Phone Number
+//[LC:17] Letter Combinations of a Phone Number
 var letterCombinations = function (digits) {
   let ans = [];
   if (digits.length == 0) return ans;
@@ -150,7 +150,7 @@ Solve((path = []), v);
 console.log(ans, "ans");
 
 /*
-Combination sum-I
+[LC:39]Combination sum-I
 */
 function combinationSum(candidates, target) {
   let ans = [];
@@ -174,7 +174,7 @@ function combinationSum(candidates, target) {
   return ans;
 }
 /*
-Combination Sum-II
+[LC:40]Combination Sum-II
 */
 /**
  * @param {number[]} candidates
