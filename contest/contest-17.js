@@ -211,3 +211,32 @@ var levelOrder = function (root) {
 
   return result;
 };
+//Q11.Given the root of a binary tree, return the leftmost value in the last row of the tree.
+var levelOrder = function (root) {
+  let result = [];
+  if (!root) return result;
+  let queue = [root];
+  let pointer = 0;
+  let lastLevel = [];
+  while (pointer < queue.length) {
+    let size = queue.length;
+    let level = [];
+
+    for (pointer; pointer < size; pointer++) {
+      let node = queue[pointer];
+      level.push(node.val);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+
+    result.push(level);
+  }
+
+  return result;
+};
+
+var findBottomLeftValue = function (root) {
+  let result = levelOrder(root);
+
+  return result.at(-1)[0];
+};
