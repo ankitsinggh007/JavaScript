@@ -90,3 +90,75 @@ function sortColors(nums) {
 
   return nums;
 }
+/*Replacement Question 8
+Given a binary array nums and integer k, return the number of contiguous subarrays containing exactly k zeroes.
+Example
+nums = [1, 0, 1, 0, 1]
+k = 2
+Output:4 
+Valid subarrays:
+[1,0,1,0]
+[1,0,1,0,1]
+[0,1,0]
+[0,1,0,1]
+*/
+function maxKzero(arr, k) {
+  if (k < 0) return 0;
+  let left = 0;
+  let count = 0;
+  let zeroCount = 0;
+  for (let right = 0; right < arr.length; right++) {
+    if (arr[right] === 0) zeroCount++;
+
+    while (zeroCount > k) {
+      if (arr[left] === 0) zeroCount--;
+      left++;
+    }
+    count += right - left + 1;
+  }
+  return count;
+}
+
+function exactlyKzero(arr, k) {
+  return maxKzero(arr, k) - maxKzero(arr, k - 1);
+}
+console.log(exactlyKzero([1, 0, 1, 0, 1], 2));
+
+/*Final Repair Question B — Two Pointer / Grouping
+
+You are given a sorted array nums.
+
+Return a new array containing the squares of each number, also sorted in non-decreasing order.
+
+Example 1
+nums = [-4, -1, 0, 3, 10]
+
+Output:
+
+[0, 1, 9, 16, 100]
+
+ */
+
+function sortedSquares(nums) {
+  let low = 0;
+  let high = nums.length - 1;
+  let pos = nums.length - 1;
+  const result = new Array(nums.length);
+
+  while (low <= high) {
+    const leftSquare = nums[low] * nums[low];
+    const rightSquare = nums[high] * nums[high];
+
+    if (leftSquare > rightSquare) {
+      result[pos] = leftSquare;
+      low++;
+    } else {
+      result[pos] = rightSquare;
+      high--;
+    }
+
+    pos--;
+  }
+
+  return result;
+}
