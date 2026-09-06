@@ -155,52 +155,101 @@ function orangesRotting(grid) {
 }
 
 /*
-Q Shortest Path in Binary Matrix
-
-*/
+Q Shortest Path in Binary Matrix */
 var shortestPathBinaryMatrix = function (grid) {
-  let n = grid.length;
-  if (grid[0][0] !== 0 || grid[n - 1][n - 1] !== 0) return -1;
-  if (n === 1) return 1;
-  let dirs = [
+  if (grid[0][0] == 1) return -1;
+  let dir = [
     [0, 1],
     [1, 0],
-    [0, -1],
     [-1, 0],
+    [0, -1],
     [1, 1],
     [-1, -1],
     [-1, 1],
     [1, -1],
   ];
-  let visited = Array.from({ length: n }, () => new Array(n).fill(false));
-  function bfs(i, j) {
-    visited[i][j] = true;
-    let Q = [[i, j]];
-    let step = 1;
+  let Q = [];
+  let row = grid.length;
+  let col = grid[0].length;
+  if (row === 1 && col === 1) return 1;
+  Q.push([0, 0]);
+  let distance = 1;
+  while (Q.length) {
+    distance++;
+    let size = Q.length;
+    for (let i = 0; i < size; i++) {
+      let index = Q.shift();
+      for (let [dx, dy] of dir) {
+        let i = dx + index[0];
+        let j = dy + index[1];
 
-    while (Q.length > 0) {
-      let size = Q.length;
-
-      for (let k = 0; k < size; k++) {
-        let [i, j] = Q.shift();
-        if (i == n - 1 && j == n - 1) return step;
-        for (let [dx, dy] of dirs) {
-          let rx = i + dx;
-          let ry = j + dy;
-          if (rx >= 0 && rx < n && ry >= 0 && ry < n && !visited[rx][ry]) {
-            if (grid[rx][ry] == 0) {
-              // if(rx==n-1&&ry==n-1) return step;
-              visited[rx][ry] = true;
-              Q.push([rx, ry]);
-            }
-          }
+        if (i >= 0 && i < row && j >= 0 && j < col && grid[i][j] == "0") {
+          if (i === row - 1 && j === col - 1) return distance;
+          grid[i][j] = "1";
+          Q.push([i, j]);
         }
       }
-      step++;
     }
-
-    // console.log(order,"order")
-    return -1;
   }
-  return bfs(0, 0);
+
+  return -1;
+};
+
+// clone graph
+var cloneGraph = function (node) {
+  if (!node) return null;
+  let mp = new Map();
+  let Q = [];
+
+  mp.set(node, new Node(node.val));
+  Q.push(node);
+  while (Q.length) {
+    let parentNode = Q.shift();
+    for (let nei of parentNode.neighbors || []) {
+      if (!mp.has(nei)) {
+        mp.set(nei, new Node(nei.val));
+        Q.push(nei);
+      }
+      mp.get(parentNode).neighbors.push(mp.get(nei));
+    }
+  }
+  return mp.get(node);
+};
+
+//course schedule
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {boolean}
+ */
+var canFinish = function (num, pre) {
+  let graph = new Map();
+  for (let i = 0; i < num; i++) {
+    graph.set(i, []);
+  }
+  for (let [u, v] of pre) {
+    graph.get(v).push(u);
+  }
+  let indgree = Array(num).fill(0);
+  let leafNode = [];
+
+  for (let [u, v] of pre) {
+    indgree[u]++;
+  }
+  let topo = [];
+
+  for (let i = 0; i < num; i++) {
+    if (indgree[i] === 0) leafNode.push(i);
+  }
+  let pointer = 0;
+  while (pointer < leafNode.length) {
+    let front = leafNode[pointer++];
+    topo.push(front);
+    let arr = graph.get(front);
+    for (let i = 0; i < arr.length; i++) {
+      indgree[arr[i]]--;
+      if (indgree[arr[i]] === 0) leafNode.push(arr[i]);
+    }
+  }
+  return topo.length === num;
 };
