@@ -80,3 +80,21 @@ var hasPathSum = function (root, targetSum) {
   return helper(root, targetSum);
 };
 //7. Lowest Common Ancestor
+
+var lowestCommonAncestor = function (root, p, q) {
+
+
+    function helper(root) {
+        if (!root) return null;
+        if (root === p || root == q) return root;
+        let left = helper(root.left);
+        let right = helper(root.right);
+        if (left && right) return root;
+        return left ? left : right;
+
+    }x
+
+return helper(root);
+
+
+};
