@@ -1,4 +1,3 @@
-// comit message:-practice:set-9 p-I
 // Q Maximum Depth of Binary Tree
 var maxDepth = function (root) {
   function helper(root) {
@@ -37,3 +36,47 @@ var invertTree = function (root) {
   helper(root);
   return root;
 };
+//Q check Balanced Binary Tree
+isBalanced = function (root) {
+  function helper(root) {
+    if (!root) return [true, 0];
+
+    let [left, leftH] = helper(root.left);
+    let [right, rightH] = helper(root.right);
+
+    return [
+      Math.abs(leftH - rightH) <= 1 && left && right,
+      Math.max(leftH, rightH) + 1,
+    ];
+  }
+  return helper(root)[0];
+};
+// Diameter of Binary Tree
+var diameterOfBinaryTree = function (root) {
+  function helper(root) {
+    if (!root) return [0, 0];
+    let [leftD, leftH] = helper(root.left);
+    let [rightD, rightH] = helper(root.right);
+
+    return [
+      Math.max(leftD, rightD, leftH + rightH),
+      Math.max(leftH, rightH) + 1,
+    ];
+  }
+  return helper(root)[0];
+};
+// path Sum
+var hasPathSum = function (root, targetSum) {
+  let rootToLeaf = [];
+  function helper(root, targetSum) {
+    if (root && !root.left && !root.right) return root.val === targetSum;
+    if (!root) return false;
+
+    return (
+      helper(root.left, targetSum - root.val) ||
+      helper(root.right, targetSum - root.val)
+    );
+  }
+  return helper(root, targetSum);
+};
+//7. Lowest Common Ancestor
